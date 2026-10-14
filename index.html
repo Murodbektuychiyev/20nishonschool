@@ -22,7 +22,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            cursor: none;
+            cursor: none; /* Kursor faqat desktopda ishlaydi */
         }
         html {
             scroll-behavior: smooth;
@@ -32,6 +32,114 @@
             background-color: var(--bg-dark);
             color: var(--text-light);
             overflow-x: hidden;
+        }
+
+        /* PRELOADER */
+        .preloader {
+            position: fixed;
+            inset: 0;
+            background-color: var(--bg-dark);
+            z-index: 20000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.7s ease, visibility 0.7s ease;
+        }
+        .preloader.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        .preloader-box {
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            padding: 18px 26px;
+            font-family: 'Playfair Display', serif;
+            font-size: 42px;
+            color: var(--gold);
+            margin-bottom: 20px;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.2);
+            animation: pulseBox 1.5s infinite alternate;
+        }
+        @keyframes pulseBox {
+            0% { transform: scale(0.96); box-shadow: 0 0 15px rgba(212, 175, 55, 0.15); }
+            100% { transform: scale(1.04); box-shadow: 0 0 35px rgba(212, 175, 55, 0.4); }
+        }
+        .preloader-text {
+            font-size: 13px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        .preloader-bar {
+            width: 220px;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            position: relative;
+        }
+        .preloader-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background: var(--gold);
+            animation: loadLine 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes loadLine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(0); }
+        }
+
+        /* SCROLL PROGRESS BAR */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            width: 0%;
+            background: linear-gradient(90deg, var(--gold-dark), #ffe37e, var(--gold));
+            z-index: 15000;
+            box-shadow: 0 0 12px rgba(212, 175, 55, 0.6);
+            transition: width 0.08s linear;
+        }
+
+        /* BACK TO TOP BUTTON */
+        .back-to-top {
+            position: fixed;
+            bottom: 35px;
+            right: 35px;
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            background: rgba(11, 15, 21, 0.85);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            color: var(--gold);
+            font-size: 22px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9000;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.35s ease;
+        }
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .back-to-top:hover {
+            background: var(--gold);
+            color: #111;
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4);
+            transform: translateY(-4px);
         }
 
         /* CUSTOM BLUR CURSOR & TRAIL */
@@ -49,25 +157,25 @@
             pointer-events: none;
             transform: translate(-50%, -50%);
             transition: width 0.3s, height 0.3s, background 0.3s;
-            z-index: 9999;
+            z-index: 25000;
         }
         .cursor-dot {
             position: fixed;
             top: 0;
             left: 0;
-            width: 6px;
-            height: 6px;
+            width: 8px;
+            height: 8px;
             background: var(--gold);
             border-radius: 50%;
             pointer-events: none;
             transform: translate(-50%, -50%);
-            z-index: 10000;
+            z-index: 25001;
         }
 
-        /* SCROLL REVEAL ANIMATION (Staggered Elements Load) */
+        /* SCROLL REVEAL ANIMATION */
         .reveal {
             opacity: 0;
-            transform: translateY(50px);
+            transform: translateY(60px);
             transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .reveal.active {
@@ -76,7 +184,7 @@
         }
 
         .page-section {
-            padding: 100px 80px;
+            padding: 120px 80px;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -93,8 +201,8 @@
         }
 
         .section-header {
-            font-size: 11px;
-            letter-spacing: 2.5px;
+            font-size: 13px;
+            letter-spacing: 3px;
             color: var(--text-muted);
             text-transform: uppercase;
             margin-bottom: 25px;
@@ -114,8 +222,8 @@
         }
         .section-header::after {
             content: '';
-            width: 60px;
-            height: 1px;
+            width: 70px;
+            height: 2px;
             background-color: var(--gold);
         }
         .cream-theme .section-header::after {
@@ -124,10 +232,10 @@
 
         h1.main-title {
             font-family: 'Playfair Display', serif;
-            font-size: 52px;
+            font-size: 60px;
             font-weight: 400;
             line-height: 1.2;
-            margin-bottom: 35px;
+            margin-bottom: 40px;
         }
         h1.main-title span {
             color: var(--gold);
@@ -137,12 +245,12 @@
             color: var(--gold-dark);
         }
 
-        /* HERO HEADER & NAVIGATION */
+        /* HERO HEADER & NAVIGATION FIXED */
         .hero-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 30px 80px;
+            padding: 30px 60px;
             position: absolute;
             top: 0;
             left: 0;
@@ -152,35 +260,46 @@
         .logo-box {
             display: flex;
             align-items: center;
-            gap: 14px;
+            gap: 15px;
             transition: transform 0.3s ease;
+            text-decoration: none;
         }
         .logo-box:hover {
-            transform: scale(1.03);
+            transform: scale(1.02);
         }
         .logo-icon {
             border: 1px solid rgba(212, 175, 55, 0.4);
-            padding: 8px 12px;
+            padding: 10px 14px;
             color: var(--gold);
             font-family: 'Playfair Display', serif;
-            font-size: 15px;
+            font-size: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         .logo-text {
-            font-size: 10px;
+            font-size: 11px;
             letter-spacing: 1.5px;
             color: var(--text-muted);
             text-transform: uppercase;
-            line-height: 1.3;
+            line-height: 1.5;
+            display: flex;
+            flex-direction: column;
+        }
+        .logo-text strong {
+            color: var(--text-light);
+            font-weight: 600;
         }
         .nav-menu {
             display: flex;
-            gap: 32px;
+            gap: 25px;
             list-style: none;
+            align-items: center;
         }
         .nav-menu a {
-            color: var(--text-muted);
+            color: #d1d5db;
             text-decoration: none;
-            font-size: 13px;
+            font-size: 14px;
             letter-spacing: 0.5px;
             position: relative;
             padding-bottom: 4px;
@@ -204,110 +323,124 @@
             width: 100%;
         }
         
+        /* Til o'zgartirish tugmasi (Rasmga moslangan) */
         .lang-switch {
             font-size: 12px;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
             color: var(--text-muted);
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border-dark);
-            padding: 8px 16px;
-            border-radius: 20px;
-            cursor: pointer;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 10px 20px;
+            border-radius: 30px;
             transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .lang-switch:hover {
             border-color: var(--gold);
             color: var(--gold);
-            transform: scale(1.05);
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
         }
         .lang-switch span {
             color: var(--text-light);
             font-weight: 600;
         }
 
+        /* GAMBURGER MENU TUGMASI (Mobil uchun) */
+        .mobile-menu-btn {
+            display: none;
+            font-size: 28px;
+            color: var(--gold);
+            background: none;
+            border: none;
+            z-index: 100;
+        }
+
         .hero-section {
             display: grid;
-            grid-template-columns: 1.2fr 1fr;
-            padding: 120px 0 40px 0;
+            grid-template-columns: 1.3fr 1fr;
+            padding: 140px 0 40px 0;
             align-items: center;
-            gap: 50px;
+            gap: 60px;
             min-height: 85vh;
         }
         .subtitle-line {
             display: flex;
             align-items: center;
-            gap: 15px;
-            font-size: 11px;
-            letter-spacing: 2px;
+            gap: 18px;
+            font-size: 13px;
+            letter-spacing: 3px;
             color: var(--text-muted);
             text-transform: uppercase;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
         }
         .subtitle-line::before {
             content: '';
-            width: 40px;
-            height: 1px;
+            width: 50px;
+            height: 2px;
             background-color: var(--gold);
         }
         .hero-left h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 56px;
+            font-size: 68px;
             line-height: 1.15;
             font-weight: 400;
-            margin-bottom: 25px;
+            margin-bottom: 28px;
         }
         .hero-left h1 span {
             color: var(--gold);
             font-style: italic;
         }
         .hero-desc {
-            font-size: 15px;
+            font-size: 18px;
             color: var(--text-muted);
-            margin-bottom: 12px;
-            line-height: 1.6;
+            margin-bottom: 15px;
+            line-height: 1.8;
+            max-width: 600px;
         }
         .region-text {
-            font-size: 11px;
-            letter-spacing: 2px;
+            font-size: 13px;
+            letter-spacing: 2.5px;
             color: var(--gold);
             text-transform: uppercase;
-            margin-bottom: 35px;
+            margin-bottom: 45px;
         }
         .cta-buttons {
             display: flex;
-            gap: 25px;
+            gap: 30px;
             align-items: center;
+            flex-wrap: wrap;
         }
         .btn-primary {
             background-color: #f4efe6;
             color: #111;
-            padding: 16px 30px;
+            padding: 18px 36px;
             text-decoration: none;
-            font-size: 13px;
-            font-weight: 500;
-            letter-spacing: 0.5px;
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: 1px;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             transition: all 0.3s ease;
-            border-radius: 3px;
+            border-radius: 4px;
         }
         .btn-primary:hover {
             background-color: var(--gold);
             transform: translateY(-3px);
-            box-shadow: 0 12px 30px rgba(212, 175, 55, 0.4);
+            box-shadow: 0 15px 35px rgba(212, 175, 55, 0.4);
         }
         .btn-secondary {
             color: var(--text-light);
             text-decoration: none;
-            font-size: 13px;
-            letter-spacing: 0.5px;
+            font-size: 15px;
+            font-weight: 500;
+            letter-spacing: 1px;
             display: inline-flex;
             align-items: center;
             gap: 10px;
             position: relative;
-            padding-bottom: 2px;
+            padding-bottom: 4px;
             transition: all 0.3s ease;
         }
         .btn-secondary::after {
@@ -327,77 +460,85 @@
             width: 100%;
         }
 
-        /* 3D BOOK WITH MAGICAL LIGHT BEAM */
+        /* 3D INTERACTIVE BOOK WITH MAGICAL LIGHT BEAM */
         .book-container {
-            perspective: 1200px;
+            perspective: 1300px;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             position: relative;
             padding-top: 60px;
+            width: 100%;
         }
-
         .light-beam {
             position: absolute;
-            top: -120px;
+            top: -140px;
             left: 50%;
             transform: translateX(-50%);
-            width: 100px;
-            height: 180px;
-            background: linear-gradient(to top, rgba(255, 230, 130, 0.6) 0%, rgba(255, 240, 180, 0.25) 50%, rgba(255, 255, 255, 0) 100%);
+            width: 130px;
+            height: 220px;
+            background: linear-gradient(to top, rgba(255, 230, 130, 0.65) 0%, rgba(255, 240, 180, 0.25) 50%, rgba(255, 255, 255, 0) 100%);
             clip-path: polygon(25% 100%, 75% 100%, 100% 0%, 0% 0%);
             pointer-events: none;
             z-index: 2;
-            filter: blur(5px);
+            filter: blur(6px);
             animation: beamPulse 3s ease-in-out infinite alternate;
+            transition: all 0.5s ease;
+        }
+        .book-visual.open-state ~ .light-beam,
+        .book-container:hover .light-beam {
+            width: 170px;
+            background: linear-gradient(to top, rgba(255, 225, 100, 0.85) 0%, rgba(255, 240, 180, 0.35) 55%, rgba(255, 255, 255, 0) 100%);
         }
 
         @keyframes beamPulse {
-            0% { opacity: 0.5; transform: translateX(-50%) scaleX(0.95); }
-            100% { opacity: 1; transform: translateX(-50%) scaleX(1.05); }
+            0% { opacity: 0.55; transform: translateX(-50%) scaleX(0.95); }
+            100% { opacity: 1; transform: translateX(-50%) scaleX(1.06); }
         }
 
         .light-particle {
             position: absolute;
-            width: 4px;
-            height: 4px;
+            width: 5px;
+            height: 5px;
             background: #fff;
             border-radius: 50%;
-            box-shadow: 0 0 10px #ffeb7b;
+            box-shadow: 0 0 12px #ffeb7b;
             pointer-events: none;
             z-index: 3;
             animation: floatUp 2.5s linear infinite;
         }
-        .p1 { left: 48%; top: -10px; animation-delay: 0s; }
+        .p1 { left: 47%; top: -10px; animation-delay: 0s; }
         .p2 { left: 53%; top: -30px; animation-delay: 0.7s; }
         .p3 { left: 49%; top: -60px; animation-delay: 1.4s; }
+        .p4 { left: 51%; top: -20px; animation-delay: 1.9s; }
 
         @keyframes floatUp {
             0% { transform: translateY(0) scale(0.8); opacity: 0; }
             50% { opacity: 1; }
-            100% { transform: translateY(-100px) scale(1.3); opacity: 0; }
+            100% { transform: translateY(-130px) scale(1.3); opacity: 0; }
         }
 
         .book-visual {
             width: 100%;
-            max-width: 440px;
-            height: 290px;
+            max-width: 480px;
+            height: 310px;
             background: linear-gradient(135deg, #fbf7ee 0%, #dfd5c0 100%);
-            border-radius: 4px;
-            box-shadow: 0 30px 70px rgba(0,0,0,0.7), 0 0 40px rgba(212, 175, 55, 0.35);
+            border-radius: 6px;
+            box-shadow: 0 30px 70px rgba(0,0,0,0.7), 0 0 45px rgba(212, 175, 55, 0.35);
             position: relative;
             transform: perspective(1000px) rotateY(-10deg) rotateX(5deg);
             display: flex;
             justify-content: center;
             align-items: center;
-            border-left: 14px solid #c5b59b;
+            border-left: 16px solid #c5b59b;
             transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-            cursor: pointer;
             z-index: 1;
+            overflow: hidden;
         }
-        .book-visual:hover {
-            transform: perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1.03);
-            box-shadow: 0 40px 90px rgba(212, 175, 55, 0.55);
+        .book-visual:hover, .book-visual.open-state {
+            transform: perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1.04);
+            box-shadow: 0 45px 100px rgba(212, 175, 55, 0.6);
         }
         .book-visual::after {
             content: '';
@@ -405,9 +546,9 @@
             top: 0;
             bottom: 0;
             left: 50%;
-            width: 4px;
-            background: rgba(0,0,0,0.2);
-            box-shadow: inset 0 0 5px rgba(0,0,0,0.3);
+            width: 5px;
+            background: rgba(0,0,0,0.18);
+            box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
         }
         .book-lines-left, .book-lines-right {
             width: 42%;
@@ -416,27 +557,78 @@
             flex-direction: column;
             justify-content: space-around;
             position: absolute;
+            transition: opacity 0.4s ease;
         }
         .book-lines-left { left: 5%; }
         .book-lines-right { right: 5%; }
-        
         .book-line {
-            height: 1px;
+            height: 2px;
             background: rgba(0,0,0,0.12);
             width: 100%;
         }
         .book-heading {
-            width: 45%;
+            width: 35%;
             height: 6px;
             background: rgba(0,0,0,0.25);
             position: absolute;
             top: 25px;
-            border-radius: 2px;
+            border-radius: 3px;
         }
         .heading-left { left: 5%; }
-        .heading-right { right: 5%; }
+        .heading-right { right: 12%; }
 
-        /* ABOUT SECTION LAYOUT ENHANCEMENT */
+        /* Book secret interactive text overlay */
+        .book-secret-content {
+            position: absolute;
+            inset: 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            padding: 30px 25px;
+            gap: 28px;
+            opacity: 0;
+            transform: scale(0.96);
+            transition: all 0.45s ease;
+            pointer-events: none;
+            color: #2b261f;
+        }
+        .book-visual.open-state .book-secret-content,
+        .book-visual:hover .book-secret-content {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .book-visual.open-state .book-lines-left,
+        .book-visual.open-state .book-lines-right,
+        .book-visual:hover .book-lines-left,
+        .book-visual:hover .book-lines-right {
+            opacity: 0.15;
+        }
+        .book-page-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .book-page-text h5 {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            color: #8c6d1f;
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+        .book-page-text p {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #3a3227;
+        }
+        .book-hint {
+            margin-top: 20px;
+            font-size: 12px;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--gold);
+            opacity: 0.8;
+        }
+
+        /* ABOUT SECTION */
         .about-grid {
             display: grid;
             grid-template-columns: 1.1fr 1fr;
@@ -444,24 +636,24 @@
             align-items: start;
         }
         .about-left p {
-            font-size: 15px;
+            font-size: 18px;
             line-height: 1.85;
             color: var(--text-muted-light);
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
         .link-arrow {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             text-decoration: none;
             color: var(--text-dark);
-            font-size: 12px;
+            font-size: 14px;
             font-weight: 600;
             letter-spacing: 1.5px;
             text-transform: uppercase;
-            margin-top: 20px;
+            margin-top: 25px;
             position: relative;
-            padding-bottom: 2px;
+            padding-bottom: 4px;
             transition: all 0.3s ease;
         }
         .link-arrow::after {
@@ -476,7 +668,7 @@
         }
         .link-arrow:hover {
             color: var(--gold-dark);
-            gap: 15px;
+            gap: 18px;
         }
         .link-arrow:hover::after {
             width: 100%;
@@ -484,41 +676,41 @@
 
         .info-row {
             display: grid;
-            grid-template-columns: 140px 1fr 30px;
-            padding: 25px 0;
+            grid-template-columns: 160px 1fr 30px;
+            padding: 30px 0;
             border-bottom: 1px solid var(--border-light);
             align-items: center;
             transition: all 0.3s ease;
         }
         .info-row:hover {
             background: rgba(184, 151, 53, 0.04);
-            padding-left: 12px;
-            padding-right: 12px;
-            border-radius: 4px;
+            padding-left: 15px;
+            padding-right: 15px;
+            border-radius: 6px;
         }
         .info-row:first-child {
             border-top: 1px solid var(--border-light);
         }
         .info-label {
-            font-size: 11px;
-            letter-spacing: 1.5px;
+            font-size: 12px;
+            letter-spacing: 2px;
             color: var(--text-muted-light);
             text-transform: uppercase;
             font-weight: 600;
         }
         .info-value {
-            font-size: 15px;
+            font-size: 18px;
             color: var(--text-dark);
-            line-height: 1.5;
+            line-height: 1.6;
         }
         .info-value span {
             display: block;
-            font-size: 13px;
+            font-size: 14px;
             color: var(--text-muted-light);
-            margin-top: 4px;
+            margin-top: 6px;
         }
         .info-index {
-            font-size: 12px;
+            font-size: 14px;
             color: var(--gold-dark);
             font-family: 'Playfair Display', serif;
             text-align: right;
@@ -535,34 +727,37 @@
             justify-content: space-between;
             align-items: flex-end;
             width: 100%;
+            flex-wrap: wrap;
+            gap: 40px;
         }
         .building-text p {
-            font-size: 15px;
+            font-size: 18px;
             color: var(--text-muted);
-            max-width: 480px;
-            line-height: 1.7;
+            max-width: 520px;
+            line-height: 1.8;
         }
         .inset-card {
             background: #fff;
-            padding: 12px 12px 35px 12px;
-            border-radius: 6px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.6);
-            width: 340px;
+            padding: 14px 14px 40px 14px;
+            border-radius: 8px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+            width: 380px;
+            max-width: 100%;
             transition: transform 0.4s ease;
         }
         .inset-card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-10px);
         }
         .inset-image-placeholder {
             width: 100%;
-            height: 190px;
+            height: 220px;
             background: linear-gradient(135deg, #2c3e50, #bdc3c7);
             border-radius: 4px;
             display: flex;
             justify-content: center;
             align-items: center;
             color: #fff;
-            font-size: 12px;
+            font-size: 14px;
             letter-spacing: 1.5px;
             text-transform: uppercase;
         }
@@ -573,10 +768,10 @@
             grid-template-columns: repeat(4, 1fr);
             border-top: 1px solid var(--border-light);
             border-bottom: 1px solid var(--border-light);
-            margin-top: 30px;
+            margin-top: 40px;
         }
         .stat-box {
-            padding: 45px 30px;
+            padding: 55px 35px;
             border-right: 1px solid var(--border-light);
             display: flex;
             flex-direction: column;
@@ -591,15 +786,15 @@
         }
         .stat-number {
             font-family: 'Playfair Display', serif;
-            font-size: 60px;
+            font-size: 72px;
             font-weight: 400;
             color: var(--text-dark);
-            margin-bottom: 12px;
+            margin-bottom: 15px;
             line-height: 1;
         }
         .stat-label {
-            font-size: 11px;
-            letter-spacing: 1.5px;
+            font-size: 13px;
+            letter-spacing: 2px;
             color: var(--text-muted-light);
             text-transform: uppercase;
             font-weight: 600;
@@ -609,49 +804,49 @@
         .directions-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 80px;
+            gap: 90px;
             align-items: start;
         }
         .direction-item {
             display: grid;
-            grid-template-columns: 35px 1fr 30px;
-            padding: 25px 0;
+            grid-template-columns: 40px 1fr 35px;
+            padding: 30px 0;
             border-bottom: 1px solid var(--border-light);
             align-items: center;
             transition: all 0.3s ease;
         }
         .direction-item:hover {
-            padding-left: 12px;
+            padding-left: 15px;
             background: rgba(184, 151, 53, 0.04);
-            border-radius: 4px;
+            border-radius: 6px;
         }
         .direction-item:first-child {
             border-top: 1px solid var(--border-light);
         }
         .dir-num {
-            font-size: 12px;
+            font-size: 14px;
             color: var(--gold-dark);
             font-family: 'Playfair Display', serif;
         }
         .dir-content h3 {
             font-family: 'Playfair Display', serif;
-            font-size: 22px;
+            font-size: 26px;
             font-weight: 400;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
             color: var(--text-dark);
         }
         .dir-content p {
-            font-size: 13px;
+            font-size: 16px;
             color: var(--text-muted-light);
         }
         .dir-arrow {
             text-align: right;
             color: var(--text-muted-light);
-            font-size: 16px;
+            font-size: 20px;
             transition: transform 0.3s ease;
         }
         .direction-item:hover .dir-arrow {
-            transform: translateX(5px);
+            transform: translateX(6px);
             color: var(--gold-dark);
         }
 
@@ -660,23 +855,26 @@
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
             border-bottom: 1px solid var(--border-dark);
-            padding-bottom: 25px;
+            padding-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
         }
         .filter-menu {
             display: flex;
-            gap: 25px;
+            gap: 30px;
             list-style: none;
-            font-size: 12px;
-            letter-spacing: 1px;
+            font-size: 14px;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
+            flex-wrap: wrap;
         }
         .filter-menu a {
             color: var(--text-muted);
             text-decoration: none;
             position: relative;
-            padding-bottom: 3px;
+            padding-bottom: 6px;
             transition: color 0.3s;
         }
         .filter-menu a::after {
@@ -698,153 +896,160 @@
 
         .achievement-row {
             display: grid;
-            grid-template-columns: 220px 1fr;
-            padding: 40px 0;
+            grid-template-columns: 240px 1fr;
+            padding: 45px 0;
             border-bottom: 1px solid var(--border-dark);
             align-items: start;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
+        }
+        .achievement-row.hidden-item {
+            display: none;
         }
         .achievement-row:hover {
             background: rgba(255, 255, 255, 0.02);
-            padding-left: 15px;
-            padding-right: 15px;
-            border-radius: 4px;
+            padding-left: 20px;
+            padding-right: 20px;
+            border-radius: 6px;
         }
         .ach-year {
             font-family: 'Playfair Display', serif;
-            font-size: 58px;
+            font-size: 68px;
             font-weight: 400;
             color: var(--gold);
             line-height: 1;
         }
         .ach-tag {
-            font-size: 11px;
-            letter-spacing: 1.5px;
+            font-size: 12px;
+            letter-spacing: 2px;
             color: var(--gold);
             text-transform: uppercase;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             font-weight: 600;
+            display: block;
         }
         .ach-details h3 {
             font-family: 'Playfair Display', serif;
-            font-size: 30px;
+            font-size: 36px;
             font-weight: 400;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
         }
         .ach-details p {
-            font-size: 15px;
+            font-size: 18px;
             color: var(--text-muted);
-            line-height: 1.65;
-            max-width: 720px;
+            line-height: 1.7;
+            max-width: 800px;
         }
 
-        /* STUDENTS PROFILES */
+        /* STUDENTS PROFILES (INTERACTIVE) */
         .profiles-grid {
             display: grid;
             grid-template-columns: 1.3fr 1fr;
-            gap: 40px;
+            gap: 50px;
             align-items: start;
         }
         .featured-card {
             background-color: var(--bg-dark);
             color: var(--text-light);
-            padding: 50px;
-            border-radius: 6px;
+            padding: 60px;
+            border-radius: 8px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            min-height: 460px;
+            min-height: 520px;
             border: 1px solid var(--border-dark);
-            transition: transform 0.4s ease;
+            transition: all 0.4s ease;
         }
         .featured-card:hover {
             transform: translateY(-5px);
             border-color: var(--gold);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
         }
         .student-class {
-            font-size: 14px;
+            font-size: 16px;
             color: var(--text-muted);
             font-style: italic;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
         .card-divider {
             width: 100%;
             height: 1px;
             background-color: var(--border-dark);
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
         .student-bio {
-            font-size: 15px;
-            color: var(--text-muted);
-            line-height: 1.65;
-            margin-bottom: 25px;
+            font-size: 17px;
+            color: var(--text-light);
+            line-height: 1.75;
+            margin-bottom: 30px;
         }
         .bio-subtitle {
-            font-size: 10px;
-            letter-spacing: 1.5px;
+            font-size: 11px;
+            letter-spacing: 2px;
             color: var(--gold);
             text-transform: uppercase;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             font-weight: 600;
         }
         .students-list {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 18px;
         }
         .list-item {
             background-color: #fff;
-            padding: 24px 28px;
-            border-radius: 6px;
+            padding: 26px 32px;
+            border-radius: 8px;
             display: grid;
-            grid-template-columns: 40px 1fr;
+            grid-template-columns: 50px 1fr;
             align-items: center;
             border: 1px solid var(--border-light);
             transition: all 0.3s ease;
         }
-        .list-item:hover {
+        .list-item:hover, .list-item.active-student {
             border-color: var(--gold-dark);
-            transform: translateX(8px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+            transform: translateX(10px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+            background-color: #fdfbf7;
         }
         .list-num {
             font-family: 'Playfair Display', serif;
-            font-size: 20px;
+            font-size: 24px;
             color: var(--gold-dark);
         }
         .list-info h4 {
             font-family: 'Playfair Display', serif;
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 400;
-            margin-bottom: 3px;
+            margin-bottom: 4px;
             color: var(--text-dark);
         }
         .list-info p {
-            font-size: 12px;
+            font-size: 14px;
             color: var(--text-muted-light);
         }
 
-        /* LEADERSHIP */
+        /* LEADERSHIP & TEACHERS TABS */
         .tabs-header {
             display: flex;
-            gap: 40px;
+            gap: 50px;
             border-bottom: 1px solid var(--border-light);
-            padding-bottom: 15px;
-            margin-bottom: 35px;
+            padding-bottom: 18px;
+            margin-bottom: 45px;
+            flex-wrap: wrap;
         }
         .tab-item {
             font-family: 'Playfair Display', serif;
-            font-size: 20px;
+            font-size: 24px;
             color: var(--text-muted-light);
             text-decoration: none;
             position: relative;
-            padding-bottom: 3px;
+            padding-bottom: 4px;
             transition: color 0.3s ease;
         }
         .tab-item::after {
             content: '';
             position: absolute;
-            bottom: -16px;
+            bottom: -19px;
             left: 0;
             width: 0;
             height: 2px;
@@ -858,72 +1063,197 @@
             width: 100%;
         }
         .tab-item span {
-            font-size: 11px;
+            font-size: 13px;
             color: var(--gold-dark);
             vertical-align: super;
-            margin-left: 4px;
+            margin-left: 6px;
             font-family: 'Plus Jakarta Sans', sans-serif;
         }
         .tab-item.active {
             color: var(--text-dark);
+        }
+        .tab-panel {
+            display: none;
+            animation: fadeInPanel 0.45s ease;
+        }
+        .tab-panel.active-panel {
+            display: block;
+        }
+        @keyframes fadeInPanel {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         .leader-card {
             display: grid;
             grid-template-columns: 1fr auto;
             align-items: center;
-            padding: 28px 0;
+            padding: 32px 0;
             border-bottom: 1px solid var(--border-light);
             transition: all 0.3s ease;
         }
         .leader-card:hover {
-            padding-left: 12px;
+            padding-left: 15px;
             background: rgba(184, 151, 53, 0.03);
-            border-radius: 4px;
+            border-radius: 6px;
         }
         .leader-name {
             font-family: 'Playfair Display', serif;
-            font-size: 30px;
+            font-size: 34px;
             font-weight: 400;
             line-height: 1.2;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
             color: var(--text-dark);
         }
         .leader-position {
-            font-size: 13px;
+            font-size: 15px;
             color: var(--text-muted-light);
             letter-spacing: 0.5px;
         }
         .leader-date {
-            font-size: 12px;
+            font-size: 14px;
             color: var(--text-muted-light);
             text-align: right;
         }
 
-        /* INTERNATIONAL DIRECTION */
+        /* INTERNATIONAL DIRECTION + WORLD MAP + PROFILE 2026 */
         .intl-grid {
             display: grid;
             grid-template-columns: 1.2fr 1fr;
-            gap: 60px;
+            gap: 70px;
             align-items: start;
             border-top: 1px solid var(--border-dark);
-            padding-top: 40px;
+            padding-top: 50px;
+            margin-bottom: 70px;
         }
         .intl-grid p {
             font-family: 'Playfair Display', serif;
-            font-size: 26px;
+            font-size: 32px;
             line-height: 1.45;
             font-weight: 400;
         }
         .intl-sub {
-            font-size: 15px;
+            font-size: 18px;
             color: var(--text-muted);
             line-height: 1.7;
         }
 
+        .world-map-box {
+            width: 100%;
+            background: radial-gradient(circle at center, rgba(212, 175, 55, 0.07) 0%, transparent 70%);
+            border-top: 1px solid var(--border-dark);
+            border-bottom: 1px solid var(--border-dark);
+            padding: 50px 20px;
+            margin-bottom: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        .world-map-svg {
+            width: 100%;
+            max-width: 1000px;
+            height: auto;
+        }
+        .map-arc {
+            stroke-dasharray: 6 6;
+            animation: dashArc 20s linear infinite;
+        }
+        @keyframes dashArc {
+            to { stroke-dashoffset: -200; }
+        }
+        .hub-pulse {
+            animation: hubGlow 2s infinite alternate;
+        }
+        @keyframes hubGlow {
+            0% { r: 6; opacity: 0.8; }
+            100% { r: 12; opacity: 0.25; }
+        }
+
+        .intl-bottom-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 60px;
+            align-items: end;
+        }
+        .intl-features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            border-top: 1px solid var(--border-dark);
+        }
+        .intl-feature-box {
+            padding: 30px 25px;
+            border-right: 1px solid var(--border-dark);
+            border-bottom: 1px solid var(--border-dark);
+            transition: background 0.3s ease, padding-left 0.3s ease;
+        }
+        .intl-feature-box:nth-child(even) {
+            border-right: none;
+        }
+        .intl-feature-box:hover {
+            background: rgba(212, 175, 55, 0.05);
+            padding-left: 35px;
+        }
+        .intl-f-num {
+            font-size: 13px;
+            color: var(--gold);
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 10px;
+            display: block;
+        }
+        .intl-f-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 400;
+            margin-bottom: 8px;
+            color: var(--text-light);
+        }
+        .intl-f-desc {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+        .doc-card {
+            background-color: #f7f3ed;
+            color: #111827;
+            padding: 45px;
+            border-radius: 6px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+            position: relative;
+            transform: rotate(2deg);
+            transition: all 0.4s ease;
+        }
+        .doc-card:hover {
+            transform: rotate(0deg) translateY(-10px);
+            box-shadow: 0 35px 75px rgba(212, 175, 55, 0.35);
+        }
+        .doc-header {
+            font-size: 11px;
+            letter-spacing: 2px;
+            color: #6b7280;
+            text-transform: uppercase;
+            margin-bottom: 22px;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+        }
+        .doc-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 40px;
+            font-weight: 400;
+            line-height: 1.1;
+            margin-bottom: 15px;
+        }
+        .doc-year {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: var(--gold-dark);
+            font-style: italic;
+        }
+
         /* NEWS SECTION */
         .all-news-link {
-            font-size: 12px;
+            font-size: 14px;
             letter-spacing: 1.5px;
             color: var(--text-dark);
             text-decoration: none;
@@ -931,9 +1261,9 @@
             font-weight: 600;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             position: relative;
-            padding-bottom: 2px;
+            padding-bottom: 4px;
             transition: all 0.3s ease;
         }
         .all-news-link::after {
@@ -948,123 +1278,183 @@
         }
         .all-news-link:hover {
             color: var(--gold-dark);
-            gap: 15px;
+            gap: 18px;
         }
         .all-news-link:hover::after {
             width: 100%;
         }
         .news-card {
-            max-width: 720px;
+            max-width: 800px;
         }
         .news-meta {
-            font-size: 11px;
-            letter-spacing: 1.5px;
+            font-size: 12px;
+            letter-spacing: 2px;
             color: var(--text-muted-light);
             text-transform: uppercase;
-            margin-bottom: 15px;
+            margin-bottom: 18px;
             font-weight: 600;
         }
         .news-title {
             font-family: 'Playfair Display', serif;
-            font-size: 38px;
+            font-size: 44px;
             font-weight: 400;
             line-height: 1.25;
-            margin-bottom: 18px;
+            margin-bottom: 22px;
             color: var(--gold-dark);
         }
         .news-desc {
-            font-size: 15px;
+            font-size: 18px;
             color: var(--text-muted-light);
             line-height: 1.7;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
 
-        /* GALLERY SECTION */
+        /* GALLERY SECTION & LIGHTBOX */
         .gallery-grid {
             display: grid;
-            grid-template-columns: 1fr 1.2fr 1.2fr;
-            gap: 30px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
             align-items: stretch;
+        }
+        .gallery-item.hidden-item {
+            display: none;
         }
         .gallery-card-dark {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid var(--border-dark);
-            border-radius: 6px;
-            padding: 35px;
+            border-radius: 8px;
+            padding: 40px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            min-height: 360px;
-            transition: border-color 0.3s ease;
+            min-height: 400px;
+            transition: all 0.35s ease;
+            position: relative;
+            overflow: hidden;
         }
         .gallery-card-dark:hover {
             border-color: var(--gold);
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
         }
         .inspect-badge {
-            width: 60px;
-            height: 60px;
+            width: 72px;
+            height: 72px;
             border: 1px solid var(--gold);
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 10px;
-            letter-spacing: 1px;
+            font-size: 11px;
+            letter-spacing: 1.5px;
             color: var(--gold);
             text-transform: uppercase;
             align-self: flex-end;
             transition: all 0.3s ease;
+            z-index: 2;
         }
         .gallery-card-dark:hover .inspect-badge {
             background: var(--gold);
             color: #111;
-            transform: scale(1.1);
+            transform: scale(1.15);
         }
-        .gallery-image-box {
-            background: linear-gradient(135deg, #2c3e50, #bdc3c7);
-            border-radius: 6px;
-            height: 360px;
+
+        /* LIGHTBOX MODAL */
+        .lightbox-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(7, 10, 15, 0.92);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            z-index: 29000;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: #fff;
-            font-size: 12px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            transition: transform 0.4s ease;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+            padding: 50px;
         }
-        .gallery-image-box:hover {
-            transform: scale(1.02);
+        .lightbox-modal.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        .lightbox-box {
+            background: #121822;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            border-radius: 10px;
+            max-width: 800px;
+            width: 100%;
+            padding: 50px;
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.4s ease;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.8);
+        }
+        .lightbox-modal.open .lightbox-box {
+            transform: scale(1);
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 25px;
+            right: 30px;
+            background: none;
+            border: 1px solid var(--border-dark);
+            color: var(--gold);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            font-size: 22px;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        .lightbox-close:hover {
+            background: var(--gold);
+            color: #111;
+        }
+        .lightbox-visual {
+            width: 100%;
+            height: 340px;
+            background: linear-gradient(135deg, #1e293b, #334155);
+            border-radius: 6px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--gold);
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
         }
 
-        /* CONTACT SECTION */
+        /* CONTACT SECTION WITH GOOGLE MAPS */
         .map-container {
             width: 100%;
-            height: 380px;
             background: #e5e3dc;
             border-top: 1px solid var(--border-light);
             display: flex;
             justify-content: center;
             align-items: center;
-            color: var(--text-muted-light);
-            font-size: 12px;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
+            overflow: hidden;
+            position: relative;
         }
 
         /* FOOTER & CTA */
         .cta-section {
             background-color: var(--bg-cream);
             color: var(--text-dark);
-            padding: 90px 80px;
+            padding: 100px 80px;
             display: grid;
             grid-template-columns: 1.5fr 1fr;
-            gap: 60px;
+            gap: 80px;
             align-items: center;
         }
         .cta-left h2 {
             font-family: 'Playfair Display', serif;
-            font-size: 58px;
+            font-size: 68px;
             font-weight: 400;
             line-height: 1.15;
             text-transform: uppercase;
@@ -1076,45 +1466,45 @@
         }
         .cta-right {
             border-left: 1px solid var(--border-light);
-            padding-left: 40px;
+            padding-left: 50px;
         }
         .cta-right p {
             font-family: 'Playfair Display', serif;
-            font-size: 22px;
+            font-size: 26px;
             color: var(--text-dark);
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             line-height: 1.4;
         }
         .footer-section {
             background-color: var(--bg-dark);
             color: var(--text-light);
-            padding: 90px 80px 40px 80px;
+            padding: 100px 80px 50px 80px;
         }
         .footer-grid {
             display: grid;
             grid-template-columns: 1.2fr 1fr 1fr 1fr;
-            gap: 40px;
-            margin-bottom: 80px;
+            gap: 50px;
+            margin-bottom: 90px;
         }
         .footer-col h4 {
-            font-size: 11px;
-            letter-spacing: 2px;
+            font-size: 13px;
+            letter-spacing: 2.5px;
             color: var(--gold);
             text-transform: uppercase;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
         .footer-links {
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 16px;
         }
         .footer-links a {
             color: var(--text-muted);
             text-decoration: none;
-            font-size: 13px;
+            font-size: 15px;
             position: relative;
-            padding-bottom: 2px;
+            padding-bottom: 4px;
             transition: color 0.3s ease;
             display: inline-block;
         }
@@ -1130,6 +1520,7 @@
         }
         .footer-links a:hover {
             color: var(--gold);
+            transform: translateX(6px);
         }
         .footer-links a:hover::after {
             width: 100%;
@@ -1137,41 +1528,161 @@
         .massive-title {
             text-align: center;
             font-family: 'Playfair Display', serif;
-            font-size: 46px;
+            font-size: 52px;
             font-weight: 400;
             color: transparent;
             -webkit-text-stroke: 1px rgba(212, 175, 55, 0.4);
             text-transform: uppercase;
-            margin: 60px 0;
+            margin: 70px 0;
         }
         .footer-bottom {
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-top: 1px solid var(--border-dark);
-            padding-top: 30px;
-            font-size: 12px;
+            padding-top: 40px;
+            font-size: 14px;
             color: var(--text-muted);
+            flex-wrap: wrap;
+            gap: 20px;
         }
         .footer-bottom span {
             color: var(--text-light);
+        }
+
+        /* RESPONSIVENESS MEDIA QUERIES */
+        @media (max-width: 1200px) {
+            .hero-header { padding: 25px 40px; }
+            .page-section { padding: 100px 40px; }
+            .nav-menu { gap: 15px; }
+            h1.main-title, .cta-left h2 { font-size: 48px; }
+            .hero-left h1 { font-size: 52px; }
+            .massive-title { font-size: 38px; }
+        }
+
+        @media (max-width: 1024px) {
+            /* Mobile/Tablet Header & Nav */
+            .nav-menu {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background: var(--bg-dark);
+                padding: 30px;
+                border-bottom: 1px solid var(--border-light);
+                box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+                z-index: 99;
+                text-align: center;
+            }
+            .nav-menu.active {
+                display: flex;
+            }
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero-section {
+                grid-template-columns: 1fr;
+                text-align: center;
+                padding-top: 160px;
+            }
+            .subtitle-line { justify-content: center; }
+            .cta-buttons { justify-content: center; }
+            
+            .about-grid, .directions-grid, .profiles-grid, .intl-grid, .intl-bottom-grid, .cta-section {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+            .gallery-grid { grid-template-columns: 1fr 1fr; }
+            .stats-container { grid-template-columns: 1fr 1fr; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+            
+            .cta-right {
+                border-left: none;
+                padding-left: 0;
+                border-top: 1px solid var(--border-light);
+                padding-top: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-section { padding: 80px 20px; }
+            .hero-header { padding: 20px; }
+            h1.main-title, .cta-left h2 { font-size: 38px; }
+            .hero-left h1 { font-size: 42px; }
+            .massive-title { font-size: 28px; }
+            
+            .achievement-row {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            .ach-year { font-size: 48px; }
+            .gallery-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; gap: 30px; }
+            .map-container { height: 300px; margin-left: -20px; margin-right: -20px; width: calc(100% + 40px); }
+            .stats-container { grid-template-columns: 1fr; }
+            .stat-box { padding: 30px; text-align: center; }
+            .stat-box { border-right: none; border-bottom: 1px solid var(--border-light); }
+            .stat-box:last-child { border-bottom: none; }
+            
+            .book-visual { max-width: 100%; height: 240px; }
+        }
+
+        @media (max-width: 480px) {
+            h1.main-title { font-size: 32px; }
+            .hero-left h1 { font-size: 36px; }
+            .cta-buttons { flex-direction: column; width: 100%; }
+            .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
+            .filter-menu { gap: 12px; }
+            .tabs-header { gap: 20px; flex-direction: column; }
         }
     </style>
 </head>
 <body>
 
+    <!-- PRELOADER -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-box">20</div>
+        <div class="preloader-text" data-uz="NISHON TUMANI · 20-MAKTAB" data-en="NISHAN DISTRICT · SCHOOL N20">NISHON TUMANI · 20-MAKTAB</div>
+        <div class="preloader-bar"></div>
+    </div>
+
+    <!-- TOP SCROLL PROGRESS BAR -->
+    <div class="scroll-progress" id="scroll-progress"></div>
+
+    <!-- BACK TO TOP BUTTON -->
+    <button class="back-to-top" id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="Tepaga qaytish">&uarr;</button>
+
     <!-- CUSTOM CURSOR ELEMENTS -->
     <div class="cursor" id="cursor"></div>
     <div class="cursor-dot" id="cursor-dot"></div>
 
-    <!-- 1. HERO SECTION -->
+    <!-- LIGHTBOX MODAL -->
+    <div class="lightbox-modal" id="lightbox-modal" onclick="closeLightbox(event)">
+        <div class="lightbox-box">
+            <button class="lightbox-close" onclick="closeLightbox(event)">&times;</button>
+            <div class="lightbox-visual" id="lightbox-visual">20-Maktab</div>
+            <span class="ach-tag" id="lightbox-tag">MAKTAB</span>
+            <h3 style="font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 400; margin-bottom: 12px;" id="lightbox-title">Maktab binosi</h3>
+            <p style="font-size: 16px; color: var(--text-muted); line-height: 1.7;" id="lightbox-desc">Nishon tumani 20-sonli umumiy o‘rta ta’lim maktabi o‘quv binosi va zamonaviy jihozlangan sinfxonalari.</p>
+        </div>
+    </div>
+
+    <!-- 1. HERO SECTION & HEADER (Navigatsiya paneli ko'rinishi[cite: 13] asosida to'g'irlandi) -->
     <section class="page-section dark-theme" id="home" style="min-height: 100vh;">
         <header class="hero-header reveal">
-            <div class="logo-box">
+            <!-- Logo Box tekislandi -->
+            <a href="#home" class="logo-box">
                 <div class="logo-icon">20</div>
-                <div class="logo-text"><span data-uz="Nishon Tumani" data-en="Nishon District">Nishon Tumani</span><br><strong data-uz="20-Maktab" data-en="School No. 20">20-Maktab</strong></div>
-            </div>
-            <ul class="nav-menu">
+                <div class="logo-text">
+                    <span data-uz="Nishon Tumani" data-en="Nishan District">Nishon Tumani</span>
+                    <strong data-uz="20-Maktab" data-en="School N20">20-Maktab</strong>
+                </div>
+            </a>
+            <!-- Menyu -->
+            <ul class="nav-menu" id="nav-menu">
                 <li><a href="#about" data-uz="Maktab" data-en="School">Maktab</a></li>
                 <li><a href="#education" data-uz="Ta'lim" data-en="Education">Ta'lim</a></li>
                 <li><a href="#achievements" data-uz="Yutuqlar" data-en="Achievements">Yutuqlar</a></li>
@@ -1182,13 +1693,17 @@
                 <li><a href="#gallery" data-uz="Galereya" data-en="Gallery">Galereya</a></li>
                 <li><a href="#contact" data-uz="Aloqa" data-en="Contact">Aloqa</a></li>
             </ul>
-            <button class="lang-switch" id="lang-btn" onclick="toggleLanguage()"><span>UZ</span> / EN</button>
+            <!-- Language Switcher va Hamburger -->
+            <div style="display: flex; align-items: center; gap: 20px;">
+                <button class="lang-switch" id="lang-btn" onclick="toggleLanguage()"><span>UZ</span> / EN</button>
+                <button class="mobile-menu-btn" id="mobile-menu-btn" onclick="toggleMobileMenu()">&#9776;</button>
+            </div>
         </header>
 
         <div class="hero-section">
             <div class="hero-left reveal">
                 <div class="subtitle-line" data-uz="Umumiy o‘rta ta’lim maktabi" data-en="General Secondary School">Umumiy o‘rta ta’lim maktabi</div>
-                <h1><span data-uz="Nishon tumani" data-en="Nishon district">Nishon tumani</span> <span data-uz="20-sonli" data-en="No. 20">20-sonli</span> <span data-uz="maktabi." data-en="school.">maktabi.</span></h1>
+                <h1><span data-uz="Nishon tumani" data-en="Nishan district">Nishon tumani</span> <span data-uz="20-sonli" data-en="N20">20-sonli</span> <span data-uz="maktabi." data-en="school.">maktabi.</span></h1>
                 <p class="hero-desc" data-uz="Rasmiy veb-sayt. 1989-yildan beri sifatli ta'lim maskani." data-en="Official website. Quality education center since 1989.">Rasmiy veb-sayt. 1989-yildan beri sifatli ta'lim maskani.</p>
                 <div class="region-text" data-uz="QASHQADARYO VILOYATI · O'ZBEKISTON" data-en="QASHQADARYO REGION · UZBEKISTAN">QASHQADARYO VILOYATI · O'ZBEKISTON</div>
                 <div class="cta-buttons">
@@ -1202,8 +1717,9 @@
                 <div class="light-particle p1"></div>
                 <div class="light-particle p2"></div>
                 <div class="light-particle p3"></div>
+                <div class="light-particle p4"></div>
 
-                <div class="book-visual">
+                <div class="book-visual" id="interactive-book" onclick="toggleBookState()">
                     <div class="book-heading heading-left"></div>
                     <div class="book-heading heading-right"></div>
                     <div class="book-lines-left">
@@ -1222,10 +1738,22 @@
                         <div class="book-line"></div>
                         <div class="book-line"></div>
                     </div>
+                    <!-- Interactive Book Secret Pages -->
+                    <div class="book-secret-content">
+                        <div class="book-page-text">
+                            <h5 data-uz="Ilm — saodat kaliti" data-en="Knowledge is the key">Ilm — saodat kaliti</h5>
+                            <p data-uz="1989-yildan buyon yosh avlodga sifatli ta'lim va tarbiya berib kelmoqdamiz." data-en="Providing quality education to the young generation since 1989.">1989-yildan buyon yosh avlodga sifatli ta'lim va tarbiya berib kelmoqdamiz.</p>
+                        </div>
+                        <div class="book-page-text">
+                            <h5 data-uz="3 Yil Ketma-ket" data-en="3 Years in a Row">3 Yil Ketma-ket</h5>
+                            <p data-uz="“Eng yaxshi maktab” tanlovi g‘olibi. 250+ milliy sertifikat hamda IELTS/SAT yutuqlari." data-en="Winner of 'Best School'. 250+ national certificates & IELTS/SAT achievements.">“Eng yaxshi maktab” tanlovi g‘olibi. 250+ milliy sertifikat hamda IELTS/SAT yutuqlari.</p>
+                        </div>
+                    </div>
                 </div>
+                <div class="book-hint" data-uz="✦ Kitob ustiga bosing" data-en="✦ Click on the book">✦ Kitob ustiga bosing</div>
             </div>
         </div>
-        <div style="text-align: right; font-size: 10px; letter-spacing: 2px; color: var(--text-muted);" data-uz="PASTGA" data-en="SCROLL DOWN">PASTGA</div>
+        <div style="text-align: right; font-size: 11px; letter-spacing: 2px; color: var(--text-muted);" data-uz="PASTGA" data-en="SCROLL DOWN">PASTGA</div>
     </section>
 
     <!-- 2. ABOUT SECTION -->
@@ -1235,19 +1763,19 @@
             <h1 class="main-title reveal" style="transition-delay: 0.1s;"><span data-uz="Maktab" data-en="School">Maktab</span> <span data-uz="tarixi" data-en="history">tarixi</span> <span data-uz="va faoliyati." data-en="and activities.">va faoliyati.</span></h1>
             <div class="about-grid">
                 <div class="about-left reveal" style="transition-delay: 0.2s;">
-                    <p data-uz="Qashqadaryo viloyati Nishon tumani 20-sonli umumiy o‘rta ta’lim maktabi 1989-yilda tashkil etilgan bo‘lib, bugungi kunda 2,045 nafar o‘quvchiga ta’lim berib kelayotgan nufuzli davlat ta’lim muassasasidir." data-en="Established in 1989, School No. 20 of Nishon district, Qashqadaryo region is a prestigious state educational institution currently providing education to 2,045 students.">Qashqadaryo viloyati Nishon tumani 20-sonli umumiy o‘rta ta’lim maktabi 1989-yilda tashkil etilgan bo‘lib, bugungi kunda 2,045 nafar o‘quvchiga ta’lim berib kelayotgan nufuzli davlat ta’lim muassasasidir.</p>
+                    <p data-uz="Qashqadaryo viloyati Nishon tumani 20-sonli umumiy o‘rta ta’lim maktabi 1989-yilda tashkil etilgan bo‘lib, bugungi kunda 2,045 nafar o‘quvchiga ta’lim berib kelayotgan nufuzli davlat ta’lim muassasasidir." data-en="Established in 1989, Nishan district School N20 in Qashqadaryo region is a prestigious state educational institution currently providing education to 2,045 students.">Qashqadaryo viloyati Nishon tumani 20-sonli umumiy o‘rta ta’lim maktabi 1989-yilda tashkil etilgan bo‘lib, bugungi kunda 2,045 nafar o‘quvchiga ta’lim berib kelayotgan nufuzli davlat ta’lim muassasasidir.</p>
                     <p data-uz="Maktabimizda 180 nafar malakali o‘qituvchilar faoliyat olib boradi. Ta'lim jarayoni o‘zbek va rus tillarida olib borilib, o'quvchilarimizning xalqaro imtihonlar (IELTS, SAT) hamda milliy sertifikatlarda yuqori natijalarga erishishi uchun barcha sharoitlar yaratilgan." data-en="180 qualified teachers work in our school. The educational process is conducted in Uzbek and Russian languages, and all conditions are created for our students to achieve high results in international exams (IELTS, SAT) and national certificates.">Maktabimizda 180 nafar malakali o‘qituvchilar faoliyat olib boradi. Ta'lim jarayoni o‘zbek va rus tillarida olib borilib, o'quvchilarimizning xalqaro imtihonlar (IELTS, SAT) hamda milliy sertifikatlarda yuqori natijalarga erishishi uchun barcha sharoitlar yaratilgan.</p>
                     <a href="#contact" class="link-arrow" data-uz="Aloqa ma'lumotlari &rarr;" data-en="Contact information &rarr;">Aloqa ma'lumotlari &rarr;</a>
                 </div>
                 <div>
                     <div class="info-row reveal" style="transition-delay: 0.3s;">
                         <div class="info-label" data-uz="MANZIL" data-en="ADDRESS">MANZIL</div>
-                        <div class="info-value" data-uz="Nuriston 1-MTT, 1-uy, Nishon tumani, Qashqadaryo" data-en="Nuriston 1-kindergarten, house 1, Nishon district, Qashqadaryo">Nuriston 1-MTT, 1-uy, Nishon tumani, Qashqadaryo</div>
+                        <div class="info-value" data-uz="Nuriston 1-MTT, 1-uy, Nishon tumani, Qashqadaryo" data-en="Nuriston 1-kindergarten, house 1, Nishan district, Qashqadaryo">Nuriston 1-MTT, 1-uy, Nishon tumani, Qashqadaryo</div>
                         <div class="info-index">01</div>
                     </div>
                     <div class="info-row reveal" style="transition-delay: 0.4s;">
                         <div class="info-label" data-uz="TASHKIL TOPISHI" data-en="ESTABLISHED">TASHKIL TOPISHI</div>
-                        <div class="info-value"><span class="counter" data-target="1989">0</span>-yil <span data-uz="Umumiy o'rta ta'lim maktabi" data-en="General secondary school">Umumiy o'rta ta'lim maktabi</span></div>
+                        <div class="info-value"><span class="counter" data-target="1989" data-nocomma="true">0</span>-yil <span data-uz="Umumiy o'rta ta'lim maktabi" data-en="General secondary school">Umumiy o'rta ta'lim maktabi</span></div>
                         <div class="info-index">02</div>
                     </div>
                     <div class="info-row reveal" style="transition-delay: 0.5s;">
@@ -1267,7 +1795,7 @@
         <div class="building-wrapper">
             <div class="building-text reveal">
                 <h1 class="main-title" style="margin-bottom: 15px;" data-uz="Maktab binosi" data-en="School Building">Maktab binosi</h1>
-                <p data-uz="Nishon tumani 20-sonli umumiy o‘rta ta’lim maktabining ta'lim jarayoni va kundalik faoliyati uchun xizmat qiluvchi o'quv binolari va sinf xonalari." data-en="Educational buildings and classrooms serving the educational process and daily activities of School No. 20 of Nishon district.">Nishon tumani 20-sonli umumiy o‘rta ta’lim maktabining ta'lim jarayoni va kundalik faoliyati uchun xizmat qiluvchi o'quv binolari va sinf xonalari.</p>
+                <p data-uz="Nishon tumani 20-sonli umumiy o‘rta ta’lim maktabining ta'lim jarayoni va kundalik faoliyati uchun xizmat qiluvchi o'quv binolari va sinf xonalari." data-en="Educational buildings and classrooms serving the educational process and daily activities of Nishan district School N20.">Nishon tumani 20-sonli umumiy o‘rta ta’lim maktabining ta'lim jarayoni va kundalik faoliyati uchun xizmat qiluvchi o'quv binolari va sinf xonalari.</p>
             </div>
             <div class="inset-card reveal" style="transition-delay: 0.2s;">
                 <div class="inset-image-placeholder" data-uz="Sinfxona ko'rinishi" data-en="Classroom view">Sinfxona ko'rinishi</div>
@@ -1283,7 +1811,7 @@
             <h1 class="main-title reveal" style="transition-delay: 0.1s;"><span data-uz="Rasmiy" data-en="Official">Rasmiy</span> <span data-uz="ko'rsatkichlar." data-en="statistics.">ko'rsatkichlar.</span></h1>
             <div class="stats-container reveal" style="transition-delay: 0.2s;">
                 <div class="stat-box">
-                    <div class="stat-number"><span class="counter" data-target="2045">0</span></div>
+                    <div class="stat-number"><span class="counter" data-target="2045" data-nocomma="true">0</span></div>
                     <div class="stat-label" data-uz="O'quvchilar" data-en="Students">O'quvchilar</div>
                 </div>
                 <div class="stat-box">
@@ -1310,9 +1838,9 @@
             <div class="directions-grid">
                 <div class="reveal" style="transition-delay: 0.1s;">
                     <h1 class="main-title"><span data-uz="Ta'lim" data-en="Education">Ta'lim</span> <span data-uz="yo'nalishlari." data-en="directions.">yo'nalishlari.</span></h1>
-                    <p style="font-size: 15px; line-height: 1.8; color: var(--text-muted-light); margin-bottom: 40px;" data-uz="Maktabda o'zbek va rus tillari o'qitiladi. 2,045 nafar o'quvchi va 180 nafar pedagog faoliyat yuritadi. Fizika, kimyo, biologiya hamda mehnat fanlari uchun maxsus xonalar mavjud." data-en="Uzbek and Russian languages are taught at the school. 2,045 students and 180 teachers operate. There are special rooms for physics, chemistry, biology and labor subjects.">Maktabda o'zbek va rus tillari o'qitiladi. 2,045 nafar o'quvchi va 180 nafar pedagog faoliyat yuritadi. Fizika, kimyo, biologiya hamda mehnat fanlari uchun maxsus xonalar mavjud.</p>
-                    <div style="background: #fff; padding: 12px 12px 30px 12px; border-radius: 6px; box-shadow: 0 15px 35px rgba(0,0,0,0.08); max-width: 440px;">
-                        <div class="inset-image-placeholder" style="height: 250px;" data-uz="Maxsus fan xonasi" data-en="Special subject room">Maxsus fan xonasi</div>
+                    <p style="font-size: 17px; line-height: 1.8; color: var(--text-muted-light); margin-bottom: 40px;" data-uz="Maktabda o'zbek va rus tillari o'qitiladi. 2,045 nafar o'quvchi va 180 nafar pedagog faoliyat yuritadi. Fizika, kimyo, biologiya hamda mehnat fanlari uchun maxsus xonalar mavjud." data-en="Uzbek and Russian languages are taught at the school. 2,045 students and 180 teachers operate. There are special rooms for physics, chemistry, biology and labor subjects.">Maktabda o'zbek va rus tillari o'qitiladi. 2,045 nafar o'quvchi va 180 nafar pedagog faoliyat yuritadi. Fizika, kimyo, biologiya hamda mehnat fanlari uchun maxsus xonalar mavjud.</p>
+                    <div style="background: #fff; padding: 14px 14px 35px 14px; border-radius: 8px; box-shadow: 0 20px 40px rgba(0,0,0,0.08); max-width: 480px;">
+                        <div class="inset-image-placeholder" style="height: 280px;" data-uz="Maxsus fan xonasi" data-en="Special subject room">Maxsus fan xonasi</div>
                     </div>
                 </div>
                 <div>
@@ -1347,71 +1875,97 @@
         <div></div>
     </section>
 
-    <!-- 6. ACHIEVEMENTS -->
+    <!-- 6. ACHIEVEMENTS (WITH LIVE INTERACTIVE FILTER) -->
     <section class="page-section dark-theme" id="achievements">
         <div>
             <div class="section-header reveal"><span data-uz="04" data-en="04">04</span> · <span data-uz="YUTUQLAR" data-en="ACHIEVEMENTS">YUTUQLAR</span></div>
             <div class="top-wrapper reveal" style="transition-delay: 0.1s;">
                 <h1 class="main-title" style="margin-bottom: 0;"><span data-uz="Tasdiqlangan" data-en="Confirmed">Tasdiqlangan</span> <span data-uz="yutuqlar." data-en="achievements.">yutuqlar.</span></h1>
-                <ul class="filter-menu">
-                    <li><a href="#" class="active" data-uz="Barchasi" data-en="All">Barchasi</a></li>
-                    <li><a href="#" data-uz="Olimpiadalar" data-en="Olympiads">Olimpiadalar</a></li>
-                    <li><a href="#" data-uz="Tanlovlar" data-en="Contests">Tanlovlar</a></li>
-                    <li><a href="#" data-uz="Sport" data-en="Sport">Sport</a></li>
-                    <li><a href="#" data-uz="Xalqaro" data-en="International">Xalqaro</a></li>
+                <ul class="filter-menu" id="ach-filter-menu">
+                    <li><a href="javascript:void(0)" class="active" onclick="filterAchievements('all', this)" data-uz="Barchasi" data-en="All">Barchasi</a></li>
+                    <li><a href="javascript:void(0)" onclick="filterAchievements('olimpiada', this)" data-uz="Olimpiadalar" data-en="Olympiads">Olimpiadalar</a></li>
+                    <li><a href="javascript:void(0)" onclick="filterAchievements('tanlov', this)" data-uz="Tanlovlar" data-en="Contests">Tanlovlar</a></li>
+                    <li><a href="javascript:void(0)" onclick="filterAchievements('sport', this)" data-uz="Sport" data-en="Sport">Sport</a></li>
+                    <li><a href="javascript:void(0)" onclick="filterAchievements('xalqaro', this)" data-uz="Xalqaro" data-en="International">Xalqaro</a></li>
                 </ul>
             </div>
-            <div class="achievement-row reveal" style="transition-delay: 0.2s;">
-                <div class="ach-year"><span class="counter" data-target="2025">0</span></div>
-                <div class="ach-details">
-                    <span class="ach-tag" data-uz="ENG YAXSHI MAKTAB" data-en="BEST SCHOOL">ENG YAXSHI MAKTAB</span>
-                    <h3 data-uz="Tanlovda 1-o'rin" data-en="1st place in contest">Tanlovda 1-o'rin</h3>
-                    <p data-uz="Maktab “Eng yaxshi maktab” tanlovida ketma-ket uch yil davomida 1-o‘rinni qo‘lga kiritdi va 100 million so'mgacha pul mukofoti bilan taqdirlandi." data-en="The school won 1st place in the Best School contest for three consecutive years and was awarded a cash prize of up to 100 million sums.">Maktab “Eng yaxshi maktab” tanlovida ketma-ket uch yil davomida 1-o‘rinni qo‘lga kiritdi va 100 million so'mgacha pul mukofoti bilan taqdirlandi.</p>
+
+            <div id="achievements-list">
+                <div class="achievement-row reveal" data-category="tanlov" style="transition-delay: 0.2s;">
+                    <div class="ach-year"><span class="counter" data-target="2025" data-nocomma="true">0</span></div>
+                    <div class="ach-details">
+                        <span class="ach-tag" data-uz="TANLOV · ENG YAXSHI MAKTAB" data-en="CONTEST · BEST SCHOOL">TANLOV · ENG YAXSHI MAKTAB</span>
+                        <h3 data-uz="“Eng yaxshi maktab” tanlovida 3 yil ketma-ket 1-o‘rin" data-en="1st place for 3 consecutive years in 'Best School' contest">“Eng yaxshi maktab” tanlovida 3 yil ketma-ket 1-o‘rin</h3>
+                        <p data-uz="Maktab “Eng yaxshi maktab” tanlovida ketma-ket uch yil davomida 1-o‘rinni qo‘lga kiritdi va 100 million so'mgacha pul mukofoti bilan taqdirlandi." data-en="The school won 1st place in the Best School contest for three consecutive years and was awarded a cash prize of up to 100 million sums.">Maktab “Eng yaxshi maktab” tanlovida ketma-ket uch yil davomida 1-o‘rinni qo‘lga kiritdi va 100 million so'mgacha pul mukofoti bilan taqdirlandi.</p>
+                    </div>
                 </div>
-            </div>
-            <div class="achievement-row reveal" style="transition-delay: 0.3s;">
-                <div class="ach-year"><span class="counter" data-target="2025">0</span></div>
-                <div class="ach-details">
-                    <span class="ach-tag" data-uz="MILLIY SERTIFIKATLAR" data-en="NATIONAL CERTIFICATES">MILLIY SERTIFIKATLAR</span>
-                    <h3 data-uz="250 ta sertifikat" data-en="250 certificates"><span class="counter" data-target="250">0</span> ta sertifikat</h3>
-                    <p data-uz="O'quvchilar tomonidan umumiy hisobda 250 ta milliy sertifikatlar qo'lga kiritildi, shuningdek IELTS va SAT imtihonlarida yuqori natijalar qayd etildi." data-en="A total of 250 national certificates were won by students, and high results were recorded in IELTS and SAT exams.">O'quvchilar tomonidan umumiy hisobda 250 ta milliy sertifikatlar qo'lga kiritildi, shuningdek IELTS va SAT imtihonlarida yuqori natijalar qayd etildi.</p>
+
+                <div class="achievement-row reveal" data-category="olimpiada" style="transition-delay: 0.25s;">
+                    <div class="ach-year"><span class="counter" data-target="2025" data-nocomma="true">0</span></div>
+                    <div class="ach-details">
+                        <span class="ach-tag" data-uz="OLIMPIADA · INGLIZ TILI" data-en="OLYMPIAD · ENGLISH">OLIMPIADA · INGLIZ TILI</span>
+                        <h3 data-uz="Ingliz tili fanidan olimpiada — 1 va 2-o‘rinlar" data-en="English Olympiad — 1st and 2nd places">Ingliz tili fanidan olimpiada — 1 va 2-o‘rinlar</h3>
+                        <p data-uz="O'ktamov Davronjon (10-sinf) — 48,5 ball bilan 1-o'rin hamda Avazova Sevinch (10-sinf) — 47,4 ball bilan 2-o'rinni egalladi (O'qituvchi: Rahmonova Zebiniso)." data-en="O'ktamov Davronjon (10th grade) won 1st place with 48.5 points and Avazova Sevinch (10th grade) won 2nd place with 47.4 points (Teacher: Rahmonova Zebiniso).">O'ktamov Davronjon (10-sinf) — 48,5 ball bilan 1-o'rin hamda Avazova Sevinch (10-sinf) — 47,4 ball bilan 2-o'rinni egalladi (O'qituvchi: Rahmonova Zebiniso).</p>
+                    </div>
+                </div>
+
+                <div class="achievement-row reveal" data-category="xalqaro" style="transition-delay: 0.3s;">
+                    <div class="ach-year"><span class="counter" data-target="2025" data-nocomma="true">0</span></div>
+                    <div class="ach-details">
+                        <span class="ach-tag" data-uz="XALQARO VA MILLIY SERTIFIKATLAR" data-en="INTERNATIONAL & NATIONAL CERTIFICATES">XALQARO VA MILLIY SERTIFIKATLAR</span>
+                        <h3 data-uz="250 ta milliy sertifikat hamda IELTS / SAT natijalari" data-en="250 national certificates and IELTS / SAT results"><span class="counter" data-target="250">0</span> ta milliy sertifikat hamda IELTS / SAT natijalari</h3>
+                        <p data-uz="O'quvchilar tomonidan umumiy hisobda 250 ta milliy sertifikatlar qo'lga kiritildi, shuningdek xalqaro IELTS va SAT imtihonlarida yuqori natijalar qayd etildi." data-en="A total of 250 national certificates were won by students, and high results were recorded in international IELTS and SAT exams.">O'quvchilar tomonidan umumiy hisobda 250 ta milliy sertifikatlar qo'lga kiritildi, shuningdek xalqaro IELTS va SAT imtihonlarida yuqori natijalar qayd etildi.</p>
+                    </div>
+                </div>
+
+                <div class="achievement-row reveal" data-category="sport" style="transition-delay: 0.35s;">
+                    <div class="ach-year"><span class="counter" data-target="2025" data-nocomma="true">0</span></div>
+                    <div class="ach-details">
+                        <span class="ach-tag" data-uz="SPORT · TUMAN VA VILOYAT BOSQICHI" data-en="SPORT · DISTRICT & REGIONAL STAGE">SPORT · TUMAN VA VILOYAT BOSQICHI</span>
+                        <h3 data-uz="“Besh tashabbus” sport musobaqalari g‘oliblari" data-en="Winners of 'Five Initiatives' sports competitions">“Besh tashabbus” sport musobaqalari g‘oliblari</h3>
+                        <p data-uz="Maktab terma jamoasi yengil atletika, shaxmat va voleybol bo‘yicha tuman hamda viloyat bosqichlarida faxrli sovrinli o‘rinlarni qo‘lga kiritdi." data-en="The school team won prestigious prizes at district and regional levels in athletics, chess and volleyball.">Maktab terma jamoasi yengil atletika, shaxmat va voleybol bo‘yicha tuman hamda viloyat bosqichlarida faxrli sovrinli o‘rinlarni qo‘lga kiritdi.</p>
+                    </div>
                 </div>
             </div>
         </div>
         <div></div>
     </section>
 
-    <!-- 7. STUDENTS PROFILES -->
+    <!-- 7. STUDENTS PROFILES (INTERACTIVE SELECTION) -->
     <section class="page-section cream-theme" id="students">
         <div>
             <div class="section-header reveal"><span data-uz="05" data-en="05">05</span> · <span data-uz="IQTIDORLI O'QUVCHILAR" data-en="TALENTED STUDENTS">IQTIDORLI O'QUVCHILAR</span></div>
             <h1 class="main-title reveal" style="transition-delay: 0.1s;"><span data-uz="O'quvchi" data-en="Student">O'quvchi</span> <span data-uz="profillari." data-en="profiles.">profillari.</span></h1>
             <div class="profiles-grid">
-                <div class="featured-card reveal" style="transition-delay: 0.2s;">
+                <div class="featured-card reveal" id="student-featured-card" style="transition-delay: 0.2s;">
                     <div>
                         <div class="ach-tag" data-uz="TANLANGAN O'QUVCHI" data-en="FEATURED STUDENT">TANLANGAN O'QUVCHI</div>
-                        <h3 style="font-family: 'Playfair Display', serif; font-size: 42px; font-weight: 400; margin-bottom: 5px;">Avazova Sevinch</h3>
-                        <div class="student-class" data-uz="10-sinf" data-en="10th grade">10-sinf</div>
+                        <h3 id="st-name" style="font-family: 'Playfair Display', serif; font-size: 48px; font-weight: 400; margin-bottom: 8px;">Nurmamatova Nigina</h3>
+                        <div class="student-class" id="st-class">11-sinf</div>
                     </div>
                     <div>
                         <div class="card-divider"></div>
-                        <p class="student-bio" data-uz="2025–2026 o'quv yilida fan olimpiadasida sovrinli o'rinni egallab, maktab sharafini munosib himoya qilgan iqtidorli o'quvchi." data-en="A talented student who won a prize in the science olympiad in the 2025-2026 academic year and worthily defended the school's honor.">2025–2026 o'quv yilida fan olimpiadasida sovrinli o'rinni egallab, maktab sharafini munosib himoya qilgan iqtidorli o'quvchi.</p>
+                        <p class="student-bio" id="st-bio">2025-yilda PIF (Prezident ta'lim muassasalari agentligi) a'zoligiga qabul qilingan, ijtimoiy-siyosiy va ilmiy jarayonlarda faol iqtidorli o'quvchimiz.</p>
                         <div class="bio-subtitle" data-uz="QO'SHIMCHA MA'LUMOT" data-en="ADDITIONAL INFO">QO'SHIMCHA MA'LUMOT</div>
-                        <div style="font-size: 14px; color: var(--text-light);">Ingliz tili: 47.4 ball, <span data-uz="2-o'rin" data-en="2nd place">2-o'rin</span></div>
+                        <div id="st-extra" style="font-size: 16px; color: var(--text-light);">PIF a'zosi · 2025-yil</div>
                     </div>
                 </div>
                 <div class="students-list">
-                    <div class="list-item reveal" style="transition-delay: 0.3s;">
+                    <div class="list-item active-student reveal" style="transition-delay: 0.25s;" onclick="selectStudent(0, this)">
+                        <div class="list-num">01</div>
+                        <div class="list-info"><h4>Nurmamatova Nigina</h4><p><span data-uz="11-sinf" data-en="11th grade">11-sinf</span> · <span data-uz="PIF a'zosi, 2025" data-en="PIF member, 2025">PIF a'zosi, 2025</span></p></div>
+                    </div>
+                    <div class="list-item reveal" style="transition-delay: 0.3s;" onclick="selectStudent(1, this)">
                         <div class="list-num">02</div>
-                        <div class="list-info"><h4>O'ktamov Davronjon</h4><p><span data-uz="10-sinf" data-en="10th grade">10-sinf</span> · <span data-uz="Fan olimpiadasi g'olibi" data-en="Olympiad winner">Fan olimpiadasi g'olibi</span></p></div>
+                        <div class="list-info"><h4>Toxirov Ozod</h4><p><span data-uz="11-sinf" data-en="11th grade">11-sinf</span> · <span data-uz="Nemis tili 2-o'rin" data-en="German Language 2nd place">Nemis tili 2-o'rin</span></p></div>
                     </div>
-                    <div class="list-item reveal" style="transition-delay: 0.4s;">
+                    <div class="list-item reveal" style="transition-delay: 0.4s;" onclick="selectStudent(2, this)">
                         <div class="list-num">03</div>
-                        <div class="list-info"><h4>Ikromov Sardor</h4><p><span data-uz="9-sinf" data-en="9th grade">9-sinf</span> · <span data-uz="Iqtidorli o'quvchi" data-en="Talented student">Iqtidorli o'quvchi</span></p></div>
+                        <div class="list-info"><h4>Ashirov Akbar</h4><p><span data-uz="11-sinf" data-en="11th grade">11-sinf</span> · <span data-uz="Jahon Chempioni (Taekwon-Do GTF)" data-en="World Champion (Taekwon-Do GTF)">Jahon Chempioni (Taekwon-Do GTF)</span></p></div>
                     </div>
-                    <div class="list-item reveal" style="transition-delay: 0.5s;">
+                    <div class="list-item reveal" style="transition-delay: 0.5s;" onclick="selectStudent(3, this)">
                         <div class="list-num">04</div>
-                        <div class="list-info"><h4>G'aniyev Azizbek</h4><p><span data-uz="11-sinf" data-en="11th grade">11-sinf</span> · <span data-uz="Sertifikat egasi" data-en="Certificate holder">Sertifikat egasi</span></p></div>
+                        <div class="list-info"><h4>Avazova Sevinch</h4><p><span data-uz="10-sinf" data-en="10th grade">10-sinf</span> · <span data-uz="Ingliz tili olimpiadasi 2-o'rin" data-en="English Olympiad 2nd place">Ingliz tili olimpiadasi 2-o'rin</span></p></div>
                     </div>
                 </div>
             </div>
@@ -1419,7 +1973,7 @@
         <div></div>
     </section>
 
-    <!-- 8. LEADERSHIP & TEACHERS -->
+    <!-- 8. LEADERSHIP & TEACHERS (WITH INTERACTIVE TABS) -->
     <section class="page-section cream-theme" id="leadership">
         <div>
             <div class="section-header reveal"><span data-uz="06" data-en="06">06</span> · <span data-uz="MAKTAB JAMOASI" data-en="SCHOOL TEAM">MAKTAB JAMOASI</span></div>
@@ -1429,26 +1983,57 @@
                 </div>
                 <div>
                     <div class="tabs-header reveal" style="transition-delay: 0.2s;">
-                        <a href="#" class="tab-item active" data-uz="Rahbariyat 01" data-en="Management 01">Rahbariyat <span>01</span></a>
-                        <a href="#" class="tab-item" data-uz="O'qituvchilar 180" data-en="Teachers 180">O'qituvchilar <span class="counter" data-target="180">0</span></a>
+                        <a href="javascript:void(0)" class="tab-item active" onclick="switchTeamTab('leaders', this)"><span data-uz="Rahbariyat" data-en="Management">Rahbariyat</span> <span>01</span></a>
+                        <a href="javascript:void(0)" class="tab-item" onclick="switchTeamTab('teachers', this)"><span data-uz="O'qituvchilar" data-en="Teachers">O'qituvchilar</span> <span class="counter" data-target="180">180</span></a>
                     </div>
-                    <div class="leader-card reveal" style="transition-delay: 0.3s;">
-                        <div>
-                            <div class="leader-name">Buxarov Maxmud Qudratovich</div>
-                            <div class="leader-position"><span data-uz="Direktor" data-en="Director">Direktor</span> · Tel: +998 99 001 09 63</div>
+
+                    <!-- Panel 1: Leadership -->
+                    <div id="panel-leaders" class="tab-panel active-panel">
+                        <div class="leader-card">
+                            <div>
+                                <div class="leader-name">Buxarov Maxmud Qudratovich</div>
+                                <div class="leader-position"><span data-uz="Maktab direktori" data-en="School Principal">Maktab direktori</span> · Tel: +998 99 001 09 63</div>
+                            </div>
+                            <div class="leader-date"><span data-uz="Tayinlangan sana:" data-en="Appointed:">Tayinlangan sana:</span><br>18.04.2022</div>
                         </div>
-                        <div class="leader-date"><span data-uz="Tayinlangan sana:" data-en="Appointment date:">Tayinlangan sana:</span><br>18.04.2022</div>
-                    </div>
-                    <div class="leader-card reveal" style="transition-delay: 0.4s;">
-                        <div>
-                            <div class="leader-name">Mansurova Feruza Samadovna</div>
-                            <div class="leader-position"><span data-uz="O'quv ishlari bo'yicha direktor o'rinbosari" data-en="Deputy Director for Academic Affairs">O'quv ishlari bo'yicha direktor o'rinbosari</span> · Tel: +998 93 152 55 75</div>
+                        <div class="leader-card">
+                            <div>
+                                <div class="leader-name">Mansurova Feruza Samadovna</div>
+                                <div class="leader-position"><span data-uz="O'quv ishlari bo'yicha direktor o'rinbosari" data-en="Deputy Director for Academic Affairs">O'quv ishlari bo'yicha direktor o'rinbosari</span> · Tel: +998 93 152 55 75</div>
+                            </div>
+                            <div class="leader-date"><span data-uz="Ma'muriyat" data-en="Administration">Ma'muriyat</span></div>
+                        </div>
+                        <div class="leader-card">
+                            <div>
+                                <div class="leader-name">Artikova Dilrabo</div>
+                                <div class="leader-position"><span data-uz="Maktab maslahatchisi / Counselor" data-en="School Counselor">Maktab maslahatchisi / Counselor</span> · Tel: +998 94 527 60 54</div>
+                            </div>
+                            <div class="leader-date"><span data-uz="Xalqaro yo'nalish" data-en="Guidance">Xalqaro yo'nalish</span></div>
                         </div>
                     </div>
-                    <div class="leader-card reveal" style="transition-delay: 0.5s;">
-                        <div>
-                            <div class="leader-name">Artikova Dilrabo</div>
-                            <div class="leader-position"><span data-uz="Maktab psixologi / Counselor" data-en="School psychologist / Counselor">Maktab psixologi / Counselor</span> · Tel: +998 94 527 60 54</div>
+
+                    <!-- Panel 2: Teachers -->
+                    <div id="panel-teachers" class="tab-panel">
+                        <div class="leader-card">
+                            <div>
+                                <div class="leader-name">Rahmonova Zebiniso</div>
+                                <div class="leader-position"><span data-uz="Ingliz tili fani oliy toifali o‘qituvchisi · Olimpiada g‘oliblari ustozi" data-en="Senior English Teacher · Mentor of Olympiad Winners">Ingliz tili fani oliy toifali o‘qituvchisi · Olimpiada g‘oliblari ustozi</span></div>
+                            </div>
+                            <div class="leader-date"><span data-uz="Xorijiy tillar" data-en="Foreign Languages">Xorijiy tillar</span></div>
+                        </div>
+                        <div class="leader-card">
+                            <div>
+                                <div class="leader-name">Choriyeva Bibimo</div>
+                                <div class="leader-position"><span data-uz="Yuqori sinflar rahbari va yetakchi pedagog" data-en="Senior Class Advisor & Leading Educator">Yuqori sinflar rahbari va yetakchi pedagog</span></div>
+                            </div>
+                            <div class="leader-date">10-sinf</div>
+                        </div>
+                        <div class="leader-card">
+                            <div>
+                                <div class="leader-name">Qalqonova Dilrabo</div>
+                                <div class="leader-position"><span data-uz="Aniq va tabiiy fanlar yo‘nalishi yetakchi o‘qituvchisi" data-en="Leading Teacher of Exact & Natural Sciences">Aniq va tabiiy fanlar yo‘nalishi yetakchi o‘qituvchisi</span></div>
+                            </div>
+                            <div class="leader-date">9-sinf</div>
                         </div>
                     </div>
                 </div>
@@ -1457,15 +2042,106 @@
         <div></div>
     </section>
 
-    <!-- 9. INTERNATIONAL DIRECTION -->
+    <!-- 9. INTERNATIONAL DIRECTION + ANIMATED WORLD MAP + SCHOOL PROFILE 2026 -->
     <section class="page-section dark-theme" id="international">
         <div>
             <div class="section-header reveal"><span data-uz="07" data-en="07">07</span> · <span data-uz="XALQARO YO'NALISH" data-en="INTERNATIONAL DIRECTION">XALQARO YO'NALISH</span></div>
-            <h1 class="main-title reveal" style="font-size: 68px; text-transform: uppercase; transition-delay: 0.1s;"><span data-uz="Xalqaro" data-en="International">Xalqaro</span><br><span style="display: block;" data-uz="yo'nalish" data-en="direction">yo'nalish</span></h1>
+            <h1 class="main-title reveal" style="font-size: 72px; text-transform: uppercase; transition-delay: 0.1s;"><span data-uz="Xalqaro" data-en="International">Xalqaro</span><br><span style="display: block;" data-uz="yo'nalish" data-en="direction">yo'nalish</span></h1>
             <div class="intl-grid reveal" style="transition-delay: 0.2s;">
                 <p data-uz="Xalqaro yo'nalish bo'yicha berilgan ma'lumotlarda Germaniya va Xitoydagi OTMlar qayd etilgan." data-en="Universities in Germany and China are noted in the international direction information.">Xalqaro yo'nalish bo'yicha berilgan ma'lumotlarda Germaniya va Xitoydagi OTMlar qayd etilgan.</p>
                 <div class="intl-sub" data-uz="2025–2026 bitiruvchilari ma'lumotida Germaniya va Xitoydagi xorijiy oliy ta'lim muassasalari ham qayd etilgan. Shuningdek, o'quvchilarimizning xalqaro darajadagi IELTS va SAT imtihonlaridagi natijalari ham e'tiborga molik." data-en="Foreign higher education institutions in Germany and China are also noted in the data of 2025-2026 graduates. Also, our students' results in international IELTS and SAT exams are noteworthy.">
                     2025–2026 bitiruvchilari ma'lumotida Germaniya va Xitoydagi xorijiy oliy ta'lim muassasalari ham qayd etilgan. Shuningdek, o'quvchilarimizning xalqaro darajadagi IELTS va SAT imtihonlaridagi natijalari ham e'tiborga molik.
+                </div>
+            </div>
+
+            <!-- Animated World Map SVG -->
+            <div class="world-map-box reveal" style="transition-delay: 0.25s;">
+                <svg class="world-map-svg" viewBox="0 0 900 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <pattern id="dotGrid" width="14" height="14" patternUnits="userSpaceOnUse">
+                            <circle cx="3" cy="3" r="1.4" fill="rgba(255,255,255,0.14)" />
+                        </pattern>
+                    </defs>
+                    <rect x="40" y="20" width="820" height="280" fill="url(#dotGrid)" rx="12" />
+                    
+                    <!-- Golden Connection Arcs from Nishon (x:580, y:145) -->
+                    <path class="map-arc" d="M580 145 Q 380 40 200 135" stroke="#d4af37" stroke-width="1.5" fill="none" />
+                    <path class="map-arc" d="M580 145 Q 500 70 430 105" stroke="#d4af37" stroke-width="1.5" fill="none" />
+                    <path class="map-arc" d="M580 145 Q 520 95 465 125" stroke="#d4af37" stroke-width="1.8" fill="none" />
+                    <path class="map-arc" d="M580 145 Q 545 125 515 150" stroke="#d4af37" stroke-width="1.5" fill="none" />
+                    <path class="map-arc" d="M580 145 Q 645 110 695 148" stroke="#d4af37" stroke-width="1.8" fill="none" />
+                    <path class="map-arc" d="M580 145 Q 675 100 755 150" stroke="#d4af37" stroke-width="1.5" fill="none" />
+
+                    <!-- Destination Nodes -->
+                    <circle cx="200" cy="135" r="5" stroke="#d4af37" stroke-width="1.5" fill="#0b0f15" />
+                    <text x="200" y="154" fill="#8a93a0" font-size="9" text-anchor="middle" letter-spacing="1">AQSH</text>
+
+                    <circle cx="430" cy="105" r="5" stroke="#d4af37" stroke-width="1.5" fill="#0b0f15" />
+                    <text x="415" y="92" fill="#8a93a0" font-size="9" text-anchor="end" letter-spacing="1">BUYUK BRITANIYA</text>
+
+                    <circle cx="465" cy="125" r="5" stroke="#d4af37" stroke-width="1.5" fill="#0b0f15" />
+                    <text x="465" y="143" fill="#d4af37" font-size="9" text-anchor="middle" letter-spacing="1">GERMANIYA</text>
+
+                    <circle cx="515" cy="150" r="5" stroke="#d4af37" stroke-width="1.5" fill="#0b0f15" />
+                    <text x="515" y="168" fill="#8a93a0" font-size="9" text-anchor="middle" letter-spacing="1">TURKIYA</text>
+
+                    <circle cx="695" cy="148" r="5" stroke="#d4af37" stroke-width="1.5" fill="#0b0f15" />
+                    <text x="695" y="166" fill="#d4af37" font-size="9" text-anchor="middle" letter-spacing="1">XITOY</text>
+
+                    <circle cx="755" cy="150" r="5" stroke="#d4af37" stroke-width="1.5" fill="#0b0f15" />
+                    <text x="755" y="168" fill="#8a93a0" font-size="9" text-anchor="middle" letter-spacing="1">JANUBIY KOREYA</text>
+
+                    <!-- Main Hub: NISHON -->
+                    <circle class="hub-pulse" cx="580" cy="145" r="10" stroke="#d4af37" stroke-width="1.5" fill="none" />
+                    <circle cx="580" cy="145" r="6" fill="#d4af37" />
+                    <text x="580" y="126" fill="#f3f4f6" font-size="10" font-weight="600" text-anchor="middle" letter-spacing="1.5">NISHON</text>
+                </svg>
+            </div>
+
+            <!-- 6 International Feature Blocks & Maktab Profili 2026 Card -->
+            <div class="intl-bottom-grid reveal" style="transition-delay: 0.3s;">
+                <div class="intl-features-grid">
+                    <div class="intl-feature-box">
+                        <span class="intl-f-num">01</span>
+                        <div class="intl-f-title" data-uz="Maktab profili" data-en="School Profile">Maktab profili</div>
+                        <div class="intl-f-desc" data-uz="Maktabning xalqaro akademik ko‘rsatkichlari va rasmiy pasporti." data-en="International academic indicators and official school profile.">Maktabning xalqaro akademik ko‘rsatkichlari va rasmiy pasporti.</div>
+                    </div>
+                    <div class="intl-feature-box">
+                        <span class="intl-f-num">02</span>
+                        <div class="intl-f-title" data-uz="Xalqaro imtihonlar" data-en="International Exams">Xalqaro imtihonlar</div>
+                        <div class="intl-f-desc" data-uz="IELTS hamda SAT imtihonlaridan yuqori ball olgan o‘quvchilar ko‘rsatkichi." data-en="High-scoring students in IELTS and SAT examinations.">IELTS hamda SAT imtihonlaridan yuqori ball olgan o‘quvchilar ko‘rsatkichi.</div>
+                    </div>
+                    <div class="intl-feature-box">
+                        <span class="intl-f-num">03</span>
+                        <div class="intl-f-title" data-uz="Universitetga tayyorgarlik" data-en="University Prep">Universitetga tayyorgarlik</div>
+                        <div class="intl-f-desc" data-uz="Bitiruvchilarning 49.4% oliy ta'lim muassasalariga muvaffaqiyatli qabul qilingan." data-en="49.4% of graduates successfully admitted to higher education.">Bitiruvchilarning 49.4% oliy ta'lim muassasalariga muvaffaqiyatli qabul qilingan.</div>
+                    </div>
+                    <div class="intl-feature-box">
+                        <span class="intl-f-num">04</span>
+                        <div class="intl-f-title" data-uz="O'quvchilar yutuqlari" data-en="Student Achievements">O'quvchilar yutuqlari</div>
+                        <div class="intl-f-desc" data-uz="250 ta milliy sertifikat va fan olimpiadalaridagi sovrinli o‘rinlar." data-en="250 national certificates and prizes in subject olympiads.">250 ta milliy sertifikat va fan olimpiadalaridagi sovrinli o‘rinlar.</div>
+                    </div>
+                    <div class="intl-feature-box">
+                        <span class="intl-f-num">05</span>
+                        <div class="intl-f-title" data-uz="Universitet yo'nalishlari" data-en="University Destinations">Universitet yo'nalishlari</div>
+                        <div class="intl-f-desc" data-uz="Germaniya, Xitoy hamda O‘zbekistonning yetakchi oliygohlari." data-en="Leading universities in Germany, China, and Uzbekistan.">Germaniya, Xitoy hamda O‘zbekistonning yetakchi oliygohlari.</div>
+                    </div>
+                    <div class="intl-feature-box">
+                        <span class="intl-f-num">06</span>
+                        <div class="intl-f-title" data-uz="Grant va stipendiyalar" data-en="Grants & Scholarships">Grant va stipendiyalar</div>
+                        <div class="intl-f-desc" data-uz="Xorijiy va davlat grant dasturlarida o‘quvchilar ishtiroki." data-en="Student participation in foreign and state scholarship programs.">Xorijiy va davlat grant dasturlarida o‘quvchilar ishtiroki.</div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="doc-card" onclick="openLightbox('MAKTAB PROFILI · 2026', 'Nishon tumani 20-maktab pasporti', 'Tashkil topgan: 1989-yil. O‘quvchilar: 2,045 nafar. Pedagoglar: 180 nafar. OTMga kirish: 49.4%. Milliy sertifikatlar: 250 ta.')">
+                        <div class="doc-header">
+                            <span data-uz="MAKTAB PROFILI" data-en="SCHOOL PROFILE">MAKTAB PROFILI</span>
+                            <span>&#128214;</span>
+                        </div>
+                        <div class="doc-title" data-uz="Maktab profili" data-en="School Profile">Maktab profili</div>
+                        <div class="doc-year">2026</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1478,45 +2154,55 @@
             <div class="section-header reveal"><span data-uz="08" data-en="08">08</span> · <span data-uz="YANGILIKLAR" data-en="NEWS">YANGILIKLAR</span></div>
             <div class="top-wrapper reveal" style="border-color: var(--border-light); transition-delay: 0.1s;">
                 <h1 class="main-title" style="margin-bottom: 0;"><span data-uz="Maktab" data-en="School">Maktab</span> <span data-uz="yangiliklari." data-en="news.">yangiliklari.</span></h1>
-                <a href="#" class="all-news-link" data-uz="Barcha yangiliklar &rarr;" data-en="All news &rarr;">Barcha yangiliklar &rarr;</a>
+                <a href="#news" class="all-news-link" data-uz="Barcha yangiliklar &rarr;" data-en="All news &rarr;">Barcha yangiliklar &rarr;</a>
             </div>
             <div class="news-card reveal" style="transition-delay: 0.2s;">
                 <div class="news-meta"><span data-uz="Yangilik" data-en="News">Yangilik</span> · 2026-10-08</div>
                 <div class="news-title" data-uz="Maktabning rasmiy veb-sayti ishga tushdi" data-en="Official website of the school launched">Maktabning rasmiy veb-sayti ishga tushdi</div>
-                <p class="news-desc" data-uz="Nishon tumani 20-sonli umumiy o‘rta ta’lim maktabining rasmiy veb-sayti ishga tushdi." data-en="Official website of School No. 20 of Nishon district has been launched.">Nishon tumani 20-sonli umumiy o‘rta ta’lim maktabining rasmiy veb-sayti ishga tushdi.</p>
-                <a href="#" class="link-arrow" data-uz="Batafsil &rarr;" data-en="Read more &rarr;">Batafsil &rarr;</a>
+                <p class="news-desc" data-uz="Nishon tumani 20-sonli umumiy o‘rta ta’lim maktabining rasmiy veb-sayti ishga tushdi." data-en="Official website of Nishan district School N20 has been launched.">Nishon tumani 20-sonli umumiy o‘rta ta’lim maktabining rasmiy veb-sayti ishga tushdi.</p>
+                <a href="javascript:void(0)" onclick="openLightbox('YANGILIK · 2026-10-08', 'Maktabning rasmiy veb-sayti ishga tushdi', 'Qashqadaryo viloyati Nishon tumani 20-sonli umumiy o‘rta ta’lim maktabining zamonaviy raqamli platformasi o‘quvchilar, ota-onalar va xalqaro hamkorlar uchun o‘z faoliyatini boshladi.')" class="link-arrow" data-uz="Batafsil &rarr;" data-en="Read more &rarr;">Batafsil &rarr;</a>
             </div>
         </div>
         <div></div>
     </section>
 
-    <!-- 11. GALLERY SECTION -->
+    <!-- 11. GALLERY SECTION (WITH FILTER & LIGHTBOX) -->
     <section class="page-section dark-theme" id="gallery">
         <div>
             <div class="section-header reveal"><span data-uz="09" data-en="09">09</span> · <span data-uz="GALEREYA" data-en="GALLERY">GALEREYA</span></div>
             <div class="top-wrapper reveal" style="transition-delay: 0.1s;">
                 <h1 class="main-title" style="margin-bottom: 0;"><span data-uz="Suratlar" data-en="Photo">Suratlar</span> <span data-uz="galereyasi." data-en="gallery.">galereyasi.</span></h1>
-                <ul class="filter-menu">
-                    <li><a href="#" class="active" data-uz="Barchasi" data-en="All">Barchasi</a></li>
-                    <li><a href="#" data-uz="Maktab" data-en="School">Maktab</a></li>
-                    <li><a href="#" data-uz="Dars jarayonlari" data-en="Classes">Dars jarayonlari</a></li>
-                    <li><a href="#" data-uz="Tadbirlar" data-en="Events">Tadbirlar</a></li>
-                    <li><a href="#" data-uz="Olimpiadalar" data-en="Olympiads">Olimpiadalar</a></li>
-                    <li><a href="#" data-uz="Sport" data-en="Sport">Sport</a></li>
-                    <li><a href="#" data-uz="Loyihalar" data-en="Projects">Loyihalar</a></li>
-                    <li><a href="#" data-uz="O'quvchilar hayoti" data-en="Student life">O'quvchilar hayoti</a></li>
+                <ul class="filter-menu" id="gallery-filter-menu">
+                    <li><a href="javascript:void(0)" class="active" onclick="filterGallery('all', this)" data-uz="Barchasi" data-en="All">Barchasi</a></li>
+                    <li><a href="javascript:void(0)" onclick="filterGallery('maktab', this)" data-uz="Maktab" data-en="School">Maktab</a></li>
+                    <li><a href="javascript:void(0)" onclick="filterGallery('dars', this)" data-uz="Dars jarayonlari" data-en="Classes">Dars jarayonlari</a></li>
+                    <li><a href="javascript:void(0)" onclick="filterGallery('tadbir', this)" data-uz="Tadbirlar" data-en="Events">Tadbirlar</a></li>
                 </ul>
             </div>
-            <div class="gallery-grid">
-                <div class="gallery-card-dark reveal" style="transition-delay: 0.2s;">
+            <div class="gallery-grid" id="gallery-grid">
+                <div class="gallery-card-dark gallery-item reveal" data-gcat="maktab" style="transition-delay: 0.2s;" onclick="openLightbox('MAKTAB', 'Maktab binosi', 'Nishon tumani 20-sonli umumiy o‘rta ta’lim maktabining asosiy o‘quv binosi va tashqi ko‘rinishi.')">
                     <div class="inspect-badge" data-uz="Ko'rish" data-en="View">Ko'rish</div>
                     <div>
                         <span class="ach-tag" data-uz="Maktab" data-en="School">Maktab</span>
-                        <h3 style="font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 400;" data-uz="Maktab binosi" data-en="School building">Maktab binosi</h3>
+                        <h3 style="font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 400;" data-uz="Maktab binosi" data-en="School building">Maktab binosi</h3>
                     </div>
                 </div>
-                <div class="gallery-image-box reveal" style="transition-delay: 0.3s;" data-uz="Sinfxona ko'rinishi 1" data-en="Classroom view 1">Sinfxona ko'rinishi 1</div>
-                <div class="gallery-image-box reveal" style="transition-delay: 0.4s;" data-uz="Sinfxona ko'rinishi 2" data-en="Classroom view 2">Sinfxona ko'rinishi 2</div>
+
+                <div class="gallery-card-dark gallery-item reveal" data-gcat="dars" style="transition-delay: 0.3s; background: linear-gradient(135deg, rgba(44,62,80,0.45), rgba(18,24,34,0.9));" onclick="openLightbox('DARS JARAYONLARI', 'Maxsus fan sinfxonasi', 'Fizika, kimyo va biologiya fanlari uchun jihozlangan zamonaviy interaktiv o‘quv xonasi.')">
+                    <div class="inspect-badge" data-uz="Ko'rish" data-en="View">Ko'rish</div>
+                    <div>
+                        <span class="ach-tag" data-uz="Dars jarayonlari" data-en="Classes">Dars jarayonlari</span>
+                        <h3 style="font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 400;" data-uz="Sinfxona ko'rinishi 1" data-en="Classroom view 1">Sinfxona ko'rinishi 1</h3>
+                    </div>
+                </div>
+
+                <div class="gallery-card-dark gallery-item reveal" data-gcat="tadbir" style="transition-delay: 0.4s; background: linear-gradient(135deg, rgba(60,55,44,0.4), rgba(18,24,34,0.9));" onclick="openLightbox('TADBIRLAR VA TO‘GARAKLAR', 'Amaliy mashg‘ulot xonasi', 'O‘quvchilarning amaliy va ijodiy ko‘nikmalarini rivojlantirishga mo‘ljallangan maxsus o‘quv xonasi.')">
+                    <div class="inspect-badge" data-uz="Ko'rish" data-en="View">Ko'rish</div>
+                    <div>
+                        <span class="ach-tag" data-uz="Tadbirlar" data-en="Events">Tadbirlar</span>
+                        <h3 style="font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 400;" data-uz="Sinfxona ko'rinishi 2" data-en="Classroom view 2">Sinfxona ko'rinishi 2</h3>
+                    </div>
+                </div>
             </div>
         </div>
         <div></div>
@@ -1529,33 +2215,38 @@
             <div class="directions-grid">
                 <div class="reveal" style="transition-delay: 0.1s;">
                     <h1 class="main-title"><span data-uz="Aloqa" data-en="Contact">Aloqa</span> <span data-uz="ma'lumotlari." data-en="information.">ma'lumotlari.</span></h1>
-                    <p style="font-size: 15px; color: var(--text-muted-light); line-height: 1.65; max-width: 450px;" data-uz="Maktabning rasmiy aloqa ma'lumotlari va joylashuvi ushbu sahifada keltiriladi." data-en="Official contact information and location of the school are presented on this page.">Maktabning rasmiy aloqa ma'lumotlari va joylashuvi ushbu sahifada keltiriladi.</p>
+                    <p style="font-size: 18px; color: var(--text-muted-light); line-height: 1.7; max-width: 480px;" data-uz="Maktabning rasmiy aloqa ma'lumotlari va joylashuvi ushbu sahifada keltiriladi." data-en="Official contact information and location of the school are presented on this page.">Maktabning rasmiy aloqa ma'lumotlari va joylashuvi ushbu sahifada keltiriladi.</p>
                 </div>
                 <div>
                     <div class="info-row reveal" style="transition-delay: 0.2s;">
                         <div class="info-label" data-uz="MANZIL" data-en="ADDRESS">MANZIL</div>
-                        <div class="info-value" style="font-size: 19px; font-family: 'Playfair Display', serif;">Nuriston 1-MTT, 1-uy, Nishon tumani, Qashqadaryo</div>
+                        <div class="info-value" style="font-size: 20px; font-family: 'Playfair Display', serif;">Nuriston 1-MTT, 1-uy, Nishon tumani, Qashqadaryo</div>
+                        <div class="info-index">01</div>
                     </div>
                     <div class="info-row reveal" style="transition-delay: 0.3s;">
                         <div class="info-label" data-uz="TELEFON" data-en="PHONE">TELEFON</div>
-                        <div class="info-value" style="font-size: 19px; font-family: 'Playfair Display', serif;">+998 99 001 09 63</div>
+                        <div class="info-value" style="font-size: 20px; font-family: 'Playfair Display', serif;">+998 99 001 09 63</div>
+                        <div class="info-index">02</div>
                     </div>
                     <div class="info-row reveal" style="transition-delay: 0.4s;">
                         <div class="info-label" data-uz="EMAIL" data-en="EMAIL">EMAIL</div>
                         <div class="info-value" style="font-size: 18px;">20maktabnishon@gmail.com</div>
+                        <div class="info-index">03</div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="map-container reveal" style="margin-top: 60px; margin-left: -80px; margin-right: -80px; width: calc(100% + 160px); transition-delay: 0.3s;" data-uz="Nishon tumani 20-sonli maktab joylashuvi (Xarita)" data-en="Location of School No. 20 of Nishon district (Map)">
-            Nishon tumani 20-sonli maktab joylashuvi (Xarita)
+        
+        <!-- Haqiqiy Google Xarita Kiritildi -->
+        <div class="map-container reveal" style="margin-top: 80px; margin-left: -80px; margin-right: -80px; width: calc(100% + 160px); height: 450px; transition-delay: 0.3s;" title="Xarita">
+            <iframe src="https://maps.google.com/maps?q=Nishon%20tumani%20Nuriston&t=&z=14&ie=UTF8&iwloc=&output=embed" width="100%" height="100%" style="border:0; filter: grayscale(20%) contrast(1.2);" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
     </section>
 
     <!-- CTA & FOOTER -->
     <div class="cta-section reveal">
         <div class="cta-left">
-            <h2 data-uz="Sizning g'oyangiz — keyingi loyihamiz." data-en="Your idea — our next project.">Sizning g'oyangiz —<br><span>keyingi loyihamiz.</span></h2>
+            <h2 data-uz="Sizning g'oyangiz —<br><span>keyingi loyihamiz.</span>" data-en="Your idea —<br><span>our next project.</span>">Sizning g'oyangiz —<br><span>keyingi loyihamiz.</span></h2>
         </div>
         <div class="cta-right">
             <p data-uz="Zamonaviy va individual veb-sayt kerakmi?" data-en="Need a modern and custom website?">Zamonaviy va individual veb-sayt kerakmi?</p>
@@ -1568,10 +2259,10 @@
             <div class="reveal">
                 <div class="logo-box" style="margin-bottom: 15px;">
                     <div class="logo-icon">20</div>
-                    <div class="logo-text"><span data-uz="Nishon Tumani" data-en="Nishon District">Nishon Tumani</span><br><strong data-uz="20-Maktab" data-en="School No. 20">20-Maktab</strong></div>
+                    <div class="logo-text"><span data-uz="Nishon Tumani" data-en="Nishan District">Nishon Tumani</span><br><strong data-uz="20-Maktab" data-en="School N20">20-Maktab</strong></div>
                 </div>
-                <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 15px;" data-uz="Qashqadaryo viloyati Nishon tumani 20-sonli umumiy o‘rta ta’lim maktabining rasmiy veb-sayti." data-en="Official website of School No. 20 of Nishon district, Qashqadaryo region.">Qashqadaryo viloyati Nishon tumani 20-sonli umumiy o‘rta ta’lim maktabining rasmiy veb-sayti.</p>
-                <div style="font-size: 10px; letter-spacing: 1.5px; color: var(--gold); text-transform: uppercase;" data-uz="QASHQADARYO VILOYATI · O'ZBEKISTON" data-en="QASHQADARYO REGION · UZBEKISTAN">QASHQADARYO VILOYATI · O'ZBEKISTON</div>
+                <p style="font-size: 15px; color: var(--text-muted); line-height: 1.7; margin-bottom: 15px;" data-uz="Qashqadaryo viloyati Nishon tumani 20-sonli umumiy o‘rta ta’lim maktabining rasmiy veb-sayti." data-en="Official website of Nishan district School N20, Qashqadaryo region.">Qashqadaryo viloyati Nishon tumani 20-sonli umumiy o‘rta ta’lim maktabining rasmiy veb-sayti.</p>
+                <div style="font-size: 11px; letter-spacing: 1.5px; color: var(--gold); text-transform: uppercase;" data-uz="QASHQADARYO VILOYATI · O'ZBEKISTON" data-en="QASHQADARYO REGION · UZBEKISTAN">QASHQADARYO VILOYATI · O'ZBEKISTON</div>
             </div>
             <div class="footer-col reveal" style="transition-delay: 0.1s;">
                 <h4 data-uz="BO'LIMLAR" data-en="SECTIONS">BO'LIMLAR</h4>
@@ -1594,27 +2285,53 @@
             </div>
             <div class="footer-col reveal" style="transition-delay: 0.3s;">
                 <h4 data-uz="ALOQA" data-en="CONTACT">ALOQA</h4>
-                <div style="font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 10px;" data-uz="Nuriston 1-MTT, 1-uy, Nishon tumani, Qashqadaryo" data-en="Nuriston 1-kindergarten, house 1, Nishon district, Qashqadaryo">Nuriston 1-MTT, 1-uy, Nishon tumani, Qashqadaryo</div>
-                <div style="font-size: 13px; color: var(--text-muted);">+998 99 001 09 63</div>
+                <div style="font-size: 14px; color: var(--text-muted); line-height: 1.7; margin-bottom: 10px;" data-uz="Nuriston 1-MTT, 1-uy, Nishon tumani, Qashqadaryo" data-en="Nuriston 1-kindergarten, house 1, Nishan district, Qashqadaryo">Nuriston 1-MTT, 1-uy, Nishon tumani, Qashqadaryo</div>
+                <div style="font-size: 14px; color: var(--text-muted);">+998 99 001 09 63</div>
             </div>
         </div>
 
-        <div class="massive-title reveal" data-uz="Nishon tumani 20-sonli umumiy o‘rta ta’lim maktabi" data-en="Nishon district school no. 20">
+        <div class="massive-title reveal" data-uz="Nishon tumani 20-sonli umumiy o‘rta ta’lim maktabi" data-en="Nishan district School N20">
             Nishon tumani 20-sonli umumiy o‘rta ta’lim maktabi
         </div>
 
         <div class="footer-bottom reveal">
-            <div data-uz="© 2026 Nishon tumani 20-sonli umumiy o‘rta ta’lim maktabi. Barcha huquqlar himoyalangan." data-en="© 2026 School No. 20 of Nishon district. All rights reserved.">© 2026 Nishon tumani 20-sonli umumiy o‘rta ta’lim maktabi. Barcha huquqlar himoyalangan.</div>
+            <div data-uz="© 2026 Nishon tumani 20-sonli umumiy o‘rta ta’lim maktabi. Barcha huquqlar himoyalangan." data-en="© 2026 Nishan district School N20. All rights reserved.">© 2026 Nishon tumani 20-sonli umumiy o‘rta ta’lim maktabi. Barcha huquqlar himoyalangan.</div>
             <div><span data-uz="Raqamli platforma · Sayt dizayni va ishlab chiqilish" data-en="Digital platform · Site design and development">Raqamli platforma · Sayt dizayni va ishlab chiqilish</span> <span>Sheraliyev Ma'murjon</span></div>
         </div>
     </footer>
 
-    <!-- JAVASCRIPT FOR CURSOR, SCROLL REVEAL, NUMBER COUNTER & LANGUAGE SWITCHER -->
+    <!-- JAVASCRIPT -->
     <script>
-        // Custom Blur Cursor Logic
+        let currentLang = 'uz';
+
+        // 1. Preloader hide on load
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const preloader = document.getElementById('preloader');
+                if (preloader) preloader.classList.add('hidden');
+            }, 900);
+        });
+
+        // 2. Scroll Progress Bar & Back to Top Button
+        const scrollProgress = document.getElementById('scroll-progress');
+        const backToTopBtn = document.getElementById('back-to-top');
+
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            scrollProgress.style.width = `${scrollPercent}%`;
+
+            if (scrollTop > 450) {
+                backToTopBtn.classList.add('show');
+            } else {
+                backToTopBtn.classList.remove('show');
+            }
+        });
+
+        // 3. Custom Blur Cursor Logic
         const cursor = document.getElementById('cursor');
         const cursorDot = document.getElementById('cursor-dot');
-
         let mouseX = 0, mouseY = 0;
         let cursorX = 0, cursorY = 0;
 
@@ -1626,25 +2343,19 @@
         });
 
         function animateCursor() {
-            let distX = mouseX - cursorX;
-            let distY = mouseY - cursorY;
-
-            cursorX += distX * 0.15;
-            cursorY += distY * 0.15;
-
+            cursorX += (mouseX - cursorX) * 0.15;
+            cursorY += (mouseY - cursorY) * 0.15;
             cursor.style.left = `${cursorX}px`;
             cursor.style.top = `${cursorY}px`;
-
             requestAnimationFrame(animateCursor);
         }
         animateCursor();
 
-        // Hover effect on interactables
-        const interactables = document.querySelectorAll('a, button, .list-item, .achievement-row, .book-visual, .info-row');
+        const interactables = document.querySelectorAll('a, button, .list-item, .achievement-row, .book-visual, .info-row, .gallery-card-dark, .doc-card, .intl-feature-box');
         interactables.forEach(el => {
             el.addEventListener('mouseenter', () => {
-                cursor.style.width = '60px';
-                cursor.style.height = '60px';
+                cursor.style.width = '70px';
+                cursor.style.height = '70px';
                 cursor.style.background = 'rgba(212, 175, 55, 0.3)';
             });
             el.addEventListener('mouseleave', () => {
@@ -1654,74 +2365,200 @@
             });
         });
 
-        // Scroll Reveal Logic (Intersection Observer for Staggered Load)
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.15
-        };
+        // 4. Interactive 3D Book Toggle & Mobile Menu
+        function toggleBookState() {
+            const book = document.getElementById('interactive-book');
+            book.classList.toggle('open-state');
+        }
 
-        const observer = new IntersectionObserver((entries, observer) => {
+        function toggleMobileMenu() {
+            const navMenu = document.getElementById('nav-menu');
+            navMenu.classList.toggle('active');
+        }
+
+        // Menyu link bosilganda mobil menyuni yopish
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('nav-menu').classList.remove('active');
+            });
+        });
+
+        // 5. Scroll Reveal Logic (Intersection Observer)
+        const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('active');
                 }
             });
-        }, observerOptions);
+        }, { threshold: 0.12 });
 
-        const reveals = document.querySelectorAll('.reveal');
-        reveals.forEach(el => observer.observe(el));
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        // Number Counter Animation (Load / Counting Up)
-        let counted = false;
+        // 6. Number Counter Animation (Each counter triggers when visible)
+        const counterObserver = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counter = entry.target;
+                    const target = parseFloat(counter.getAttribute('data-target'));
+                    const decimal = counter.getAttribute('data-decimal') ? parseInt(counter.getAttribute('data-decimal')) : 0;
+                    const noComma = counter.getAttribute('data-nocomma') === 'true';
+                    const duration = 2000;
+                    let startTime = null;
 
-        function startCounters() {
-            const counters = document.querySelectorAll('.counter');
-            counters.forEach(counter => {
-                const target = parseFloat(counter.getAttribute('data-target'));
-                const decimal = counter.getAttribute('data-decimal') ? parseInt(counter.getAttribute('data-decimal')) : 0;
-                let duration = 2000;
-                let startTime = null;
+                    function updateCount(currentTime) {
+                        if (!startTime) startTime = currentTime;
+                        const progress = currentTime - startTime;
+                        const percentage = Math.min(progress / duration, 1);
+                        const easePercentage = percentage === 1 ? 1 : 1 - Math.pow(2, -10 * percentage);
+                        const currentVal = target * easePercentage;
 
-                function updateCount(currentTime) {
-                    if (!startTime) startTime = currentTime;
-                    let progress = currentTime - startTime;
-                    let percentage = Math.min(progress / duration, 1);
-                    
-                    let easePercentage = percentage === 1 ? 1 : 1 - Math.pow(2, -10 * percentage);
-                    let currentVal = target * easePercentage;
+                        if (decimal > 0) {
+                            counter.innerText = currentVal.toFixed(decimal);
+                        } else {
+                            counter.innerText = noComma ? Math.floor(currentVal) : Math.floor(currentVal).toLocaleString();
+                        }
 
-                    if (decimal > 0) {
-                        counter.innerText = currentVal.toFixed(decimal);
-                    } else {
-                        counter.innerText = Math.floor(currentVal).toLocaleString();
+                        if (percentage < 1) {
+                            requestAnimationFrame(updateCount);
+                        } else {
+                            counter.innerText = decimal > 0 ? target.toFixed(decimal) : (noComma ? target : target.toLocaleString());
+                        }
                     }
-
-                    if (percentage < 1) {
-                        requestAnimationFrame(updateCount);
-                    } else {
-                        counter.innerText = decimal > 0 ? target.toFixed(decimal) : target.toLocaleString();
-                    }
+                    requestAnimationFrame(updateCount);
+                    obs.unobserve(counter);
                 }
+            });
+        }, { threshold: 0.3 });
 
-                requestAnimationFrame(updateCount);
+        document.querySelectorAll('.counter').forEach(c => counterObserver.observe(c));
+
+        // 7. Achievements Filter
+        function filterAchievements(category, btnEl) {
+            document.querySelectorAll('#ach-filter-menu a').forEach(a => a.classList.remove('active'));
+            btnEl.classList.add('active');
+
+            const rows = document.querySelectorAll('#achievements-list .achievement-row');
+            rows.forEach(row => {
+                const rowCat = row.getAttribute('data-category');
+                if (category === 'all' || rowCat === category) {
+                    row.classList.remove('hidden-item');
+                } else {
+                    row.classList.add('hidden-item');
+                }
             });
         }
 
-        const statsSection = document.querySelector('.stats-container');
-        window.addEventListener('scroll', () => {
-            if (statsSection) {
-                const rect = statsSection.getBoundingClientRect();
-                if (rect.top < window.innerHeight && !counted) {
-                    startCounters();
-                    counted = true;
+        // 8. Interactive Student Profiles Data & Switcher
+        const studentsData = [
+            {
+                name: "Nurmamatova Nigina",
+                classUz: "11-sinf",
+                classEn: "11th grade",
+                bioUz: "2025-yilda PIF (Prezident ta'lim muassasalari agentligi) a'zoligiga qabul qilingan, ijtimoiy-siyosiy va ilmiy jarayonlarda faol iqtidorli o'quvchimiz.",
+                bioEn: "An active and talented student who became a member of PIF in 2025, actively participating in educational and scientific processes.",
+                extraUz: "PIF a'zosi · 2025-yil",
+                extraEn: "PIF Member · 2025"
+            },
+            {
+                name: "Toxirov Ozod",
+                classUz: "11-sinf",
+                classEn: "11th grade",
+                bioUz: "2025-yilda Nemis tili fanidan o'tkazilgan olimpiadada faxrli 2-o'rinni qo'lga kiritib, 1.5 million so'm pul mukofoti bilan taqdirlangan.",
+                bioEn: "Won a prestigious 2nd place in the German language Olympiad in 2025 and was awarded a cash prize of 1.5 million UZS.",
+                extraUz: "Nemis tili: 2-o'rin · 1.5 mln so'm pul mukofoti",
+                extraEn: "German Language: 2nd place · 1.5M UZS prize"
+            },
+            {
+                name: "Ashirov Akbar",
+                classUz: "11-sinf",
+                classEn: "11th grade",
+                bioUz: "Sportning Taekwon-Do GTF turi bo'yicha Alain (BAA) shahrida o'tkazilgan Jahon chempionati (2025) g'olibi va oltin medal sohibi.",
+                bioEn: "Winner and gold medalist of the World Taekwon-Do GTF Championships held in Alain, UAE in 2025.",
+                extraUz: "Jahon Chempioni · Taekwon-Do GTF 1-o'rin",
+                extraEn: "World Champion · Taekwon-Do GTF 1st place"
+            },
+            {
+                name: "Avazova Sevinch",
+                classUz: "10-sinf",
+                classEn: "10th grade",
+                bioUz: "2025–2026 o'quv yilida ingliz tili fanidan olimpiadada sovrinli 2-o'rinni egallab, maktab sharafini munosib himoya qilgan iqtidorli o'quvchi.",
+                bioEn: "A talented student who won 2nd place in the English Olympiad in the 2025–2026 academic year, worthily defending the honor of the school.",
+                extraUz: "Ingliz tili: 47.4 ball, 2-o'rin · O'qituvchi: Rahmonova Zebiniso",
+                extraEn: "English: 47.4 points, 2nd place · Teacher: Rahmonova Zebiniso"
+            }
+        ];
+
+        let activeStudentIndex = 0;
+
+        function selectStudent(index, itemEl) {
+            activeStudentIndex = index;
+            document.querySelectorAll('.students-list .list-item').forEach(el => el.classList.remove('active-student'));
+            if (itemEl) itemEl.classList.add('active-student');
+
+            const card = document.getElementById('student-featured-card');
+            card.style.opacity = '0.4';
+            card.style.transform = 'translateY(12px)';
+
+            setTimeout(() => {
+                renderActiveStudent();
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, 250);
+        }
+
+        function renderActiveStudent() {
+            const st = studentsData[activeStudentIndex];
+            document.getElementById('st-name').innerText = st.name;
+            document.getElementById('st-class').innerText = currentLang === 'uz' ? st.classUz : st.classEn;
+            document.getElementById('st-bio').innerText = currentLang === 'uz' ? st.bioUz : st.bioEn;
+            document.getElementById('st-extra').innerText = currentLang === 'uz' ? st.extraUz : st.extraEn;
+        }
+
+        // 9. Leadership & Teachers Tabs Switcher
+        function switchTeamTab(panelName, tabEl) {
+            document.querySelectorAll('.tabs-header .tab-item').forEach(t => t.classList.remove('active'));
+            tabEl.classList.add('active');
+
+            document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active-panel'));
+            document.getElementById(`panel-${panelName}`).classList.add('active-panel');
+        }
+
+        // 10. Gallery Filter & Lightbox Modal
+        function filterGallery(cat, btnEl) {
+            document.querySelectorAll('#gallery-filter-menu a').forEach(a => a.classList.remove('active'));
+            btnEl.classList.add('active');
+
+            document.querySelectorAll('#gallery-grid .gallery-item').forEach(item => {
+                const itemCat = item.getAttribute('data-gcat');
+                if (cat === 'all' || itemCat === cat) {
+                    item.classList.remove('hidden-item');
+                } else {
+                    item.classList.add('hidden-item');
                 }
+            });
+        }
+
+        function openLightbox(tag, title, desc) {
+            document.getElementById('lightbox-tag').innerText = tag;
+            document.getElementById('lightbox-title').innerText = title;
+            document.getElementById('lightbox-visual').innerText = title;
+            document.getElementById('lightbox-desc').innerText = desc;
+            document.getElementById('lightbox-modal').classList.add('open');
+        }
+
+        function closeLightbox(e) {
+            if (e.target.id === 'lightbox-modal' || e.target.classList.contains('lightbox-close')) {
+                document.getElementById('lightbox-modal').classList.remove('open');
+            }
+        }
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.getElementById('lightbox-modal').classList.remove('open');
             }
         });
 
-        // Language Switcher Logic (UZ / EN)
-        let currentLang = 'uz';
-
+        // 11. Language Switcher Logic (UZ / EN)
         function toggleLanguage() {
             currentLang = currentLang === 'uz' ? 'en' : 'uz';
             const btn = document.getElementById('lang-btn');
@@ -1739,6 +2576,8 @@
                     el.innerHTML = text;
                 }
             });
+
+            renderActiveStudent();
         }
     </script>
 </body>
