@@ -2,8 +2,8 @@
 <html lang="uz">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="page-title">Nishon tumani 20-sonli umumiy o‘rta ta’lim maktabi - Rasmiy veb-sayt</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title id="page-title" data-uz="Nishon tumani 20-sonli umumiy o‘rta ta’lim maktabi - Rasmiy veb-sayt" data-en="Nishan district School N20 - Official Website">Nishon tumani 20-sonli umumiy o‘rta ta’lim maktabi - Rasmiy veb-sayt</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -30,7 +30,9 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            cursor: none;
+        }
+        @media (hover: hover) and (pointer: fine) {
+            * { cursor: none; }
         }
         html { scroll-behavior: smooth; }
         body {
@@ -38,6 +40,7 @@
             background-color: var(--bg-dark);
             color: var(--text-light);
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
         /* PRELOADER */
@@ -50,6 +53,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            padding: 20px;
             transition: opacity 0.8s ease, visibility 0.8s ease;
         }
         .preloader.hidden {
@@ -70,10 +74,10 @@
             100% { transform: scale(1.04); box-shadow: 0 0 35px rgba(212, 175, 55, 0.4); }
         }
         .preloader-text {
-            font-size: 13px; letter-spacing: 4px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px;
+            font-size: 13px; letter-spacing: 4px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px; text-align: center;
         }
         .preloader-bar {
-            width: 220px; height: 3px; background: rgba(255, 255, 255, 0.1); overflow: hidden; position: relative;
+            width: 220px; max-width: 80vw; height: 3px; background: rgba(255, 255, 255, 0.1); overflow: hidden; position: relative;
         }
         .preloader-bar::after {
             content: ''; position: absolute; top: 0; left: 0; height: 100%; width: 100%; background: var(--gold);
@@ -108,6 +112,9 @@
             position: fixed; top: 0; left: 0; width: 8px; height: 8px; background: var(--gold);
             border-radius: 50%; pointer-events: none; transform: translate(-50%, -50%); z-index: 25001; transition: transform 0.15s ease-out;
         }
+        @media (hover: none), (pointer: coarse) {
+            .cursor, .cursor-dot { display: none !important; }
+        }
 
         /* RIPPLE EFFECT FOR BUTTONS */
         .btn-ripple { position: relative; overflow: hidden; }
@@ -119,13 +126,13 @@
 
         /* SCROLL REVEAL ANIMATION */
         .reveal {
-            opacity: 0; transform: translateY(70px);
-            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            opacity: 0; transform: translateY(60px);
+            transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .reveal.active { opacity: 1; transform: translateY(0); }
-        .text-reveal { display: inline-block; overflow: hidden; position: relative; }
-        .text-reveal span { display: inline-block; transform: translateY(100%); transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
-        .reveal.active .text-reveal span { transform: translateY(0); }
+        .text-reveal { display: inline-block; overflow: hidden; position: relative; vertical-align: bottom; }
+        .text-reveal > span { display: inline-block; transform: translateY(105%); transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal.active .text-reveal > span { transform: translateY(0); }
 
         /* AMBIENT PARTICLES */
         .ambient-particle {
@@ -158,27 +165,27 @@
            HERO SECTION - STRICT 100VH 1 SCREEN FIX
            ========================================= */
         #home {
-            height: 100vh; width: 100%; display: flex; flex-direction: column; padding: 0; margin: 0; overflow: hidden; position: relative;
+            height: 100vh; height: 100dvh; width: 100%; display: flex; flex-direction: column; padding: 0; margin: 0; overflow: hidden; position: relative;
         }
 
         /* HERO HEADER & NAVIGATION */
         .hero-header {
             display: flex; justify-content: space-between; align-items: center; 
-            padding: 30px 80px; width: 100%; flex-shrink: 0; z-index: 10;
+            padding: 28px 80px; width: 100%; flex-shrink: 0; z-index: 100; position: relative;
         }
         .logo-box { display: flex; align-items: center; gap: 15px; transition: transform 0.4s ease; text-decoration: none; }
         .logo-box:hover { transform: scale(1.05); }
         .logo-icon {
             border: 1px solid rgba(212, 175, 55, 0.4); width: 48px; height: 48px; color: var(--gold);
-            font-family: 'Playfair Display', serif; font-size: 20px; display: flex; justify-content: center; align-items: center;
+            font-family: 'Playfair Display', serif; font-size: 20px; display: flex; justify-content: center; align-items: center; flex-shrink: 0;
         }
         .logo-text { font-size: 12px; letter-spacing: 2px; color: var(--text-muted); text-transform: uppercase; line-height: 1.4; display: flex; flex-direction: column; }
         .logo-text strong { color: var(--text-light); font-weight: 600; letter-spacing: 1.5px;}
         
-        .nav-menu { display: flex; gap: 35px; list-style: none; align-items: center; margin-right: 20px; }
+        .nav-menu { display: flex; gap: 32px; list-style: none; align-items: center; }
         .nav-menu a {
-            color: #d1d5db; text-decoration: none; font-size: 15px; letter-spacing: 1px; position: relative; padding-bottom: 4px;
-            transition: color 0.3s ease, transform 0.3s ease; display: inline-block;
+            color: #d1d5db; text-decoration: none; font-size: 15px; letter-spacing: 0.8px; position: relative; padding-bottom: 4px;
+            transition: color 0.3s ease, transform 0.3s ease; display: inline-block; white-space: nowrap;
         }
         .nav-menu a::after {
             content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background-color: var(--gold); transition: width 0.3s ease-in-out;
@@ -188,21 +195,21 @@
         
         .lang-switch {
             font-size: 13px; letter-spacing: 1.5px; color: var(--text-muted); background: transparent; border: 1px solid rgba(255, 255, 255, 0.15);
-            padding: 10px 24px; border-radius: 30px; transition: all 0.4s ease; display: flex; align-items: center; justify-content: center;
+            padding: 10px 22px; border-radius: 30px; transition: all 0.4s ease; display: flex; align-items: center; justify-content: center; white-space: nowrap;
         }
         .lang-switch:hover { border-color: var(--gold); color: var(--gold); transform: scale(1.08); box-shadow: 0 0 15px rgba(212, 175, 55, 0.3); }
         .lang-switch span { color: var(--text-light); font-weight: 600; }
-        .mobile-menu-btn { display: none; font-size: 28px; color: var(--gold); background: none; border: none; z-index: 100; }
+        .mobile-menu-btn { display: none; font-size: 28px; color: var(--gold); background: none; border: none; z-index: 101; padding: 4px 8px; }
 
         .hero-body {
-            flex: 1; display: grid; grid-template-columns: 1.3fr 1fr; align-items: center; padding: 0 80px; gap: 60px; position: relative; z-index: 1;
+            flex: 1; display: grid; grid-template-columns: 1.25fr 1fr; align-items: center; padding: 0 80px; gap: 50px; position: relative; z-index: 1; min-height: 0;
         }
-        .subtitle-line { display: flex; align-items: center; gap: 18px; font-size: 14px; letter-spacing: 4px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 30px; }
-        .subtitle-line::before { content: ''; width: 50px; height: 2px; background-color: var(--gold); }
-        .hero-left h1 { font-family: 'Playfair Display', serif; font-size: 76px; line-height: 1.15; font-weight: 400; margin-bottom: 30px; }
-        .hero-left h1 span { color: var(--gold); font-style: italic; }
-        .hero-desc { font-size: 20px; color: var(--text-muted); margin-bottom: 20px; line-height: 1.8; max-width: 650px; }
-        .region-text { font-size: 14px; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; margin-bottom: 50px; }
+        .subtitle-line { display: flex; align-items: center; gap: 18px; font-size: 14px; letter-spacing: 4px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 24px; }
+        .subtitle-line::before { content: ''; width: 50px; height: 2px; background-color: var(--gold); flex-shrink: 0; }
+        .hero-left h1 { font-family: 'Playfair Display', serif; font-size: clamp(40px, 5vw, 74px); line-height: 1.12; font-weight: 400; margin-bottom: 24px; }
+        .hero-left h1 span.gold-italic { color: var(--gold); font-style: italic; }
+        .hero-desc { font-size: clamp(16px, 1.4vw, 20px); color: var(--text-muted); margin-bottom: 16px; line-height: 1.75; max-width: 650px; }
+        .region-text { font-size: 13px; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; margin-bottom: 40px; }
         
         .cta-buttons { display: flex; gap: 30px; align-items: center; flex-wrap: wrap; }
         .btn-primary {
@@ -219,13 +226,13 @@
         .btn-secondary:hover::after { width: 100%; }
 
         .scroll-indicator {
-            padding: 0 80px 30px 80px; text-align: right; font-size: 12px; letter-spacing: 3px; color: var(--text-muted); flex-shrink: 0;
+            padding: 0 80px 24px 80px; text-align: right; font-size: 12px; letter-spacing: 3px; color: var(--text-muted); flex-shrink: 0;
         }
 
         /* 3D INTERACTIVE BOOK */
-        .book-container { perspective: 1300px; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; width: 100%; margin-top: 30px;}
+        .book-container { perspective: 1300px; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; width: 100%; margin-top: 20px;}
         .light-beam {
-            position: absolute; top: -140px; left: 50%; transform: translateX(-50%); width: 130px; height: 220px;
+            position: absolute; top: -130px; left: 50%; transform: translateX(-50%); width: 130px; height: 210px;
             background: linear-gradient(to top, rgba(255, 230, 130, 0.65) 0%, rgba(255, 240, 180, 0.25) 50%, rgba(255, 255, 255, 0) 100%);
             clip-path: polygon(25% 100%, 75% 100%, 100% 0%, 0% 0%); pointer-events: none; z-index: 2; filter: blur(6px); animation: beamPulse 3s ease-in-out infinite alternate; transition: all 0.5s ease;
         }
@@ -239,7 +246,7 @@
         @keyframes floatUp { 0% { transform: translateY(0) scale(0.8); opacity: 0; } 50% { opacity: 1; } 100% { transform: translateY(-130px) scale(1.3); opacity: 0; } }
 
         .book-visual {
-            width: 100%; max-width: 500px; height: 320px; background: linear-gradient(135deg, #fbf7ee 0%, #dfd5c0 100%); border-radius: 6px;
+            width: 100%; max-width: 480px; height: 300px; background: linear-gradient(135deg, #fbf7ee 0%, #dfd5c0 100%); border-radius: 6px;
             box-shadow: 0 30px 70px rgba(0,0,0,0.7), 0 0 45px rgba(212, 175, 55, 0.35); position: relative; transform: perspective(1000px) rotateY(-10deg) rotateX(5deg);
             display: flex; justify-content: center; align-items: center; border-left: 16px solid #c5b59b; transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); z-index: 1; overflow: hidden; transform-style: preserve-3d;
         }
@@ -257,7 +264,7 @@
         .book-page-text { display: flex; flex-direction: column; justify-content: center; }
         .book-page-text h5 { font-family: 'Playfair Display', serif; font-size: 18px; color: #8c6d1f; margin-bottom: 10px; font-style: italic; }
         .book-page-text p { font-size: 14px; line-height: 1.6; color: #3a3227; }
-        .book-hint { margin-top: 20px; font-size: 12px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); opacity: 0.8; }
+        .book-hint { margin-top: 18px; font-size: 12px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); opacity: 0.8; }
 
         /* ABOUT SECTION */
         .about-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 80px; align-items: start; }
@@ -267,12 +274,13 @@
         .link-arrow:hover { color: var(--gold-dark); gap: 18px; }
         .link-arrow:hover::after { width: 100%; }
 
-        .info-row { display: grid; grid-template-columns: 160px 1fr 30px; padding: 30px 0; border-bottom: 1px solid var(--border-light); align-items: center; transition: all 0.3s ease; position: relative; z-index: 1; }
+        .info-row { display: grid; grid-template-columns: 160px 1fr 30px; padding: 30px 0; border-bottom: 1px solid var(--border-light); align-items: center; transition: all 0.3s ease; position: relative; z-index: 1; gap: 15px; }
         .info-row:hover { background: rgba(184, 151, 53, 0.04); padding-left: 15px; padding-right: 15px; border-radius: 6px; }
         .info-row:first-child { border-top: 1px solid var(--border-light); }
         .info-label { font-size: 12px; letter-spacing: 2px; color: var(--text-muted-light); text-transform: uppercase; font-weight: 600; }
-        .info-value { font-size: 18px; color: var(--text-dark); line-height: 1.6; }
+        .info-value { font-size: 18px; color: var(--text-dark); line-height: 1.6; word-break: break-word; }
         .info-value span { display: block; font-size: 14px; color: var(--text-muted-light); margin-top: 6px; }
+        .info-value span.inline-span { display: inline; font-size: inherit; color: inherit; margin-top: 0; }
         .info-index { font-size: 14px; color: var(--gold-dark); font-family: 'Playfair Display', serif; text-align: right; }
 
         /* BUILDING SECTION (PARALLAX & TINT ONLY - NO BLUR) */
@@ -280,11 +288,14 @@
             background: linear-gradient(rgba(11, 15, 21, 0.65), rgba(11, 15, 21, 0.65)), url('./images/maktab_6_sharp.jpg') no-repeat center center;
             background-size: cover; background-attachment: fixed;
         }
-        .building-wrapper { display: flex; justify-content: space-between; align-items: center; width: 100%; flex-wrap: wrap; gap: 40px; }
+        @media (hover: none), (pointer: coarse) {
+            .building-section { background-attachment: scroll; }
+        }
+        .building-wrapper { display: flex; justify-content: space-between; align-items: center; width: 100%; flex-wrap: wrap; gap: 40px; margin: auto 0; }
         .building-text p { font-size: 18px; color: var(--text-muted); max-width: 520px; line-height: 1.8; }
         .inset-card {
             background: #fff; padding: 14px 14px 40px 14px; border-radius: 8px; box-shadow: 0 30px 60px rgba(0,0,0,0.6); 
-            width: 380px; max-width: 100%; margin-top: 50px; transition: transform 0.4s ease; transform-style: preserve-3d; 
+            width: 380px; max-width: 100%; margin-top: 60px; transition: transform 0.4s ease; transform-style: preserve-3d; 
         }
         .inset-card:hover { transform: translateY(-10px); }
         .inset-image-placeholder { width: 100%; height: 220px; background: none; border-radius: 4px; overflow: hidden; display: flex; justify-content: center; align-items: center; }
@@ -294,7 +305,7 @@
         .stat-box { padding: 55px 35px; border-right: 1px solid var(--border-light); display: flex; flex-direction: column; justify-content: center; transition: background 0.3s ease; }
         .stat-box:hover { background: rgba(184, 151, 53, 0.05); }
         .stat-box:last-child { border-right: none; }
-        .stat-number { font-family: 'Playfair Display', serif; font-size: 72px; font-weight: 400; color: var(--text-dark); margin-bottom: 15px; line-height: 1; }
+        .stat-number { font-family: 'Playfair Display', serif; font-size: clamp(48px, 5vw, 72px); font-weight: 400; color: var(--text-dark); margin-bottom: 15px; line-height: 1; }
         .stat-label { font-size: 13px; letter-spacing: 2px; color: var(--text-muted-light); text-transform: uppercase; font-weight: 600; }
 
         /* EDUCATION DIRECTIONS */
@@ -359,7 +370,7 @@
         .tab-panel.active-panel { display: block; }
         @keyframes fadeInPanel { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         
-        .leader-card { display: grid; grid-template-columns: 1fr auto; align-items: center; padding: 32px 0; border-bottom: 1px solid var(--border-light); transition: all 0.3s ease; }
+        .leader-card { display: grid; grid-template-columns: 1fr auto; align-items: center; padding: 32px 0; border-bottom: 1px solid var(--border-light); transition: all 0.3s ease; gap: 20px; }
         .leader-card:hover { padding-left: 15px; background: rgba(184, 151, 53, 0.03); border-radius: 6px; }
         .leader-name { font-family: 'Playfair Display', serif; font-size: 34px; font-weight: 400; line-height: 1.2; margin-bottom: 8px; color: var(--text-dark); }
         .leader-position { font-size: 15px; color: var(--text-muted-light); letter-spacing: 0.5px; }
@@ -414,22 +425,25 @@
         .gallery-card-dark:hover .inspect-badge { background: var(--gold); color: #111; transform: scale(1.15) rotate(15deg); }
 
         /* LIGHTBOX MODAL */
-        .lightbox-modal { position: fixed; inset: 0; background: rgba(7, 10, 15, 0.95); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); z-index: 29000; display: flex; justify-content: center; align-items: center; opacity: 0; visibility: hidden; transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); padding: 50px; }
+        .lightbox-modal { position: fixed; inset: 0; background: rgba(7, 10, 15, 0.95); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); z-index: 29000; display: flex; justify-content: center; align-items: center; opacity: 0; visibility: hidden; transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); padding: 30px; overflow-y: auto; }
         .lightbox-modal.open { opacity: 1; visibility: visible; }
-        .lightbox-box { background: #121822; border: 1px solid rgba(212, 175, 55, 0.4); border-radius: 10px; max-width: 800px; width: 100%; padding: 50px; position: relative; transform: scale(0.85) translateY(30px); transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 40px 100px rgba(0,0,0,0.8); }
+        .lightbox-box { background: #121822; border: 1px solid rgba(212, 175, 55, 0.4); border-radius: 10px; max-width: 800px; width: 100%; padding: 45px; position: relative; transform: scale(0.85) translateY(30px); transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 40px 100px rgba(0,0,0,0.8); margin: auto; }
         .lightbox-modal.open .lightbox-box { transform: scale(1) translateY(0); }
-        .lightbox-close { position: absolute; top: 25px; right: 30px; background: none; border: 1px solid var(--border-dark); color: var(--gold); width: 44px; height: 44px; border-radius: 50%; font-size: 22px; transition: all 0.3s ease; display: flex; justify-content: center; align-items: center; cursor: pointer; z-index: 10; }
+        .lightbox-close { position: absolute; top: 20px; right: 20px; background: rgba(11, 15, 21, 0.8); border: 1px solid var(--border-dark); color: var(--gold); width: 42px; height: 42px; border-radius: 50%; font-size: 22px; transition: all 0.3s ease; display: flex; justify-content: center; align-items: center; cursor: pointer; z-index: 10; }
         .lightbox-close:hover { background: var(--gold); color: #111; transform: rotate(90deg); }
-        .lightbox-visual { width: 100%; height: 340px; background: linear-gradient(135deg, #1e293b, #334155); border-radius: 6px; margin-bottom: 30px; display: flex; justify-content: center; align-items: center; color: var(--gold); font-family: 'Playfair Display', serif; font-size: 32px; border: 1px solid rgba(212, 175, 55, 0.2); transition: all 0.3s ease; }
-        .lightbox-visual.has-image { height: auto; background: transparent; border: none; display: block; }
-        .lightbox-img { width: 100%; max-height: 55vh; object-fit: cover; border-radius: 6px; box-shadow: 0 20px 50px rgba(0,0,0,0.6); border: 1px solid rgba(212, 175, 55, 0.4); }
+        .lightbox-visual { width: 100%; height: 320px; background: linear-gradient(135deg, #1e293b, #334155); border-radius: 6px; margin-bottom: 25px; display: flex; justify-content: center; align-items: center; color: var(--gold); font-family: 'Playfair Display', serif; font-size: 32px; border: 1px solid rgba(212, 175, 55, 0.2); transition: all 0.3s ease; text-align: center; padding: 20px; }
+        .lightbox-visual.has-image { height: auto; background: transparent; border: none; display: block; padding: 0; }
+        .lightbox-img { width: 100%; max-height: 55vh; object-fit: cover; border-radius: 6px; box-shadow: 0 20px 50px rgba(0,0,0,0.6); border: 1px solid rgba(212, 175, 55, 0.4); display: block; }
 
         /* CONTACT SECTION */
-        .map-container { width: 100%; background: #e5e3dc; border-top: 1px solid var(--border-light); display: flex; justify-content: center; align-items: center; overflow: hidden; position: relative; z-index: 1;}
+        .map-container {
+            margin-top: 80px; margin-left: -80px; margin-right: -80px; width: calc(100% + 160px); height: 450px;
+            background: #e5e3dc; border-top: 1px solid var(--border-light); display: flex; justify-content: center; align-items: center; overflow: hidden; position: relative; z-index: 1;
+        }
 
         /* FOOTER & CTA */
         .cta-section { background-color: var(--bg-cream); color: var(--text-dark); padding: 100px 80px; display: grid; grid-template-columns: 1.5fr 1fr; gap: 80px; align-items: center; position: relative; z-index: 1;}
-        .cta-left h2 { font-family: 'Playfair Display', serif; font-size: 68px; font-weight: 400; line-height: 1.15; text-transform: uppercase; display: inline-block;}
+        .cta-left h2 { font-family: 'Playfair Display', serif; font-size: 64px; font-weight: 400; line-height: 1.15; text-transform: uppercase; display: inline-block;}
         .cta-left h2 span { display: block; color: var(--gold-dark); font-style: italic; }
         .cta-right { border-left: 1px solid var(--border-light); padding-left: 50px; }
         .cta-right p { font-family: 'Playfair Display', serif; font-size: 26px; color: var(--text-dark); margin-bottom: 30px; line-height: 1.4; }
@@ -442,35 +456,114 @@
         .footer-links a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background-color: var(--gold); transition: width 0.3s ease-in-out; }
         .footer-links a:hover { color: var(--gold); transform: translateX(6px); }
         .footer-links a:hover::after { width: 100%; }
-        .massive-title { text-align: center; font-family: 'Playfair Display', serif; font-size: 52px; font-weight: 400; color: transparent; -webkit-text-stroke: 1px rgba(212, 175, 55, 0.4); text-transform: uppercase; margin: 70px 0; }
+        .massive-title { text-align: center; font-family: 'Playfair Display', serif; font-size: clamp(24px, 4vw, 52px); font-weight: 400; color: transparent; -webkit-text-stroke: 1px rgba(212, 175, 55, 0.4); text-transform: uppercase; margin: 70px 0; line-height: 1.2; }
         .footer-bottom { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-dark); padding-top: 40px; font-size: 14px; color: var(--text-muted); flex-wrap: wrap; gap: 20px; }
         .footer-bottom span { color: var(--text-light); }
 
-        /* RESPONSIVENESS */
-        @media (max-width: 1200px) {
-            .hero-header { padding: 25px 40px; } .page-section, #home .hero-body { padding: 0 40px; } 
-            .nav-menu { gap: 15px; } h1.main-title, .cta-left h2 { font-size: 48px; } .hero-left h1 { font-size: 52px; } .massive-title { font-size: 38px; }
+        /* ===================================================
+           MULTI-DEVICE RESPONSIVENESS (ALL SCREENS SUPPORTED)
+           =================================================== */
+        /* Compact height laptops (1366x768, 1440x800, etc.) */
+        @media (min-width: 1025px) and (max-height: 820px) {
+            .hero-header { padding: 20px 60px; }
+            .hero-body { padding: 0 60px; gap: 40px; }
+            .subtitle-line { margin-bottom: 14px; font-size: 12px; }
+            .hero-left h1 { font-size: 54px; margin-bottom: 16px; }
+            .hero-desc { font-size: 16px; margin-bottom: 12px; }
+            .region-text { margin-bottom: 24px; font-size: 12px; }
+            .book-visual { height: 250px; max-width: 410px; }
+            .scroll-indicator { padding: 0 60px 15px 60px; }
         }
+
+        /* Large Laptops / Small Desktops */
+        @media (max-width: 1280px) {
+            .hero-header { padding: 25px 40px; }
+            .hero-body { padding: 0 40px; gap: 40px; }
+            .scroll-indicator { padding: 0 40px 20px 40px; }
+            .page-section, .cta-section, .footer-section { padding-left: 40px; padding-right: 40px; }
+            .map-container { margin-left: -40px; margin-right: -40px; width: calc(100% + 80px); }
+            .nav-menu { gap: 20px; margin-right: 10px; }
+            .nav-menu a { font-size: 14px; }
+            h1.main-title, .cta-left h2 { font-size: 50px; }
+            .about-grid, .directions-grid { gap: 50px; }
+        }
+
+        /* Tablets & iPad Pro / Landscape & Portrait */
         @media (max-width: 1024px) {
-            .nav-menu { display: none; flex-direction: column; position: absolute; top: 80px; left: 0; width: 100%; background: var(--bg-dark); padding: 30px; border-bottom: 1px solid var(--border-light); box-shadow: 0 10px 20px rgba(0,0,0,0.5); z-index: 99; text-align: center; }
-            .nav-menu.active { display: flex; } .mobile-menu-btn { display: block; }
-            .hero-body { grid-template-columns: 1fr; text-align: center; gap: 40px; padding-top: 100px; } .subtitle-line { justify-content: center; } .cta-buttons { justify-content: center; }
+            #home { height: auto; min-height: 100vh; min-height: 100dvh; overflow: visible; padding-bottom: 30px; }
+            .nav-menu {
+                display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%;
+                background: rgba(11, 15, 21, 0.98); backdrop-filter: blur(15px); padding: 30px 20px;
+                border-bottom: 1px solid var(--border-dark); box-shadow: 0 20px 40px rgba(0,0,0,0.6); z-index: 99; text-align: center; gap: 20px;
+            }
+            .nav-menu.active { display: flex; }
+            .mobile-menu-btn { display: block; }
+            .hero-body { grid-template-columns: 1fr; text-align: center; gap: 50px; padding: 40px 40px 20px 40px; }
+            .subtitle-line { justify-content: center; }
+            .hero-desc { margin-left: auto; margin-right: auto; }
+            .cta-buttons { justify-content: center; }
             .about-grid, .directions-grid, .profiles-grid, .intl-grid, .intl-bottom-grid, .cta-section { grid-template-columns: 1fr; gap: 50px; }
-            .gallery-grid { grid-template-columns: 1fr 1fr; } .stats-container { grid-template-columns: 1fr 1fr; } .footer-grid { grid-template-columns: 1fr 1fr; }
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 25px; }
+            .stats-container { grid-template-columns: repeat(2, 1fr); }
+            .stat-box:nth-child(2) { border-right: none; }
+            .stat-box:nth-child(1), .stat-box:nth-child(2) { border-bottom: 1px solid var(--border-light); }
+            .footer-grid { grid-template-columns: repeat(2, 1fr); gap: 40px; }
             .cta-right { border-left: none; padding-left: 0; border-top: 1px solid var(--border-light); padding-top: 30px; }
-            #home { min-height: 100vh; height: auto; overflow: visible; padding-bottom: 40px;}
+            .inset-card { margin-top: 20px; }
+            .doc-card { transform: rotate(0deg); max-width: 450px; }
         }
+
+        /* Standard Smartphones & Phablets */
         @media (max-width: 768px) {
-            .page-section { padding: 80px 20px; } .hero-header { padding: 20px; } .hero-body { padding: 0 20px; padding-top: 80px;}
-            h1.main-title, .cta-left h2 { font-size: 38px; } .hero-left h1 { font-size: 42px; } .massive-title { font-size: 28px; }
-            .achievement-row { grid-template-columns: 1fr; gap: 15px; } .ach-year { font-size: 48px; } .gallery-grid { grid-template-columns: 1fr; } .footer-grid { grid-template-columns: 1fr; gap: 30px; }
-            .map-container { height: 300px; margin-left: -20px; margin-right: -20px; width: calc(100% + 40px); } .stats-container { grid-template-columns: 1fr; }
-            .stat-box { padding: 30px; text-align: center; border-right: none; border-bottom: 1px solid var(--border-light); } .stat-box:last-child { border-bottom: none; }
-            .book-visual { max-width: 100%; height: 240px; } .book-secret-content { padding: 15px; gap: 10px; }
+            .page-section, .cta-section, .footer-section { padding: 75px 20px; }
+            #contact { padding-bottom: 0; }
+            .hero-header { padding: 20px; }
+            .hero-body { padding: 30px 20px 20px 20px; gap: 40px; }
+            .scroll-indicator { padding: 10px 20px 0 20px; text-align: center; }
+            h1.main-title, .cta-left h2 { font-size: 36px; margin-bottom: 30px; }
+            .hero-left h1 { font-size: 40px; }
+            .achievement-row { grid-template-columns: 1fr; gap: 15px; padding: 35px 0; }
+            .ach-year { font-size: 48px; }
+            .ach-details h3 { font-size: 28px; }
+            .gallery-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; gap: 35px; margin-bottom: 50px; }
+            .map-container { height: 340px; margin-top: 50px; margin-left: -20px; margin-right: -20px; width: calc(100% + 40px); }
+            .stats-container { grid-template-columns: 1fr; }
+            .stat-box { padding: 35px 20px; text-align: center; border-right: none; border-bottom: 1px solid var(--border-light); }
+            .stat-box:last-child { border-bottom: none; }
+            .info-row { grid-template-columns: 1fr; gap: 8px; padding: 22px 0; }
+            .info-index { display: none; }
+            .featured-card { padding: 35px 25px; min-height: auto; }
+            #st-name { font-size: 34px !important; }
+            .leader-card { grid-template-columns: 1fr; gap: 8px; }
+            .leader-date { text-align: left; }
+            .leader-name { font-size: 26px; }
+            .intl-features-grid { grid-template-columns: 1fr; }
+            .intl-feature-box { border-right: none; padding: 25px 15px; }
+            .book-visual { max-width: 100%; height: 240px; }
+            .book-secret-content { padding: 18px 15px; gap: 14px; }
+            .book-page-text h5 { font-size: 15px; }
+            .book-page-text p { font-size: 12px; }
+            .back-to-top { bottom: 20px; right: 20px; width: 46px; height: 46px; font-size: 18px; }
+            .lightbox-modal { padding: 15px; }
+            .lightbox-box { padding: 30px 20px; }
         }
+
+        /* Small Smartphones (iPhone SE, Galaxy S Mini, Foldables) */
         @media (max-width: 480px) {
-            h1.main-title { font-size: 32px; } .hero-left h1 { font-size: 36px; } .cta-buttons { flex-direction: column; width: 100%; } .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
-            .filter-menu { gap: 12px; } .tabs-header { gap: 20px; flex-direction: column; } .light-beam { display: none; } .lightbox-box { padding: 30px; }
+            h1.main-title, .cta-left h2 { font-size: 30px; }
+            .hero-left h1 { font-size: 34px; }
+            .logo-icon { width: 40px; height: 40px; font-size: 17px; }
+            .logo-text { font-size: 10px; }
+            .lang-switch { padding: 8px 14px; font-size: 11px; }
+            .cta-buttons { flex-direction: column; width: 100%; gap: 16px; }
+            .btn-primary, .btn-secondary { width: 100%; justify-content: center; text-align: center; }
+            .filter-menu { gap: 15px; font-size: 12px; }
+            .tabs-header { gap: 18px; flex-direction: column; }
+            .light-beam { display: none; }
+            .list-item { padding: 20px; grid-template-columns: 40px 1fr; }
+            .news-title { font-size: 30px; }
+            .intl-grid p { font-size: 24px; }
         }
     </style>
 </head>
@@ -531,9 +624,9 @@
                 <li><a href="#gallery" class="magnetic" data-uz="Galereya" data-en="Gallery">Galereya</a></li>
                 <li><a href="#contact" class="magnetic" data-uz="Aloqa" data-en="Contact">Aloqa</a></li>
             </ul>
-            <div style="display: flex; align-items: center; gap: 20px;">
+            <div style="display: flex; align-items: center; gap: 15px;">
                 <button class="lang-switch magnetic btn-ripple" id="lang-btn" onclick="toggleLanguage()"><span>UZ</span> / EN</button>
-                <button class="mobile-menu-btn" id="mobile-menu-btn" onclick="toggleMobileMenu()">&#9776;</button>
+                <button class="mobile-menu-btn" id="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">&#9776;</button>
             </div>
         </header>
 
@@ -541,16 +634,16 @@
             <div class="hero-left reveal">
                 <div class="subtitle-line" data-uz="Umumiy o‘rta ta’lim maktabi" data-en="General Secondary School">Umumiy o‘rta ta’lim maktabi</div>
                 <h1 class="text-reveal">
-                    <span><span data-uz="Nishon tumani" data-en="Nishan district">Nishon tumani</span> <span data-uz="20-sonli" data-en="School N20">20-sonli</span> <span data-uz="maktabi." data-en="">maktabi.</span></span>
+                    <span><span data-uz="Nishon tumani" data-en="Nishan district">Nishon tumani</span> <span class="gold-italic" data-uz="20-sonli" data-en="School N20.">20-sonli</span> <span data-uz="maktabi." data-en="">maktabi.</span></span>
                 </h1>
-                <p class="hero-desc" data-uz="Rasmiy veb-sayt. 1989-yildan beri sifatli ta'lim maskani." data-en="Official website. Quality education center since 1989.">Rasmiy veb-sayt. 1989-yildan beri sifatli ta'lim maskani.</p>
+                <p class="hero-desc" data-uz="Rasmiy veb-sayt. 1989-yildan beri sifatli ta'lim maskani." data-en="Official website. A center of quality education since 1989.">Rasmiy veb-sayt. 1989-yildan beri sifatli ta'lim maskani.</p>
                 <div class="region-text" data-uz="QASHQADARYO VILOYATI · O'ZBEKISTON" data-en="QASHQADARYO REGION · UZBEKISTAN">QASHQADARYO VILOYATI · O'ZBEKISTON</div>
                 <div class="cta-buttons">
                     <a href="#about" class="btn-primary magnetic btn-ripple" data-uz="MAKTAB HAQIDA &rarr;" data-en="ABOUT SCHOOL &rarr;">MAKTAB HAQIDA &rarr;</a>
                     <a href="#achievements" class="btn-secondary magnetic" data-uz="YUTUQLAR &rarr;" data-en="ACHIEVEMENTS &rarr;">YUTUQLAR &rarr;</a>
                 </div>
             </div>
-            <div class="book-container reveal parallax" data-speed="0.1" style="transition-delay: 0.2s;">
+            <div class="book-container reveal parallax" data-speed="0.06" style="transition-delay: 0.2s;">
                 <div class="light-beam"></div>
                 <div class="light-particle p1"></div>
                 <div class="light-particle p2"></div>
@@ -607,17 +700,17 @@
                 <div>
                     <div class="info-row reveal" style="transition-delay: 0.3s;">
                         <div class="info-label" data-uz="MANZIL" data-en="ADDRESS">MANZIL</div>
-                        <div class="info-value" data-uz="Nuriston 1-MTT, 1-uy, Nishon tumani, Qashqadaryo" data-en="Nuriston 1-kindergarten, house 1, Nishan district, Qashqadaryo">Nuriston 1-MTT, 1-uy, Nishon tumani, Qashqadaryo</div>
+                        <div class="info-value" data-uz="Nuriston MFY, 1-MTT, 1-uy, Nishon tumani, Qashqadaryo, O‘zbekiston" data-en="House 1, 1-MTT, Nuriston, Nishan District, Qashqadaryo, Uzbekistan">Nuriston MFY, 1-MTT, 1-uy, Nishon tumani, Qashqadaryo, O‘zbekiston</div>
                         <div class="info-index">01</div>
                     </div>
                     <div class="info-row reveal" style="transition-delay: 0.4s;">
                         <div class="info-label" data-uz="TASHKIL TOPISHI" data-en="ESTABLISHED">TASHKIL TOPISHI</div>
-                        <div class="info-value"><span class="counter" data-target="1989" data-nocomma="true">0</span>-yil <span data-uz="Umumiy o'rta ta'lim maktabi" data-en="General secondary school">Umumiy o'rta ta'lim maktabi</span></div>
+                        <div class="info-value"><span class="counter inline-span" data-target="1989" data-nocomma="true">0</span><span class="inline-span" data-uz="-yil" data-en="">-yil</span> <span data-uz="Umumiy o'rta ta'lim maktabi" data-en="General secondary school">Umumiy o'rta ta'lim maktabi</span></div>
                         <div class="info-index">02</div>
                     </div>
                     <div class="info-row reveal" style="transition-delay: 0.5s;">
                         <div class="info-label" data-uz="RAHBARIYAT" data-en="MANAGEMENT">RAHBARIYAT</div>
-                        <div class="info-value"><span data-uz="Direktor: Buxarov Maxmud Qudratovich" data-en="Director: Buxarov Maxmud Qudratovich">Direktor: Buxarov Maxmud Qudratovich</span><span>Tel: +998 99 001 09 63</span></div>
+                        <div class="info-value"><span class="inline-span" data-uz="Direktor: Buxarov Maxmud Qudratovich" data-en="Director: Buxarov Maxmud Qudratovich">Direktor: Buxarov Maxmud Qudratovich</span><span>Tel: +998 99 001 09 63</span></div>
                         <div class="info-index">03</div>
                     </div>
                 </div>
@@ -626,12 +719,12 @@
         <div></div>
     </section>
 
-    <!-- 3. BUILDING SECTION (PARALLAX & TINT ONLY - NO BLUR) -->
-    <section class="page-section dark-theme building-section parallax" data-speed="-0.15">
+    <!-- 3. BUILDING SECTION (BACKGROUND IMAGE & LOWERED CARD - NO BLUR) -->
+    <section class="page-section dark-theme building-section">
         <div></div>
         <div class="building-wrapper">
             <div class="building-text reveal">
-                <h1 class="main-title text-reveal" style="margin-bottom: 15px;" data-uz="Maktab binosi" data-en="School Building"><span>Maktab binosi</span></h1>
+                <h1 class="main-title text-reveal" style="margin-bottom: 15px;"><span><span data-uz="Maktab binosi" data-en="School Building">Maktab binosi</span></span></h1>
                 <p data-uz="Nishon tumani 20-sonli umumiy o‘rta ta’lim maktabining ta'lim jarayoni va kundalik faoliyati uchun xizmat qiluvchi o'quv binolari va sinf xonalari." data-en="Educational buildings and classrooms serving the educational process and daily activities of Nishan district School N20.">Nishon tumani 20-sonli umumiy o‘rta ta’lim maktabining ta'lim jarayoni va kundalik faoliyati uchun xizmat qiluvchi o'quv binolari va sinf xonalari.</p>
             </div>
             <div class="inset-card reveal tilt-card" style="transition-delay: 0.2s;">
@@ -737,17 +830,17 @@
                     <div class="ach-details">
                         <span class="ach-tag" data-uz="TANLOV · ENG YAXSHI MAKTAB" data-en="CONTEST · BEST SCHOOL">TANLOV · ENG YAXSHI MAKTAB</span>
                         <h3 data-uz="“Eng yaxshi maktab” tanlovida 3 yil ketma-ket 1-o‘rin" data-en="1st place for 3 consecutive years in 'Best School' contest">“Eng yaxshi maktab” tanlovida 3 yil ketma-ket 1-o‘rin</h3>
-                        <p data-uz="Maktab “Eng yaxshi maktab” tanlovida ketma-ket uch yil davomida 1-o‘rinni qo‘lga kiritdi va 100 million so'mgacha pul mukofoti bilan taqdirlandi." data-en="The school won 1st place in the Best School contest for three consecutive years and was awarded a cash prize of up to 100 million sums.">Maktab “Eng yaxshi maktab” tanlovida ketma-ket uch yil davomida 1-o‘rinni qo‘lga kiritdi va 100 million so'mgacha pul mukofoti bilan taqdirlandi.</p>
+                        <p data-uz="Maktab “Eng yaxshi maktab” tanlovida ketma-ket uch yil davomida 1-o‘rinni qo‘lga kiritdi va 100 million so'mgacha pul mukofoti bilan taqdirlandi." data-en="The school won 1st place in the Best School contest for three consecutive years and was awarded a cash prize of up to 100 million UZS.">Maktab “Eng yaxshi maktab” tanlovida ketma-ket uch yil davomida 1-o‘rinni qo‘lga kiritdi va 100 million so'mgacha pul mukofoti bilan taqdirlandi.</p>
                     </div>
                 </div>
 
-                <!-- YANGILANGAN MA'LUMOT: Olimpiada Ingliz Tili -->
+                <!-- NIGINA BIRINCHI QATORDA -->
                 <div class="achievement-row reveal tilt-card" data-category="olimpiada" style="transition-delay: 0.25s;">
                     <div class="ach-year"><span class="counter" data-target="2025" data-nocomma="true">0</span></div>
                     <div class="ach-details">
                         <span class="ach-tag" data-uz="OLIMPIADA · INGLIZ TILI" data-en="OLYMPIAD · ENGLISH">OLIMPIADA · INGLIZ TILI</span>
                         <h3 data-uz="Ingliz tili fanidan olimpiada — 1 va 2-o‘rinlar" data-en="English Olympiad — 1st and 2nd places">Ingliz tili fanidan olimpiada — 1 va 2-o‘rinlar</h3>
-                        <p data-uz="Qo'yliyeva Ra'no 80% natija bilan 1-o'rin hamda Nurmamatova Nigina 75% natija bilan 2-o'rinni egalladi (O'qituvchi: Botirova Lutfiya)." data-en="Qo'yliyeva Ra'no won 1st place with 80% and Nurmamatova Nigina won 2nd place with 75% (Teacher: Botirova Lutfiya).">Qo'yliyeva Ra'no 80% natija bilan 1-o'rin hamda Nurmamatova Nigina 75% natija bilan 2-o'rinni egalladi (O'qituvchi: Botirova Lutfiya).</p>
+                        <p data-uz="Nurmamatova Nigina 75% natija bilan 2-o‘rinni hamda Qo‘yliyeva Ra’no 80% natija bilan 1-o‘rinni egalladi (O‘qituvchi: Botirova Lutfiya)." data-en="Nurmamatova Nigina won 2nd place with 75% and Qo'yliyeva Ra'no won 1st place with 80% (Teacher: Botirova Lutfiya).">Nurmamatova Nigina 75% natija bilan 2-o‘rinni hamda Qo‘yliyeva Ra’no 80% natija bilan 1-o‘rinni egalladi (O‘qituvchi: Botirova Lutfiya).</p>
                     </div>
                 </div>
 
@@ -773,7 +866,7 @@
         <div></div>
     </section>
 
-    <!-- 7. STUDENTS PROFILES -->
+    <!-- 7. STUDENTS PROFILES (NIGINA #1 IN BOTH FEATURED CARD AND LIST) -->
     <section class="page-section cream-theme" id="students">
         <div>
             <div class="section-header reveal"><span data-uz="05" data-en="05">05</span> · <span data-uz="IQTIDORLI O'QUVCHILAR" data-en="TALENTED STUDENTS">IQTIDORLI O'QUVCHILAR</span></div>
@@ -782,24 +875,24 @@
                 <div class="featured-card reveal tilt-card" id="student-featured-card" style="transition-delay: 0.2s;">
                     <div>
                         <div class="ach-tag" data-uz="TANLANGAN O'QUVCHI" data-en="FEATURED STUDENT">TANLANGAN O'QUVCHI</div>
-                        <h3 id="st-name" style="font-family: 'Playfair Display', serif; font-size: 48px; font-weight: 400; margin-bottom: 8px;">Qo'yliyeva Ra'no</h3>
-                        <div class="student-class" id="st-class">Ingliz tili fani bilimdoni</div>
+                        <h3 id="st-name" style="font-family: 'Playfair Display', serif; font-size: 48px; font-weight: 400; margin-bottom: 8px;">Nurmamatova Nigina</h3>
+                        <div class="student-class" id="st-class">11-sinf</div>
                     </div>
                     <div>
                         <div class="card-divider"></div>
-                        <p class="student-bio" id="st-bio">2025-o'quv yilida ingliz tili fanidan olimpiadada 80% natija bilan faxrli 1-o'rinni egallab, maktab sharafini munosib himoya qilgan iqtidorli o'quvchi.</p>
+                        <p class="student-bio" id="st-bio">2025-yilda “President’s Talented Children” milliy dasturi a’zoligiga qabul qilingan hamda ingliz tili fanidan olimpiadada 75% natija bilan faxrli 2-o‘rinni qo‘lga kiritgan iqtidorli o‘quvchimiz.</p>
                         <div class="bio-subtitle" data-uz="QO'SHIMCHA MA'LUMOT" data-en="ADDITIONAL INFO">QO'SHIMCHA MA'LUMOT</div>
-                        <div id="st-extra" style="font-size: 16px; color: var(--text-light);">Ingliz tili: 80% natija, 1-o'rin · O'qituvchi: Botirova Lutfiya</div>
+                        <div id="st-extra" style="font-size: 16px; color: var(--text-light);">President’s Talented Children National Program · Ingliz tili: 75% natija, 2-o‘rin (O‘qituvchi: Botirova Lutfiya)</div>
                     </div>
                 </div>
                 <div class="students-list">
                     <div class="list-item active-student reveal" style="transition-delay: 0.25s;" onclick="selectStudent(0, this)">
                         <div class="list-num">01</div>
-                        <div class="list-info"><h4>Qo'yliyeva Ra'no</h4><p><span data-uz="80% Natija" data-en="80% Result">80% Natija</span> · <span data-uz="Ingliz tili olimpiadasi 1-o'rin" data-en="English Olympiad 1st place">Ingliz tili olimpiadasi 1-o'rin</span></p></div>
+                        <div class="list-info"><h4>Nurmamatova Nigina</h4><p><span data-uz="11-sinf" data-en="11th grade">11-sinf</span> · <span data-uz="President’s Talented Children National Program" data-en="President’s Talented Children National Program">President’s Talented Children National Program</span></p></div>
                     </div>
                     <div class="list-item reveal" style="transition-delay: 0.3s;" onclick="selectStudent(1, this)">
                         <div class="list-num">02</div>
-                        <div class="list-info"><h4>Nurmamatova Nigina</h4><p><span data-uz="11-sinf" data-en="11th grade">11-sinf</span> · <span data-uz="President’s Talented Children National Program" data-en="President’s Talented Children National Program">President’s Talented Children National Program</span></p></div>
+                        <div class="list-info"><h4>Qo'yliyeva Ra'no</h4><p><span data-uz="80% Natija" data-en="80% Result">80% Natija</span> · <span data-uz="Ingliz tili olimpiadasi 1-o'rin" data-en="English Olympiad 1st place">Ingliz tili olimpiadasi 1-o'rin</span></p></div>
                     </div>
                     <div class="list-item reveal" style="transition-delay: 0.4s;" onclick="selectStudent(2, this)">
                         <div class="list-num">03</div>
@@ -866,14 +959,14 @@
                                 <div class="leader-name">Choriyeva Bibimo</div>
                                 <div class="leader-position"><span data-uz="Yuqori sinflar rahbari va yetakchi pedagog" data-en="Senior Class Advisor & Leading Educator">Yuqori sinflar rahbari va yetakchi pedagog</span></div>
                             </div>
-                            <div class="leader-date">10-sinf</div>
+                            <div class="leader-date" data-uz="10-sinf" data-en="10th grade">10-sinf</div>
                         </div>
                         <div class="leader-card">
                             <div>
                                 <div class="leader-name">Qalqonova Dilrabo</div>
                                 <div class="leader-position"><span data-uz="Aniq va tabiiy fanlar yo‘nalishi yetakchi o‘qituvchisi" data-en="Leading Teacher of Exact & Natural Sciences">Aniq va tabiiy fanlar yo‘nalishi yetakchi o‘qituvchisi</span></div>
                             </div>
-                            <div class="leader-date">9-sinf</div>
+                            <div class="leader-date" data-uz="9-sinf" data-en="9th grade">9-sinf</div>
                         </div>
                     </div>
                 </div>
@@ -886,10 +979,10 @@
     <section class="page-section dark-theme" id="international">
         <div>
             <div class="section-header reveal"><span data-uz="07" data-en="07">07</span> · <span data-uz="XALQARO YO'NALISH" data-en="INTERNATIONAL DIRECTION">XALQARO YO'NALISH</span></div>
-            <h1 class="main-title text-reveal reveal" style="font-size: 72px; text-transform: uppercase; transition-delay: 0.1s;"><span><span data-uz="Xalqaro" data-en="International">Xalqaro</span><br><span style="display: block;" data-uz="yo'nalish" data-en="direction">yo'nalish</span></span></h1>
+            <h1 class="main-title text-reveal reveal" style="font-size: clamp(38px, 6vw, 72px); text-transform: uppercase; transition-delay: 0.1s;"><span><span data-uz="Xalqaro" data-en="International">Xalqaro</span><br><span style="display: block;" data-uz="yo'nalish" data-en="direction">yo'nalish</span></span></h1>
             <div class="intl-grid reveal" style="transition-delay: 0.2s;">
                 <p data-uz="Xalqaro yo'nalish bo'yicha berilgan ma'lumotlarda Germaniya va Xitoydagi OTMlar qayd etilgan." data-en="Universities in Germany and China are noted in the international direction information.">Xalqaro yo'nalish bo'yicha berilgan ma'lumotlarda Germaniya va Xitoydagi OTMlar qayd etilgan.</p>
-                <div class="intl-sub" data-uz="2025–2026 bitiruvchilari ma'lumotida Germaniya va Xitoydagi xorijiy oliy ta'lim muassasalari ham qayd etilgan. Shuningdek, o'quvchilarimizning xalqaro darajadagi IELTS va SAT imtihonlaridagi natijalari ham e'tiborga molik." data-en="Foreign higher education institutions in Germany and China are also noted in the data of 2025-2026 graduates. Also, our students' results in international IELTS and SAT exams are noteworthy.">
+                <div class="intl-sub" data-uz="2025–2026 bitiruvchilari ma'lumotida Germaniya va Xitoydagi xorijiy oliy ta'lim muassasalari ham qayd etilgan. Shuningdek, o'quvchilarimizning xalqaro darajadagi IELTS va SAT imtihonlaridagi natijalari ham e'tiborga molik." data-en="Foreign higher education institutions in Germany and China are also noted in the data of 2025–2026 graduates. Also, our students' results in international IELTS and SAT exams are noteworthy.">
                     2025–2026 bitiruvchilari ma'lumotida Germaniya va Xitoydagi xorijiy oliy ta'lim muassasalari ham qayd etilgan. Shuningdek, o'quvchilarimizning xalqaro darajadagi IELTS va SAT imtihonlaridagi natijalari ham e'tiborga molik.
                 </div>
             </div>
@@ -912,22 +1005,22 @@
                     <path class="map-arc" d="M580 145 Q 675 100 755 150" stroke="#d4af37" stroke-width="1.5" fill="none" />
 
                     <circle cx="200" cy="135" r="5" stroke="#d4af37" stroke-width="1.5" fill="#0b0f15" />
-                    <text x="200" y="154" fill="#8a93a0" font-size="9" text-anchor="middle" letter-spacing="1">AQSH</text>
+                    <text x="200" y="154" fill="#8a93a0" font-size="9" text-anchor="middle" letter-spacing="1" data-uz="AQSH" data-en="USA">AQSH</text>
 
                     <circle cx="430" cy="105" r="5" stroke="#d4af37" stroke-width="1.5" fill="#0b0f15" />
-                    <text x="415" y="92" fill="#8a93a0" font-size="9" text-anchor="end" letter-spacing="1">BUYUK BRITANIYA</text>
+                    <text x="415" y="92" fill="#8a93a0" font-size="9" text-anchor="end" letter-spacing="1" data-uz="BUYUK BRITANIYA" data-en="UK">BUYUK BRITANIYA</text>
 
                     <circle cx="465" cy="125" r="5" stroke="#d4af37" stroke-width="1.5" fill="#0b0f15" />
-                    <text x="465" y="143" fill="#d4af37" font-size="9" text-anchor="middle" letter-spacing="1">GERMANIYA</text>
+                    <text x="465" y="143" fill="#d4af37" font-size="9" text-anchor="middle" letter-spacing="1" data-uz="GERMANIYA" data-en="GERMANY">GERMANIYA</text>
 
                     <circle cx="515" cy="150" r="5" stroke="#d4af37" stroke-width="1.5" fill="#0b0f15" />
-                    <text x="515" y="168" fill="#8a93a0" font-size="9" text-anchor="middle" letter-spacing="1">TURKIYA</text>
+                    <text x="515" y="168" fill="#8a93a0" font-size="9" text-anchor="middle" letter-spacing="1" data-uz="TURKIYA" data-en="TURKEY">TURKIYA</text>
 
                     <circle cx="695" cy="148" r="5" stroke="#d4af37" stroke-width="1.5" fill="#0b0f15" />
-                    <text x="695" y="166" fill="#d4af37" font-size="9" text-anchor="middle" letter-spacing="1">XITOY</text>
+                    <text x="695" y="166" fill="#d4af37" font-size="9" text-anchor="middle" letter-spacing="1" data-uz="XITOY" data-en="CHINA">XITOY</text>
 
                     <circle cx="755" cy="150" r="5" stroke="#d4af37" stroke-width="1.5" fill="#0b0f15" />
-                    <text x="755" y="168" fill="#8a93a0" font-size="9" text-anchor="middle" letter-spacing="1">JANUBIY KOREYA</text>
+                    <text x="755" y="168" fill="#8a93a0" font-size="9" text-anchor="middle" letter-spacing="1" data-uz="JANUBIY KOREYA" data-en="SOUTH KOREA">JANUBIY KOREYA</text>
 
                     <circle class="hub-pulse" cx="580" cy="145" r="10" stroke="#d4af37" stroke-width="1.5" fill="none" />
                     <circle cx="580" cy="145" r="6" fill="#d4af37" />
@@ -970,7 +1063,7 @@
                 </div>
 
                 <div>
-                    <div class="doc-card tilt-card" onclick="openLightbox('MAKTAB PROFILI · 2026', 'Nishon tumani 20-maktab pasporti', 'Tashkil topgan: 1989-yil. O‘quvchilar: 2,045 nafar. Pedagoglar: 180 nafar. OTMga kirish: 49.4%. Milliy sertifikatlar: 250 ta.')">
+                    <div class="doc-card tilt-card" onclick="openBilingualLightbox(null, 'MAKTAB PROFILI · 2026', 'SCHOOL PROFILE · 2026', 'Nishon tumani 20-maktab pasporti', 'Nishan District School N20 Profile', 'Tashkil topgan: 1989-yil. O‘quvchilar: 2,045 nafar. Pedagoglar: 180 nafar. OTMga kirish: 49.4%. Milliy sertifikatlar: 250 ta.', 'Established: 1989. Students: 2,045. Teachers: 180. University admission rate: 49.4%. National certificates: 250.')">
                         <div class="doc-header">
                             <span data-uz="MAKTAB PROFILI" data-en="SCHOOL PROFILE">MAKTAB PROFILI</span>
                             <span>&#128214;</span>
@@ -996,7 +1089,7 @@
                 <div class="news-meta"><span data-uz="Yangilik" data-en="News">Yangilik</span> · 2026-10-08</div>
                 <div class="news-title" data-uz="Maktabning rasmiy veb-sayti ishga tushdi" data-en="Official website of the school launched">Maktabning rasmiy veb-sayti ishga tushdi</div>
                 <p class="news-desc" data-uz="Nishon tumani 20-sonli umumiy o‘rta ta’lim maktabining rasmiy veb-sayti ishga tushdi." data-en="Official website of Nishan district School N20 has been launched.">Nishon tumani 20-sonli umumiy o‘rta ta’lim maktabining rasmiy veb-sayti ishga tushdi.</p>
-                <a href="javascript:void(0)" onclick="openLightbox('YANGILIK · 2026-10-08', 'Maktabning rasmiy veb-sayti ishga tushdi', 'Qashqadaryo viloyati Nishon tumani 20-sonli umumiy o‘rta ta’lim maktabining zamonaviy raqamli platformasi o‘quvchilar, ota-onalar va xalqaro hamkorlar uchun o‘z faoliyatini boshladi.')" class="link-arrow magnetic btn-ripple" data-uz="Batafsil &rarr;" data-en="Read more &rarr;">Batafsil &rarr;</a>
+                <a href="javascript:void(0)" onclick="openBilingualLightbox(null, 'YANGILIK · 2026-10-08', 'NEWS · 2026-10-08', 'Maktabning rasmiy veb-sayti ishga tushdi', 'Official website of the school launched', 'Qashqadaryo viloyati Nishon tumani 20-sonli umumiy o‘rta ta’lim maktabining zamonaviy raqamli platformasi o‘quvchilar, ota-onalar va xalqaro hamkorlar uchun o‘z faoliyatini boshladi.', 'The modern digital platform of Nishan district School N20 in Qashqadaryo region has officially launched for students, parents, and international partners.')" class="link-arrow magnetic btn-ripple" data-uz="Batafsil &rarr;" data-en="Read more &rarr;">Batafsil &rarr;</a>
             </div>
         </div>
         <div></div>
@@ -1016,7 +1109,7 @@
                 </ul>
             </div>
             <div class="gallery-grid" id="gallery-grid">
-                <div class="gallery-card-dark gallery-item reveal tilt-card" data-gcat="maktab" style="transition-delay: 0.2s;" onclick="openLightbox('./images/maktab_3_sharp.jpg', 'MAKTAB', 'Maktab binosi', 'Nishon tumani 20-sonli umumiy o‘rta ta’lim maktabining asosiy o‘quv binosi va tashqi ko‘rinishi.')">
+                <div class="gallery-card-dark gallery-item reveal tilt-card" data-gcat="maktab" style="transition-delay: 0.2s;" onclick="openBilingualLightbox('./images/maktab_3_sharp.jpg', 'MAKTAB', 'SCHOOL', 'Maktab binosi', 'School building', 'Nishon tumani 20-sonli umumiy o‘rta ta’lim maktabining asosiy o‘quv binosi va tashqi ko‘rinishi.', 'Main educational building and exterior view of Nishan district School N20.')">
                     <img src="./images/maktab_3_sharp.jpg" class="gallery-img" alt="Maktab binosi">
                     <div class="gallery-content">
                         <div class="inspect-badge" data-uz="Ko'rish" data-en="View">Ko'rish</div>
@@ -1027,7 +1120,7 @@
                     </div>
                 </div>
 
-                <div class="gallery-card-dark gallery-item reveal tilt-card" data-gcat="dars" style="transition-delay: 0.3s;" onclick="openLightbox('./images/maktab_4_sharp.jpg', 'DARS JARAYONLARI', 'Maxsus fan sinfxonasi', 'Fizika, kimyo va biologiya fanlari uchun jihozlangan zamonaviy interaktiv o‘quv xonasi.')">
+                <div class="gallery-card-dark gallery-item reveal tilt-card" data-gcat="dars" style="transition-delay: 0.3s;" onclick="openBilingualLightbox('./images/maktab_4_sharp.jpg', 'DARS JARAYONLARI', 'CLASSES', 'Maxsus fan sinfxonasi', 'Classroom view 1', 'Fizika, kimyo va biologiya fanlari uchun jihozlangan zamonaviy interaktiv o‘quv xonasi.', 'Modern interactive classroom equipped for physics, chemistry, and biology subjects.')">
                     <img src="./images/maktab_4_sharp.jpg" class="gallery-img" alt="Sinfxona ko'rinishi 1">
                     <div class="gallery-content">
                         <div class="inspect-badge" data-uz="Ko'rish" data-en="View">Ko'rish</div>
@@ -1038,7 +1131,7 @@
                     </div>
                 </div>
 
-                <div class="gallery-card-dark gallery-item reveal tilt-card" data-gcat="tadbir" style="transition-delay: 0.4s;" onclick="openLightbox('./images/maktab_5_sharp.jpg', 'TADBIRLAR VA TO‘GARAKLAR', 'Amaliy mashg‘ulot xonasi', 'O‘quvchilarning amaliy va ijodiy ko‘nikmalarini rivojlantirishga mo‘ljallangan maxsus o‘quv xonasi.')">
+                <div class="gallery-card-dark gallery-item reveal tilt-card" data-gcat="tadbir" style="transition-delay: 0.4s;" onclick="openBilingualLightbox('./images/maktab_5_sharp.jpg', 'TADBIRLAR VA TO‘GARAKLAR', 'EVENTS & CLUBS', 'Amaliy mashg‘ulot xonasi', 'Classroom view 2', 'O‘quvchilarning amaliy va ijodiy ko‘nikmalarini rivojlantirishga mo‘ljallangan maxsus o‘quv xonasi.', 'Special training room designed to develop practical and creative skills of students.')">
                     <img src="./images/maktab_5_sharp.jpg" class="gallery-img" alt="Sinfxona ko'rinishi 2">
                     <div class="gallery-content">
                         <div class="inspect-badge" data-uz="Ko'rish" data-en="View">Ko'rish</div>
@@ -1065,7 +1158,7 @@
                 <div>
                     <div class="info-row reveal" style="transition-delay: 0.2s;">
                         <div class="info-label" data-uz="MANZIL" data-en="ADDRESS">MANZIL</div>
-                        <div class="info-value" style="font-size: 20px; font-family: 'Playfair Display', serif;" data-uz="Nuriston 1-MTT, 1-uy, Nishon tumani, Qashqadaryo" data-en="Nuriston 1-kindergarten, house 1, Nishan district, Qashqadaryo">Nuriston 1-MTT, 1-uy, Nishon tumani, Qashqadaryo</div>
+                        <div class="info-value" style="font-size: 20px; font-family: 'Playfair Display', serif;" data-uz="Nuriston MFY, 1-MTT, 1-uy, Nishon tumani, Qashqadaryo" data-en="House 1, 1-MTT, Nuriston, Nishan district, Qashqadaryo">Nuriston MFY, 1-MTT, 1-uy, Nishon tumani, Qashqadaryo</div>
                         <div class="info-index">01</div>
                     </div>
                     <div class="info-row reveal" style="transition-delay: 0.3s;">
@@ -1082,7 +1175,7 @@
             </div>
         </div>
         
-        <div class="map-container reveal" style="margin-top: 80px; margin-left: -80px; margin-right: -80px; width: calc(100% + 160px); height: 450px; transition-delay: 0.3s;" title="Xarita">
+        <div class="map-container reveal" style="transition-delay: 0.3s;" title="Xarita">
             <iframe src="https://maps.google.com/maps?q=Nishon%20tumani%20Nuriston&t=&z=14&ie=UTF8&iwloc=&output=embed" width="100%" height="100%" style="border:0; filter: grayscale(20%) contrast(1.2);" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
     </section>
@@ -1129,7 +1222,7 @@
             </div>
             <div class="footer-col reveal" style="transition-delay: 0.3s;">
                 <h4 data-uz="ALOQA" data-en="CONTACT">ALOQA</h4>
-                <div style="font-size: 14px; color: var(--text-muted); line-height: 1.7; margin-bottom: 10px;" data-uz="Nuriston 1-MTT, 1-uy, Nishon tumani, Qashqadaryo" data-en="Nuriston 1-kindergarten, house 1, Nishan district, Qashqadaryo">Nuriston 1-MTT, 1-uy, Nishon tumani, Qashqadaryo</div>
+                <div style="font-size: 14px; color: var(--text-muted); line-height: 1.7; margin-bottom: 10px;" data-uz="Nuriston MFY, 1-MTT, 1-uy, Nishon tumani, Qashqadaryo" data-en="House 1, 1-MTT, Nuriston, Nishan district, Qashqadaryo">Nuriston MFY, 1-MTT, 1-uy, Nishon tumani, Qashqadaryo</div>
                 <div style="font-size: 14px; color: var(--text-muted);">+998 99 001 09 63</div>
             </div>
         </div>
@@ -1140,23 +1233,22 @@
 
         <div class="footer-bottom reveal">
             <div data-uz="© 2026 Nishon tumani 20-sonli umumiy o‘rta ta’lim maktabi. Barcha huquqlar himoyalangan." data-en="© 2026 Nishan district School N20. All rights reserved.">© 2026 Nishon tumani 20-sonli umumiy o‘rta ta’lim maktabi. Barcha huquqlar himoyalangan.</div>
-            <div><span data-uz="Raqamli platforma · Sayt dizayni va ishlab chiqilish" data-en="Digital platform · Site design and development">Raqamli platforma · Sayt dizayni va ishlab chiqilish</span> <span>Sheraliyev Ma'murjon</span></div>
+            <div><span data-uz="Raqamli platforma · Sayt dizayni va ishlab chiqilish" data-en="Digital platform · Site design and development">Raqamli platforma · Sayt dizayni va ishlab chiqilish</span> <span>Murodbek Tuychiyev</span></div>
         </div>
     </footer>
 
     <script>
         let currentLang = 'uz';
+        const isTouchDevice = window.matchMedia('(hover: none), (pointer: coarse)').matches;
 
         window.addEventListener('load', () => {
             setTimeout(() => {
                 const preloader = document.getElementById('preloader');
                 if (preloader) preloader.classList.add('hidden');
-            }, 1200); 
+            }, 1000); 
         });
 
         function createParticles() {
-            const container = document.getElementById('particles-container');
-            if(!container) return;
             const darkSections = document.querySelectorAll('.dark-theme');
             darkSections.forEach(section => {
                 for (let i = 0; i < 10; i++) {
@@ -1191,88 +1283,91 @@
                 backToTopBtn.classList.remove('show');
             }
 
-            parallaxElements.forEach(el => {
-                const speed = parseFloat(el.getAttribute('data-speed'));
-                el.style.transform = `translateY(${scrollTop * speed}px)`;
-            });
+            if (!isTouchDevice) {
+                parallaxElements.forEach(el => {
+                    const speed = parseFloat(el.getAttribute('data-speed')) || 0;
+                    el.style.transform = `translateY(${scrollTop * speed}px)`;
+                });
+            }
         });
 
+        // Custom Cursor & Magnetic / Tilt Effects (Desktop Only)
         const cursor = document.getElementById('cursor');
         const cursorDot = document.getElementById('cursor-dot');
         let mouseX = 0, mouseY = 0;
         let cursorX = 0, cursorY = 0;
 
-        window.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-            cursorDot.style.left = `${mouseX}px`;
-            cursorDot.style.top = `${mouseY}px`;
-        });
+        if (!isTouchDevice) {
+            window.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                cursorDot.style.left = `${mouseX}px`;
+                cursorDot.style.top = `${mouseY}px`;
+            });
 
-        function animateCursor() {
-            cursorX += (mouseX - cursorX) * 0.15;
-            cursorY += (mouseY - cursorY) * 0.15;
-            cursor.style.left = `${cursorX}px`;
-            cursor.style.top = `${cursorY}px`;
-            requestAnimationFrame(animateCursor);
+            function animateCursor() {
+                cursorX += (mouseX - cursorX) * 0.15;
+                cursorY += (mouseY - cursorY) * 0.15;
+                cursor.style.left = `${cursorX}px`;
+                cursor.style.top = `${cursorY}px`;
+                requestAnimationFrame(animateCursor);
+            }
+            animateCursor();
+
+            const hoverItems = document.querySelectorAll('button, .list-item, .achievement-row, .book-visual, .info-row, .gallery-card-dark, .doc-card, .intl-feature-box');
+            hoverItems.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursor.style.width = '70px';
+                    cursor.style.height = '70px';
+                    cursor.style.background = 'rgba(212, 175, 55, 0.3)';
+                });
+                el.addEventListener('mouseleave', () => {
+                    cursor.style.width = '35px';
+                    cursor.style.height = '35px';
+                    cursor.style.background = 'rgba(212, 175, 55, 0.15)';
+                });
+            });
+
+            const magneticElements = document.querySelectorAll('.magnetic');
+            magneticElements.forEach(el => {
+                el.addEventListener('mousemove', (e) => {
+                    const rect = el.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    el.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+                });
+                el.addEventListener('mouseleave', () => {
+                    el.style.transform = `translate(0px, 0px)`;
+                    cursor.style.width = '35px';
+                    cursor.style.height = '35px';
+                    cursor.style.border = '1px solid rgba(212, 175, 55, 0.4)';
+                    cursor.style.background = 'rgba(212, 175, 55, 0.15)';
+                });
+                el.addEventListener('mouseenter', () => {
+                    cursor.style.width = '10px';
+                    cursor.style.height = '10px';
+                    cursor.style.border = 'none';
+                    cursor.style.background = 'rgba(212, 175, 55, 0.8)';
+                });
+            });
+
+            const tiltCards = document.querySelectorAll('.tilt-card');
+            tiltCards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top; 
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = ((y - centerY) / centerY) * -8; 
+                    const rotateY = ((x - centerX) / centerX) * 8;
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+                });
+            });
         }
-        animateCursor();
-
-        const hoverItems = document.querySelectorAll('button, .list-item, .achievement-row, .book-visual, .info-row, .gallery-card-dark, .doc-card, .intl-feature-box');
-        hoverItems.forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                cursor.style.width = '70px';
-                cursor.style.height = '70px';
-                cursor.style.background = 'rgba(212, 175, 55, 0.3)';
-            });
-            el.addEventListener('mouseleave', () => {
-                cursor.style.width = '35px';
-                cursor.style.height = '35px';
-                cursor.style.background = 'rgba(212, 175, 55, 0.15)';
-            });
-        });
-
-        const magneticElements = document.querySelectorAll('.magnetic');
-        magneticElements.forEach(el => {
-            el.addEventListener('mousemove', (e) => {
-                const rect = el.getBoundingClientRect();
-                const x = e.clientX - rect.left - rect.width / 2;
-                const y = e.clientY - rect.top - rect.height / 2;
-                el.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
-            });
-            el.addEventListener('mouseleave', () => {
-                el.style.transform = `translate(0px, 0px)`;
-            });
-            el.addEventListener('mouseenter', () => {
-                cursor.style.width = '10px';
-                cursor.style.height = '10px';
-                cursor.style.border = 'none';
-                cursor.style.background = 'rgba(212, 175, 55, 0.8)';
-            });
-            el.addEventListener('mouseleave', () => {
-                cursor.style.width = '35px';
-                cursor.style.height = '35px';
-                cursor.style.border = '1px solid rgba(212, 175, 55, 0.4)';
-                cursor.style.background = 'rgba(212, 175, 55, 0.15)';
-            });
-        });
-
-        const tiltCards = document.querySelectorAll('.tilt-card');
-        tiltCards.forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top; 
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                const rotateX = ((y - centerY) / centerY) * -10; 
-                const rotateY = ((x - centerX) / centerX) * 10;
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-            });
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
-            });
-        });
 
         document.querySelectorAll('.btn-ripple').forEach(button => {
             button.addEventListener('click', function (e) {
@@ -1321,7 +1416,7 @@
                     const target = parseFloat(counter.getAttribute('data-target'));
                     const decimal = counter.getAttribute('data-decimal') ? parseInt(counter.getAttribute('data-decimal')) : 0;
                     const noComma = counter.getAttribute('data-nocomma') === 'true';
-                    const duration = 2500; 
+                    const duration = 2200; 
                     let startTime = null;
 
                     function updateCount(currentTime) {
@@ -1364,41 +1459,42 @@
             });
         }
 
+        // NURMAMATOVA NIGINA 1-O'RINDA (INDEX 0)
         const studentsData = [
-            {
-                name: "Qo'yliyeva Ra'no",
-                classUz: "Ingliz tili fani bilimdoni",
-                classEn: "English language expert",
-                bioUz: "2025-o'quv yilida ingliz tili fanidan olimpiadada 80% natija bilan faxrli 1-o'rinni egallab, maktab sharafini munosib himoya qilgan iqtidorli o'quvchi.",
-                bioEn: "A talented student who won 1st place in the English Olympiad with an 80% score, worthily defending the honor of the school.",
-                extraUz: "Ingliz tili: 80% natija, 1-o'rin · O'qituvchi: Botirova Lutfiya",
-                extraEn: "English: 80% result, 1st place · Teacher: Botirova Lutfiya"
-            },
             {
                 name: "Nurmamatova Nigina",
                 classUz: "11-sinf",
                 classEn: "11th grade",
-                bioUz: "2025-yilda President’s Talented Children National Program a'zoligiga qabul qilingan, olimpiadada 75% lik natija ko'rsatgan iqtidorli o'quvchi.",
-                bioEn: "Talented student, joined the President’s Talented Children National Program in 2025, achieved 75% score in Olympiad.",
-                extraUz: "Ingliz tili: 75% natija, 2-o'rin · O'qituvchi: Botirova Lutfiya",
-                extraEn: "English: 75% result, 2nd place · Teacher: Botirova Lutfiya"
+                bioUz: "2025-yilda “President’s Talented Children” milliy dasturi a’zoligiga qabul qilingan hamda ingliz tili fanidan olimpiadada 75% natija bilan faxrli 2-o‘rinni qo‘lga kiritgan iqtidorli o‘quvchimiz.",
+                bioEn: "Talented student admitted to the “President’s Talented Children” National Program in 2025 and winner of 2nd place with a 75% score in the English Olympiad.",
+                extraUz: "President’s Talented Children National Program · Ingliz tili: 75% natija, 2-o‘rin (O‘qituvchi: Botirova Lutfiya)",
+                extraEn: "President’s Talented Children National Program · English: 75% result, 2nd place (Teacher: Botirova Lutfiya)"
+            },
+            {
+                name: "Qo'yliyeva Ra'no",
+                classUz: "Ingliz tili fani bilimdoni",
+                classEn: "English language expert",
+                bioUz: "2025-o‘quv yilida ingliz tili fanidan olimpiadada 80% natija bilan faxrli 1-o‘rinni egallab, maktab sharafini munosib himoya qilgan iqtidorli o‘quvchi.",
+                bioEn: "A talented student who won 1st place in the English Olympiad with an 80% score, worthily defending the honor of the school.",
+                extraUz: "Ingliz tili: 80% natija, 1-o‘rin · O‘qituvchi: Botirova Lutfiya",
+                extraEn: "English: 80% result, 1st place · Teacher: Botirova Lutfiya"
             },
             {
                 name: "Toxirov Ozod",
                 classUz: "11-sinf",
                 classEn: "11th grade",
-                bioUz: "2025-yilda Nemis tili fanidan o'tkazilgan olimpiadada faxrli 2-o'rinni qo'lga kiritib, 1.5 million so'm pul mukofoti bilan taqdirlangan.",
+                bioUz: "2025-yilda Nemis tili fanidan o‘tkazilgan olimpiadada faxrli 2-o‘rinni qo‘lga kiritib, 1.5 million so‘m pul mukofoti bilan taqdirlangan.",
                 bioEn: "Won a prestigious 2nd place in the German language Olympiad in 2025 and was awarded a cash prize of 1.5 million UZS.",
-                extraUz: "Nemis tili: 2-o'rin · 1.5 mln so'm pul mukofoti",
+                extraUz: "Nemis tili: 2-o‘rin · 1.5 mln so‘m pul mukofoti",
                 extraEn: "German Language: 2nd place · 1.5M UZS prize"
             },
             {
                 name: "Ashirov Akbar",
                 classUz: "11-sinf",
                 classEn: "11th grade",
-                bioUz: "Sportning Taekwon-Do GTF turi bo'yicha Alain (BAA) shahrida o'tkazilgan Jahon chempionati (2025) g'olibi va oltin medal sohibi.",
-                bioEn: "Winner and gold medalist of the World Taekwon-Do GTF Championships held in Alain, UAE in 2025.",
-                extraUz: "Jahon Chempioni · Taekwon-Do GTF 1-o'rin",
+                bioUz: "Sportning Taekwon-Do GTF turi bo‘yicha Alain (BAA) shahrida o‘tkazilgan Jahon chempionati (2025) g‘olibi va oltin medal sohibi.",
+                bioEn: "Winner and gold medalist of the World Taekwon-Do GTF Championships held in Al Ain, UAE in 2025.",
+                extraUz: "Jahon Chempioni · Taekwon-Do GTF 1-o‘rin",
                 extraEn: "World Champion · Taekwon-Do GTF 1st place"
             }
         ];
@@ -1418,7 +1514,7 @@
                 renderActiveStudent();
                 card.style.opacity = '1';
                 card.style.transform = 'translateY(0) perspective(1000px) rotateX(0deg)';
-            }, 350);
+            }, 300);
         }
 
         function renderActiveStudent() {
@@ -1449,13 +1545,10 @@
             });
         }
 
-        function openLightbox(arg1, arg2, arg3, arg4) {
-            let imgSrc, tag, title, desc;
-            if (arguments.length === 3) {
-                imgSrc = null; tag = arg1; title = arg2; desc = arg3;
-            } else {
-                imgSrc = arg1; tag = arg2; title = arg3; desc = arg4;
-            }
+        function openBilingualLightbox(imgSrc, tagUz, tagEn, titleUz, titleEn, descUz, descEn) {
+            const tag = currentLang === 'uz' ? tagUz : tagEn;
+            const title = currentLang === 'uz' ? titleUz : titleEn;
+            const desc = currentLang === 'uz' ? descUz : descEn;
 
             const visualBox = document.getElementById('lightbox-visual');
             const imgEl = document.getElementById('lightbox-img');
@@ -1487,6 +1580,7 @@
 
         function toggleLanguage() {
             currentLang = currentLang === 'uz' ? 'en' : 'uz';
+            document.documentElement.lang = currentLang;
             const btn = document.getElementById('lang-btn');
             
             if (currentLang === 'en') {
@@ -1498,7 +1592,9 @@
             const translatables = document.querySelectorAll('[data-uz]');
             translatables.forEach(el => {
                 const text = el.getAttribute(`data-${currentLang}`);
-                if (text) { el.innerHTML = text; }
+                if (text !== null) {
+                    el.innerHTML = text;
+                }
             });
 
             renderActiveStudent();
