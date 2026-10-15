@@ -22,7 +22,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            cursor: none; /* Kursor faqat desktopda ishlaydi */
+            cursor: none;
         }
         html {
             scroll-behavior: smooth;
@@ -71,7 +71,6 @@
             text-transform: uppercase;
             color: var(--text-muted);
             margin-bottom: 16px;
-            text-align: center;
         }
         .preloader-bar {
             width: 220px;
@@ -245,12 +244,12 @@
             color: var(--gold-dark);
         }
 
-        /* HERO HEADER & NAVIGATION FIXED */
+        /* HERO HEADER & NAVIGATION */
         .hero-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 30px 60px;
+            padding: 35px 80px;
             position: absolute;
             top: 0;
             left: 0;
@@ -260,29 +259,29 @@
         .logo-box {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 16px;
             transition: transform 0.3s ease;
             text-decoration: none;
         }
         .logo-box:hover {
-            transform: scale(1.02);
+            transform: scale(1.03);
         }
         .logo-icon {
             border: 1px solid rgba(212, 175, 55, 0.4);
             padding: 10px 14px;
             color: var(--gold);
             font-family: 'Playfair Display', serif;
-            font-size: 20px;
+            font-size: 18px;
             display: flex;
             justify-content: center;
             align-items: center;
         }
         .logo-text {
-            font-size: 11px;
+            font-size: 12px;
             letter-spacing: 1.5px;
             color: var(--text-muted);
             text-transform: uppercase;
-            line-height: 1.5;
+            line-height: 1.4;
             display: flex;
             flex-direction: column;
         }
@@ -292,15 +291,15 @@
         }
         .nav-menu {
             display: flex;
-            gap: 25px;
+            gap: 36px;
             list-style: none;
             align-items: center;
         }
         .nav-menu a {
             color: #d1d5db;
             text-decoration: none;
-            font-size: 14px;
-            letter-spacing: 0.5px;
+            font-size: 15px;
+            letter-spacing: 0.8px;
             position: relative;
             padding-bottom: 4px;
             transition: color 0.3s ease;
@@ -323,9 +322,8 @@
             width: 100%;
         }
         
-        /* Til o'zgartirish tugmasi (Rasmga moslangan) */
         .lang-switch {
-            font-size: 12px;
+            font-size: 14px;
             letter-spacing: 1.5px;
             color: var(--text-muted);
             background: transparent;
@@ -346,7 +344,6 @@
             font-weight: 600;
         }
 
-        /* GAMBURGER MENU TUGMASI (Mobil uchun) */
         .mobile-menu-btn {
             display: none;
             font-size: 28px;
@@ -716,7 +713,7 @@
             text-align: right;
         }
 
-        /* BUILDING SECTION */
+        /* BUILDING SECTION (IMAGE 1) */
         .building-section {
             background: linear-gradient(to top, rgba(11, 15, 21, 0.9) 0%, rgba(11, 15, 21, 0.4) 100%), #1a2332;
             background-size: cover;
@@ -751,15 +748,12 @@
         .inset-image-placeholder {
             width: 100%;
             height: 220px;
-            background: linear-gradient(135deg, #2c3e50, #bdc3c7);
+            background: none;
             border-radius: 4px;
+            overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: #fff;
-            font-size: 14px;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
         }
 
         /* STATS SECTION */
@@ -800,7 +794,7 @@
             font-weight: 600;
         }
 
-        /* EDUCATION DIRECTIONS */
+        /* EDUCATION DIRECTIONS (IMAGE 2) */
         .directions-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -940,7 +934,7 @@
             max-width: 800px;
         }
 
-        /* STUDENTS PROFILES (INTERACTIVE) */
+        /* STUDENTS PROFILES */
         .profiles-grid {
             display: grid;
             grid-template-columns: 1.3fr 1fr;
@@ -1028,7 +1022,7 @@
             color: var(--text-muted-light);
         }
 
-        /* LEADERSHIP & TEACHERS TABS */
+        /* LEADERSHIP TABS */
         .tabs-header {
             display: flex;
             gap: 50px;
@@ -1116,7 +1110,7 @@
             text-align: right;
         }
 
-        /* INTERNATIONAL DIRECTION + WORLD MAP + PROFILE 2026 */
+        /* INTERNATIONAL DIRECTION + WORLD MAP */
         .intl-grid {
             display: grid;
             grid-template-columns: 1.2fr 1fr;
@@ -1309,7 +1303,7 @@
             margin-bottom: 30px;
         }
 
-        /* GALLERY SECTION & LIGHTBOX */
+        /* GALLERY SECTION (IMAGES 3, 4, 5) */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -1323,7 +1317,6 @@
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid var(--border-dark);
             border-radius: 8px;
-            padding: 40px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -1331,6 +1324,31 @@
             transition: all 0.35s ease;
             position: relative;
             overflow: hidden;
+            padding: 0;
+        }
+        .gallery-img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+            opacity: 0.5;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+        }
+        .gallery-card-dark:hover .gallery-img {
+            transform: scale(1.05);
+            opacity: 0.7;
+        }
+        .gallery-content {
+            position: relative;
+            z-index: 1;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+            width: 100%;
         }
         .gallery-card-dark:hover {
             border-color: var(--gold);
@@ -1628,6 +1646,7 @@
             .stat-box:last-child { border-bottom: none; }
             
             .book-visual { max-width: 100%; height: 240px; }
+            .book-secret-content { padding: 15px; gap: 10px; }
         }
 
         @media (max-width: 480px) {
@@ -1637,6 +1656,7 @@
             .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
             .filter-menu { gap: 12px; }
             .tabs-header { gap: 20px; flex-direction: column; }
+            .light-beam { display: none; } /* Kichik ekranda nur ko'p joy egallamasligi uchun */
         }
     </style>
 </head>
@@ -1670,10 +1690,9 @@
         </div>
     </div>
 
-    <!-- 1. HERO SECTION & HEADER (Navigatsiya paneli ko'rinishi[cite: 13] asosida to'g'irlandi) -->
+    <!-- 1. HERO SECTION -->
     <section class="page-section dark-theme" id="home" style="min-height: 100vh;">
         <header class="hero-header reveal">
-            <!-- Logo Box tekislandi -->
             <a href="#home" class="logo-box">
                 <div class="logo-icon">20</div>
                 <div class="logo-text">
@@ -1681,7 +1700,6 @@
                     <strong data-uz="20-Maktab" data-en="School N20">20-Maktab</strong>
                 </div>
             </a>
-            <!-- Menyu -->
             <ul class="nav-menu" id="nav-menu">
                 <li><a href="#about" data-uz="Maktab" data-en="School">Maktab</a></li>
                 <li><a href="#education" data-uz="Ta'lim" data-en="Education">Ta'lim</a></li>
@@ -1693,7 +1711,6 @@
                 <li><a href="#gallery" data-uz="Galereya" data-en="Gallery">Galereya</a></li>
                 <li><a href="#contact" data-uz="Aloqa" data-en="Contact">Aloqa</a></li>
             </ul>
-            <!-- Language Switcher va Hamburger -->
             <div style="display: flex; align-items: center; gap: 20px;">
                 <button class="lang-switch" id="lang-btn" onclick="toggleLanguage()"><span>UZ</span> / EN</button>
                 <button class="mobile-menu-btn" id="mobile-menu-btn" onclick="toggleMobileMenu()">&#9776;</button>
@@ -1789,7 +1806,7 @@
         <div></div>
     </section>
 
-    <!-- 3. BUILDING SECTION -->
+    <!-- 3. BUILDING SECTION (IMAGE 1) -->
     <section class="page-section dark-theme building-section">
         <div></div>
         <div class="building-wrapper">
@@ -1798,7 +1815,10 @@
                 <p data-uz="Nishon tumani 20-sonli umumiy o‘rta ta’lim maktabining ta'lim jarayoni va kundalik faoliyati uchun xizmat qiluvchi o'quv binolari va sinf xonalari." data-en="Educational buildings and classrooms serving the educational process and daily activities of Nishan district School N20.">Nishon tumani 20-sonli umumiy o‘rta ta’lim maktabining ta'lim jarayoni va kundalik faoliyati uchun xizmat qiluvchi o'quv binolari va sinf xonalari.</p>
             </div>
             <div class="inset-card reveal" style="transition-delay: 0.2s;">
-                <div class="inset-image-placeholder" data-uz="Sinfxona ko'rinishi" data-en="Classroom view">Sinfxona ko'rinishi</div>
+                <div class="inset-image-placeholder" style="background: none; overflow: hidden; padding: 0;">
+                    <!-- Rasm 1 bu yerda almashtiriladi -->
+                    <img src="./images/maktab_1_sharp.jpg" alt="Maktab binosi" style="width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 4px;">
+                </div>
             </div>
         </div>
         <div></div>
@@ -1831,7 +1851,7 @@
         <div></div>
     </section>
 
-    <!-- 5. EDUCATION DIRECTIONS -->
+    <!-- 5. EDUCATION DIRECTIONS (IMAGE 2) -->
     <section class="page-section cream-theme" id="education">
         <div>
             <div class="section-header reveal"><span data-uz="03" data-en="03">03</span> · <span data-uz="TA'LIM FAOLIYATI" data-en="EDUCATIONAL ACTIVITY">TA'LIM FAOLIYATI</span></div>
@@ -1840,7 +1860,10 @@
                     <h1 class="main-title"><span data-uz="Ta'lim" data-en="Education">Ta'lim</span> <span data-uz="yo'nalishlari." data-en="directions.">yo'nalishlari.</span></h1>
                     <p style="font-size: 17px; line-height: 1.8; color: var(--text-muted-light); margin-bottom: 40px;" data-uz="Maktabda o'zbek va rus tillari o'qitiladi. 2,045 nafar o'quvchi va 180 nafar pedagog faoliyat yuritadi. Fizika, kimyo, biologiya hamda mehnat fanlari uchun maxsus xonalar mavjud." data-en="Uzbek and Russian languages are taught at the school. 2,045 students and 180 teachers operate. There are special rooms for physics, chemistry, biology and labor subjects.">Maktabda o'zbek va rus tillari o'qitiladi. 2,045 nafar o'quvchi va 180 nafar pedagog faoliyat yuritadi. Fizika, kimyo, biologiya hamda mehnat fanlari uchun maxsus xonalar mavjud.</p>
                     <div style="background: #fff; padding: 14px 14px 35px 14px; border-radius: 8px; box-shadow: 0 20px 40px rgba(0,0,0,0.08); max-width: 480px;">
-                        <div class="inset-image-placeholder" style="height: 280px;" data-uz="Maxsus fan xonasi" data-en="Special subject room">Maxsus fan xonasi</div>
+                        <div class="inset-image-placeholder" style="height: 280px; background: none; overflow: hidden; padding: 0;">
+                            <!-- Rasm 2 bu yerda almashtiriladi -->
+                            <img src="./images/maktab_2_sharp.jpg" alt="Maxsus fan xonasi" style="width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 4px;">
+                        </div>
                     </div>
                 </div>
                 <div>
@@ -1875,7 +1898,7 @@
         <div></div>
     </section>
 
-    <!-- 6. ACHIEVEMENTS (WITH LIVE INTERACTIVE FILTER) -->
+    <!-- 6. ACHIEVEMENTS -->
     <section class="page-section dark-theme" id="achievements">
         <div>
             <div class="section-header reveal"><span data-uz="04" data-en="04">04</span> · <span data-uz="YUTUQLAR" data-en="ACHIEVEMENTS">YUTUQLAR</span></div>
@@ -1913,7 +1936,7 @@
                     <div class="ach-year"><span class="counter" data-target="2025" data-nocomma="true">0</span></div>
                     <div class="ach-details">
                         <span class="ach-tag" data-uz="XALQARO VA MILLIY SERTIFIKATLAR" data-en="INTERNATIONAL & NATIONAL CERTIFICATES">XALQARO VA MILLIY SERTIFIKATLAR</span>
-                        <h3 data-uz="250 ta milliy sertifikat hamda IELTS / SAT natijalari" data-en="250 national certificates and IELTS / SAT results"><span class="counter" data-target="250">0</span> ta milliy sertifikat hamda IELTS / SAT natijalari</h3>
+                        <h3 data-uz="250 ta milliy sertifikat hamda IELTS / SAT natijalari" data-en="250 national certificates and IELTS / SAT results"><span class="counter" data-target="250" data-nocomma="true">0</span> ta milliy sertifikat hamda IELTS / SAT natijalari</h3>
                         <p data-uz="O'quvchilar tomonidan umumiy hisobda 250 ta milliy sertifikatlar qo'lga kiritildi, shuningdek xalqaro IELTS va SAT imtihonlarida yuqori natijalar qayd etildi." data-en="A total of 250 national certificates were won by students, and high results were recorded in international IELTS and SAT exams.">O'quvchilar tomonidan umumiy hisobda 250 ta milliy sertifikatlar qo'lga kiritildi, shuningdek xalqaro IELTS va SAT imtihonlarida yuqori natijalar qayd etildi.</p>
                     </div>
                 </div>
@@ -1931,7 +1954,7 @@
         <div></div>
     </section>
 
-    <!-- 7. STUDENTS PROFILES (INTERACTIVE SELECTION) -->
+    <!-- 7. STUDENTS PROFILES -->
     <section class="page-section cream-theme" id="students">
         <div>
             <div class="section-header reveal"><span data-uz="05" data-en="05">05</span> · <span data-uz="IQTIDORLI O'QUVCHILAR" data-en="TALENTED STUDENTS">IQTIDORLI O'QUVCHILAR</span></div>
@@ -1973,7 +1996,7 @@
         <div></div>
     </section>
 
-    <!-- 8. LEADERSHIP & TEACHERS (WITH INTERACTIVE TABS) -->
+    <!-- 8. LEADERSHIP & TEACHERS -->
     <section class="page-section cream-theme" id="leadership">
         <div>
             <div class="section-header reveal"><span data-uz="06" data-en="06">06</span> · <span data-uz="MAKTAB JAMOASI" data-en="SCHOOL TEAM">MAKTAB JAMOASI</span></div>
@@ -2042,7 +2065,7 @@
         <div></div>
     </section>
 
-    <!-- 9. INTERNATIONAL DIRECTION + ANIMATED WORLD MAP + SCHOOL PROFILE 2026 -->
+    <!-- 9. INTERNATIONAL DIRECTION -->
     <section class="page-section dark-theme" id="international">
         <div>
             <div class="section-header reveal"><span data-uz="07" data-en="07">07</span> · <span data-uz="XALQARO YO'NALISH" data-en="INTERNATIONAL DIRECTION">XALQARO YO'NALISH</span></div>
@@ -2098,7 +2121,6 @@
                 </svg>
             </div>
 
-            <!-- 6 International Feature Blocks & Maktab Profili 2026 Card -->
             <div class="intl-bottom-grid reveal" style="transition-delay: 0.3s;">
                 <div class="intl-features-grid">
                     <div class="intl-feature-box">
@@ -2166,7 +2188,7 @@
         <div></div>
     </section>
 
-    <!-- 11. GALLERY SECTION (WITH FILTER & LIGHTBOX) -->
+    <!-- 11. GALLERY SECTION (IMAGES 3, 4, 5) -->
     <section class="page-section dark-theme" id="gallery">
         <div>
             <div class="section-header reveal"><span data-uz="09" data-en="09">09</span> · <span data-uz="GALEREYA" data-en="GALLERY">GALEREYA</span></div>
@@ -2181,26 +2203,38 @@
             </div>
             <div class="gallery-grid" id="gallery-grid">
                 <div class="gallery-card-dark gallery-item reveal" data-gcat="maktab" style="transition-delay: 0.2s;" onclick="openLightbox('MAKTAB', 'Maktab binosi', 'Nishon tumani 20-sonli umumiy o‘rta ta’lim maktabining asosiy o‘quv binosi va tashqi ko‘rinishi.')">
-                    <div class="inspect-badge" data-uz="Ko'rish" data-en="View">Ko'rish</div>
-                    <div>
-                        <span class="ach-tag" data-uz="Maktab" data-en="School">Maktab</span>
-                        <h3 style="font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 400;" data-uz="Maktab binosi" data-en="School building">Maktab binosi</h3>
+                    <!-- Rasm 3 bu yerda almashtiriladi -->
+                    <img src="./images/maktab_3_sharp.jpg" class="gallery-img" alt="Maktab binosi">
+                    <div class="gallery-content">
+                        <div class="inspect-badge" data-uz="Ko'rish" data-en="View">Ko'rish</div>
+                        <div>
+                            <span class="ach-tag" data-uz="Maktab" data-en="School">Maktab</span>
+                            <h3 style="font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 400;" data-uz="Maktab binosi" data-en="School building">Maktab binosi</h3>
+                        </div>
                     </div>
                 </div>
 
-                <div class="gallery-card-dark gallery-item reveal" data-gcat="dars" style="transition-delay: 0.3s; background: linear-gradient(135deg, rgba(44,62,80,0.45), rgba(18,24,34,0.9));" onclick="openLightbox('DARS JARAYONLARI', 'Maxsus fan sinfxonasi', 'Fizika, kimyo va biologiya fanlari uchun jihozlangan zamonaviy interaktiv o‘quv xonasi.')">
-                    <div class="inspect-badge" data-uz="Ko'rish" data-en="View">Ko'rish</div>
-                    <div>
-                        <span class="ach-tag" data-uz="Dars jarayonlari" data-en="Classes">Dars jarayonlari</span>
-                        <h3 style="font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 400;" data-uz="Sinfxona ko'rinishi 1" data-en="Classroom view 1">Sinfxona ko'rinishi 1</h3>
+                <div class="gallery-card-dark gallery-item reveal" data-gcat="dars" style="transition-delay: 0.3s;" onclick="openLightbox('DARS JARAYONLARI', 'Maxsus fan sinfxonasi', 'Fizika, kimyo va biologiya fanlari uchun jihozlangan zamonaviy interaktiv o‘quv xonasi.')">
+                    <!-- Rasm 4 bu yerda almashtiriladi -->
+                    <img src="./images/maktab_4_sharp.jpg" class="gallery-img" alt="Sinfxona ko'rinishi 1">
+                    <div class="gallery-content">
+                        <div class="inspect-badge" data-uz="Ko'rish" data-en="View">Ko'rish</div>
+                        <div>
+                            <span class="ach-tag" data-uz="Dars jarayonlari" data-en="Classes">Dars jarayonlari</span>
+                            <h3 style="font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 400;" data-uz="Sinfxona ko'rinishi 1" data-en="Classroom view 1">Sport zal ko'rinishi</h3>
+                        </div>
                     </div>
                 </div>
 
-                <div class="gallery-card-dark gallery-item reveal" data-gcat="tadbir" style="transition-delay: 0.4s; background: linear-gradient(135deg, rgba(60,55,44,0.4), rgba(18,24,34,0.9));" onclick="openLightbox('TADBIRLAR VA TO‘GARAKLAR', 'Amaliy mashg‘ulot xonasi', 'O‘quvchilarning amaliy va ijodiy ko‘nikmalarini rivojlantirishga mo‘ljallangan maxsus o‘quv xonasi.')">
-                    <div class="inspect-badge" data-uz="Ko'rish" data-en="View">Ko'rish</div>
-                    <div>
-                        <span class="ach-tag" data-uz="Tadbirlar" data-en="Events">Tadbirlar</span>
-                        <h3 style="font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 400;" data-uz="Sinfxona ko'rinishi 2" data-en="Classroom view 2">Sinfxona ko'rinishi 2</h3>
+                <div class="gallery-card-dark gallery-item reveal" data-gcat="tadbir" style="transition-delay: 0.4s;" onclick="openLightbox('TADBIRLAR VA TO‘GARAKLAR', 'Amaliy mashg‘ulot xonasi', 'O‘quvchilarning amaliy va ijodiy ko‘nikmalarini rivojlantirishga mo‘ljallangan maxsus o‘quv xonasi.')">
+                    <!-- Rasm 5 bu yerda almashtiriladi -->
+                    <img src="./images/maktab_5_sharp.jpg" class="gallery-img" alt="Sinfxona ko'rinishi 2">
+                    <div class="gallery-content">
+                        <div class="inspect-badge" data-uz="Ko'rish" data-en="View">Ko'rish</div>
+                        <div>
+                            <span class="ach-tag" data-uz="Tadbirlar" data-en="Events">Tadbirlar</span>
+                            <h3 style="font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 400;" data-uz="Sinfxona ko'rinishi" data-en="Classroom view 2">Sinfxona ko'rinishi</h3>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2220,7 +2254,7 @@
                 <div>
                     <div class="info-row reveal" style="transition-delay: 0.2s;">
                         <div class="info-label" data-uz="MANZIL" data-en="ADDRESS">MANZIL</div>
-                        <div class="info-value" style="font-size: 20px; font-family: 'Playfair Display', serif;">Nuriston 1-MTT, 1-uy, Nishon tumani, Qashqadaryo</div>
+                        <div class="info-value" style="font-size: 20px; font-family: 'Playfair Display', serif;" data-uz="Nuriston 1-MTT, 1-uy, Nishon tumani, Qashqadaryo" data-en="Nuriston 1-kindergarten, house 1, Nishan district, Qashqadaryo">Nuriston 1-MTT, 1-uy, Nishon tumani, Qashqadaryo</div>
                         <div class="info-index">01</div>
                     </div>
                     <div class="info-row reveal" style="transition-delay: 0.3s;">
@@ -2237,7 +2271,7 @@
             </div>
         </div>
         
-        <!-- Haqiqiy Google Xarita Kiritildi -->
+        <!-- Haqiqiy Xarita Kiritildi -->
         <div class="map-container reveal" style="margin-top: 80px; margin-left: -80px; margin-right: -80px; width: calc(100% + 160px); height: 450px; transition-delay: 0.3s;" title="Xarita">
             <iframe src="https://maps.google.com/maps?q=Nishon%20tumani%20Nuriston&t=&z=14&ie=UTF8&iwloc=&output=embed" width="100%" height="100%" style="border:0; filter: grayscale(20%) contrast(1.2);" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
@@ -2261,7 +2295,7 @@
                     <div class="logo-icon">20</div>
                     <div class="logo-text"><span data-uz="Nishon Tumani" data-en="Nishan District">Nishon Tumani</span><br><strong data-uz="20-Maktab" data-en="School N20">20-Maktab</strong></div>
                 </div>
-                <p style="font-size: 15px; color: var(--text-muted); line-height: 1.7; margin-bottom: 15px;" data-uz="Qashqadaryo viloyati Nishon tumani 20-sonli umumiy o‘rta ta’lim maktabining rasmiy veb-sayti." data-en="Official website of Nishan district School N20, Qashqadaryo region.">Qashqadaryo viloyati Nishon tumani 20-sonli umumiy o‘rta ta’lim maktabining rasmiy veb-sayti.</p>
+                <p style="font-size: 14px; color: var(--text-muted); line-height: 1.7; margin-bottom: 15px;" data-uz="Qashqadaryo viloyati Nishon tumani 20-sonli umumiy o‘rta ta’lim maktabining rasmiy veb-sayti." data-en="Official website of Nishan district School N20, Qashqadaryo region.">Qashqadaryo viloyati Nishon tumani 20-sonli umumiy o‘rta ta’lim maktabining rasmiy veb-sayti.</p>
                 <div style="font-size: 11px; letter-spacing: 1.5px; color: var(--gold); text-transform: uppercase;" data-uz="QASHQADARYO VILOYATI · O'ZBEKISTON" data-en="QASHQADARYO REGION · UZBEKISTAN">QASHQADARYO VILOYATI · O'ZBEKISTON</div>
             </div>
             <div class="footer-col reveal" style="transition-delay: 0.1s;">
