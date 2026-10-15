@@ -42,22 +42,39 @@
 
         /* PRELOADER */
         .preloader {
-            position: fixed; inset: 0; background-color: var(--bg-dark); z-index: 20000;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            position: fixed;
+            inset: 0;
+            background-color: var(--bg-dark);
+            z-index: 20000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             transition: opacity 0.8s ease, visibility 0.8s ease;
         }
-        .preloader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+        .preloader.hidden {
+            opacity: 0; visibility: hidden; pointer-events: none;
+        }
         .preloader-box {
-            border: 1px solid rgba(212, 175, 55, 0.5); padding: 18px 26px; font-family: 'Playfair Display', serif;
-            font-size: 42px; color: var(--gold); margin-bottom: 20px; box-shadow: 0 0 30px rgba(212, 175, 55, 0.2);
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            padding: 18px 26px;
+            font-family: 'Playfair Display', serif;
+            font-size: 42px;
+            color: var(--gold);
+            margin-bottom: 20px;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.2);
             animation: pulseBox 1.5s infinite alternate;
         }
         @keyframes pulseBox {
             0% { transform: scale(0.96); box-shadow: 0 0 15px rgba(212, 175, 55, 0.15); }
             100% { transform: scale(1.04); box-shadow: 0 0 35px rgba(212, 175, 55, 0.4); }
         }
-        .preloader-text { font-size: 13px; letter-spacing: 4px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px; }
-        .preloader-bar { width: 220px; height: 3px; background: rgba(255, 255, 255, 0.1); overflow: hidden; position: relative; }
+        .preloader-text {
+            font-size: 13px; letter-spacing: 4px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px;
+        }
+        .preloader-bar {
+            width: 220px; height: 3px; background: rgba(255, 255, 255, 0.1); overflow: hidden; position: relative;
+        }
         .preloader-bar::after {
             content: ''; position: absolute; top: 0; left: 0; height: 100%; width: 100%; background: var(--gold);
             animation: loadLine 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -83,9 +100,9 @@
 
         /* CUSTOM BLUR CURSOR & TRAIL */
         .cursor {
-            position: fixed; top: 0; left: 0; width: 35px; height: 35px; background: rgba(212, 175, 55, 0.15);
-            backdrop-filter: blur(5px); border: 1px solid rgba(212, 175, 55, 0.4); border-radius: 50%; pointer-events: none;
-            transform: translate(-50%, -50%); transition: width 0.3s, height 0.3s, background 0.3s; z-index: 25000;
+            position: fixed; top: 0; left: 0; width: 35px; height: 35px;
+            background: rgba(212, 175, 55, 0.15); backdrop-filter: blur(5px); border: 1px solid rgba(212, 175, 55, 0.4);
+            border-radius: 50%; pointer-events: none; transform: translate(-50%, -50%); transition: width 0.3s, height 0.3s, background 0.3s; z-index: 25000;
         }
         .cursor-dot {
             position: fixed; top: 0; left: 0; width: 8px; height: 8px; background: var(--gold);
@@ -141,14 +158,7 @@
            HERO SECTION - STRICT 100VH 1 SCREEN FIX
            ========================================= */
         #home {
-            height: 100vh; /* Exactly 100vh */
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            padding: 0;
-            margin: 0;
-            overflow: hidden; /* Locks it to 1 screen, prevents any scroll inside */
-            position: relative;
+            height: 100vh; width: 100%; display: flex; flex-direction: column; padding: 0; margin: 0; overflow: hidden; position: relative;
         }
 
         /* HERO HEADER & NAVIGATION */
@@ -185,8 +195,7 @@
         .mobile-menu-btn { display: none; font-size: 28px; color: var(--gold); background: none; border: none; z-index: 100; }
 
         .hero-body {
-            flex: 1; /* Takes exactly remaining space in 100vh */
-            display: grid; grid-template-columns: 1.3fr 1fr; align-items: center; padding: 0 80px; gap: 60px; position: relative; z-index: 1;
+            flex: 1; display: grid; grid-template-columns: 1.3fr 1fr; align-items: center; padding: 0 80px; gap: 60px; position: relative; z-index: 1;
         }
         .subtitle-line { display: flex; align-items: center; gap: 18px; font-size: 14px; letter-spacing: 4px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 30px; }
         .subtitle-line::before { content: ''; width: 50px; height: 2px; background-color: var(--gold); }
@@ -266,11 +275,18 @@
         .info-value span { display: block; font-size: 14px; color: var(--text-muted-light); margin-top: 6px; }
         .info-index { font-size: 14px; color: var(--gold-dark); font-family: 'Playfair Display', serif; text-align: right; }
 
-        /* BUILDING SECTION */
-        .building-section { background: linear-gradient(to top, rgba(11, 15, 21, 0.95) 0%, rgba(11, 15, 21, 0.5) 100%), url('https://source.unsplash.com/1600x900/?school,architecture') no-repeat center center; background-size: cover; background-attachment: fixed; }
-        .building-wrapper { display: flex; justify-content: space-between; align-items: flex-end; width: 100%; flex-wrap: wrap; gap: 40px; }
+        /* BUILDING SECTION (PARALLAX & TINT ONLY - NO BLUR) */
+        .building-section {
+            background: linear-gradient(rgba(11, 15, 21, 0.65), rgba(11, 15, 21, 0.65)), url('./images/maktab_6_sharp.jpg') no-repeat center center;
+            background-size: cover; background-attachment: fixed;
+        }
+        .building-wrapper { display: flex; justify-content: space-between; align-items: center; width: 100%; flex-wrap: wrap; gap: 40px; }
         .building-text p { font-size: 18px; color: var(--text-muted); max-width: 520px; line-height: 1.8; }
-        .inset-card { background: #fff; padding: 14px 14px 40px 14px; border-radius: 8px; box-shadow: 0 30px 60px rgba(0,0,0,0.6); width: 380px; max-width: 100%; transition: transform 0.4s ease; transform-style: preserve-3d; }
+        .inset-card {
+            background: #fff; padding: 14px 14px 40px 14px; border-radius: 8px; box-shadow: 0 30px 60px rgba(0,0,0,0.6); 
+            width: 380px; max-width: 100%; margin-top: 50px; transition: transform 0.4s ease; transform-style: preserve-3d; 
+        }
+        .inset-card:hover { transform: translateY(-10px); }
         .inset-image-placeholder { width: 100%; height: 220px; background: none; border-radius: 4px; overflow: hidden; display: flex; justify-content: center; align-items: center; }
 
         /* STATS SECTION */
@@ -308,7 +324,7 @@
         .ach-details h3 { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 400; margin-bottom: 16px; }
         .ach-details p { font-size: 18px; color: var(--text-muted); line-height: 1.7; max-width: 800px; }
 
-        /* STUDENTS PROFILES */
+        /* STUDENTS PROFILES (INTERACTIVE) */
         .profiles-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 50px; align-items: start; position: relative; z-index: 1;}
         .featured-card {
             background-color: var(--bg-dark); color: var(--text-light); padding: 60px; border-radius: 8px; display: flex; flex-direction: column;
@@ -610,7 +626,7 @@
         <div></div>
     </section>
 
-    <!-- 3. BUILDING SECTION -->
+    <!-- 3. BUILDING SECTION (PARALLAX & TINT ONLY - NO BLUR) -->
     <section class="page-section dark-theme building-section parallax" data-speed="-0.15">
         <div></div>
         <div class="building-wrapper">
@@ -725,6 +741,7 @@
                     </div>
                 </div>
 
+                <!-- YANGILANGAN MA'LUMOT: Olimpiada Ingliz Tili -->
                 <div class="achievement-row reveal tilt-card" data-category="olimpiada" style="transition-delay: 0.25s;">
                     <div class="ach-year"><span class="counter" data-target="2025" data-nocomma="true">0</span></div>
                     <div class="ach-details">
@@ -999,7 +1016,6 @@
                 </ul>
             </div>
             <div class="gallery-grid" id="gallery-grid">
-                <!-- Rasm 3 -->
                 <div class="gallery-card-dark gallery-item reveal tilt-card" data-gcat="maktab" style="transition-delay: 0.2s;" onclick="openLightbox('./images/maktab_3_sharp.jpg', 'MAKTAB', 'Maktab binosi', 'Nishon tumani 20-sonli umumiy o‘rta ta’lim maktabining asosiy o‘quv binosi va tashqi ko‘rinishi.')">
                     <img src="./images/maktab_3_sharp.jpg" class="gallery-img" alt="Maktab binosi">
                     <div class="gallery-content">
@@ -1011,7 +1027,6 @@
                     </div>
                 </div>
 
-                <!-- Rasm 4 -->
                 <div class="gallery-card-dark gallery-item reveal tilt-card" data-gcat="dars" style="transition-delay: 0.3s;" onclick="openLightbox('./images/maktab_4_sharp.jpg', 'DARS JARAYONLARI', 'Maxsus fan sinfxonasi', 'Fizika, kimyo va biologiya fanlari uchun jihozlangan zamonaviy interaktiv o‘quv xonasi.')">
                     <img src="./images/maktab_4_sharp.jpg" class="gallery-img" alt="Sinfxona ko'rinishi 1">
                     <div class="gallery-content">
@@ -1023,7 +1038,6 @@
                     </div>
                 </div>
 
-                <!-- Rasm 5 -->
                 <div class="gallery-card-dark gallery-item reveal tilt-card" data-gcat="tadbir" style="transition-delay: 0.4s;" onclick="openLightbox('./images/maktab_5_sharp.jpg', 'TADBIRLAR VA TO‘GARAKLAR', 'Amaliy mashg‘ulot xonasi', 'O‘quvchilarning amaliy va ijodiy ko‘nikmalarini rivojlantirishga mo‘ljallangan maxsus o‘quv xonasi.')">
                     <img src="./images/maktab_5_sharp.jpg" class="gallery-img" alt="Sinfxona ko'rinishi 2">
                     <div class="gallery-content">
@@ -1068,7 +1082,6 @@
             </div>
         </div>
         
-        <!-- Google Maps -->
         <div class="map-container reveal" style="margin-top: 80px; margin-left: -80px; margin-right: -80px; width: calc(100% + 160px); height: 450px; transition-delay: 0.3s;" title="Xarita">
             <iframe src="https://maps.google.com/maps?q=Nishon%20tumani%20Nuriston&t=&z=14&ie=UTF8&iwloc=&output=embed" width="100%" height="100%" style="border:0; filter: grayscale(20%) contrast(1.2);" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
@@ -1131,11 +1144,9 @@
         </div>
     </footer>
 
-    <!-- JAVASCRIPT FOR ALL PREMIUM FEATURES -->
     <script>
         let currentLang = 'uz';
 
-        // 1. Preloader hide on load
         window.addEventListener('load', () => {
             setTimeout(() => {
                 const preloader = document.getElementById('preloader');
@@ -1143,12 +1154,10 @@
             }, 1200); 
         });
 
-        // 2. Ambient Particles System 
         function createParticles() {
             const container = document.getElementById('particles-container');
             if(!container) return;
             const darkSections = document.querySelectorAll('.dark-theme');
-            
             darkSections.forEach(section => {
                 for (let i = 0; i < 10; i++) {
                     let particle = document.createElement('div');
@@ -1166,7 +1175,6 @@
         }
         createParticles();
 
-        // 3. Scroll Progress Bar & Parallax & Back to Top Button
         const scrollProgress = document.getElementById('scroll-progress');
         const backToTopBtn = document.getElementById('back-to-top');
         const parallaxElements = document.querySelectorAll('.parallax');
@@ -1183,14 +1191,12 @@
                 backToTopBtn.classList.remove('show');
             }
 
-            // Parallax Scroll Effect
             parallaxElements.forEach(el => {
                 const speed = parseFloat(el.getAttribute('data-speed'));
                 el.style.transform = `translateY(${scrollTop * speed}px)`;
             });
         });
 
-        // 4. Custom Blur Cursor & Magnetic Effect
         const cursor = document.getElementById('cursor');
         const cursorDot = document.getElementById('cursor-dot');
         let mouseX = 0, mouseY = 0;
@@ -1212,7 +1218,6 @@
         }
         animateCursor();
 
-        // Hover Effect
         const hoverItems = document.querySelectorAll('button, .list-item, .achievement-row, .book-visual, .info-row, .gallery-card-dark, .doc-card, .intl-feature-box');
         hoverItems.forEach(el => {
             el.addEventListener('mouseenter', () => {
@@ -1227,7 +1232,6 @@
             });
         });
 
-        // Magnetic Buttons Logic
         const magneticElements = document.querySelectorAll('.magnetic');
         magneticElements.forEach(el => {
             el.addEventListener('mousemove', (e) => {
@@ -1253,7 +1257,6 @@
             });
         });
 
-        // 3D Tilt Effect
         const tiltCards = document.querySelectorAll('.tilt-card');
         tiltCards.forEach(card => {
             card.addEventListener('mousemove', (e) => {
@@ -1271,7 +1274,6 @@
             });
         });
 
-        // Button Ripple Effect
         document.querySelectorAll('.btn-ripple').forEach(button => {
             button.addEventListener('click', function (e) {
                 const rect = button.getBoundingClientRect();
@@ -1288,13 +1290,11 @@
             });
         });
 
-        // Interactive 3D Book
         function toggleBookState() {
             const book = document.getElementById('interactive-book');
             book.classList.toggle('open-state');
         }
 
-        // Mobile Menu
         function toggleMobileMenu() {
             const navMenu = document.getElementById('nav-menu');
             navMenu.classList.toggle('active');
@@ -1305,7 +1305,6 @@
             });
         });
 
-        // Scroll Reveal Logic
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -1315,7 +1314,6 @@
         }, { threshold: 0.1 });
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        // Number Counter Animation
         const counterObserver = new IntersectionObserver((entries, obs) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -1352,7 +1350,6 @@
         }, { threshold: 0.3 });
         document.querySelectorAll('.counter').forEach(c => counterObserver.observe(c));
 
-        // Achievements Filter
         function filterAchievements(category, btnEl) {
             document.querySelectorAll('#ach-filter-menu a').forEach(a => a.classList.remove('active'));
             btnEl.classList.add('active');
@@ -1367,7 +1364,6 @@
             });
         }
 
-        // Student Profiles Data (YANGILANGAN)
         const studentsData = [
             {
                 name: "Qo'yliyeva Ra'no",
@@ -1433,7 +1429,6 @@
             document.getElementById('st-extra').innerText = currentLang === 'uz' ? st.extraUz : st.extraEn;
         }
 
-        // Leadership & Teachers Tabs Switcher
         function switchTeamTab(panelName, tabEl) {
             document.querySelectorAll('.tabs-header .tab-item').forEach(t => t.classList.remove('active'));
             tabEl.classList.add('active');
@@ -1441,7 +1436,6 @@
             document.getElementById(`panel-${panelName}`).classList.add('active-panel');
         }
 
-        // Gallery Filter & Lightbox Modal
         function filterGallery(cat, btnEl) {
             document.querySelectorAll('#gallery-filter-menu a').forEach(a => a.classList.remove('active'));
             btnEl.classList.add('active');
@@ -1491,7 +1485,6 @@
             }
         });
 
-        // Language Switcher Logic (UZ / EN)
         function toggleLanguage() {
             currentLang = currentLang === 'uz' ? 'en' : 'uz';
             const btn = document.getElementById('lang-btn');
